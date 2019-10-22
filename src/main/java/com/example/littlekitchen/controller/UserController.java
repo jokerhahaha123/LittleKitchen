@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/littlekitchen")
@@ -36,18 +38,21 @@ public class UserController {
         return null;
     }
 
-    @PostMapping("/register")
+    @PutMapping("/register")
     public @ResponseBody
-    Object register(@NotNull String nickname, @NotNull String email, @NotNull String password) {
-
+    Map register(@NotNull String nickname, @NotNull String email, @NotNull String password) {
+        Map<String, String> message = new HashMap<>();
         User user = userMapper.findUserRegister(email);
         if (user == null) {
             userMapper.addUser(nickname, email, password);
+            message.put("message","注册成功");
+            return message;
         }
-        return null;
+        message.put("message","注册失败");
+        return message;
     }
 
-    @PostMapping("/littlekitchen/user/{id}/info")
+    @GetMapping("/littlekitchen/user/{id}/info")
     public @ResponseBody
     Object getInfo(HttpSession session, @PathVariable("id") int id) {
 
@@ -65,15 +70,18 @@ public class UserController {
 
     @PostMapping("/littlekitchen/user/{id}/updateInfo")
     public @ResponseBody
-    void updateInfo(HttpSession session, @PathVariable("id") int id, String nickname, boolean gender, Date birthday, String photo, String description) {
-
+    Map updateInfo(HttpSession session, @PathVariable("id") int id, String nickname, boolean gender, Date birthday, String photo, String description) {
+        Map<String, String> message = new HashMap<>();
         try {
             userMapper.updateInfo(id, nickname, gender, birthday, photo, description);
         }catch (Exception e){
+            message.put("message","更新失败");
             logger.info("更新个人信息失败！");
+            return message;
         }
+        message.put("message","更新成功");
         logger.info("更新个人信息成功！");
-
+        return message;
     }
 
     /**
