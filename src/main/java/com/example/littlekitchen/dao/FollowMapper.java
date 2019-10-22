@@ -14,5 +14,7 @@ public interface FollowMapper {
     @NotNull
     int addFollow(Integer userId1,Integer userId2);
     @NotNull
-    int deleteFollow(Integer userId,Integer userId2);
+    int deleteFollow(Integer userId1,Integer userId2);
+    @NotNull
+    int isFollowed(Integer userId1,Integer userId2);
 }

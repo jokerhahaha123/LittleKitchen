@@ -27,4 +27,6 @@ public class ThumbUpController {
         thumbUpMapper.deleteThumbUp(userId,menuId);
     }
 
+
+
 }
