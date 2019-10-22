@@ -2,7 +2,7 @@ package com.example.littlekitchen.entities;
 
 import java.util.Date;
 
-public class user {
+public class User {
     private int userid;
     private String email;
     private String password;
@@ -10,14 +10,31 @@ public class user {
     private boolean gender;
     private Date birthday;
     private Date create_date;
-    private String avatar;
+    private String photo;
     private String description;
 
-    public user(){
+    public User(){
 
     }
 
-    public user(int userid, String email, String password, String nickname, boolean gender, Date birthday, Date create_date, String avatar, String description) {
+    public User(int userid, String email, String nickname, boolean gender, Date birthday, Date create_date, String photo, String description) {
+        this.userid = userid;
+        this.email = email;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.create_date = create_date;
+        this.photo = photo;
+        this.description = description;
+    }
+
+    public User(String nickname, String email, String password) {
+        this.nickname = nickname;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(int userid, String email, String password, String nickname, boolean gender, Date birthday, Date create_date, String photo, String description) {
         this.userid = userid;
         this.email = email;
         this.password = password;
@@ -25,7 +42,7 @@ public class user {
         this.gender = gender;
         this.birthday = birthday;
         this.create_date = create_date;
-        this.avatar = avatar;
+        this.photo = photo;
         this.description = description;
     }
 
@@ -57,8 +74,8 @@ public class user {
         this.create_date = create_date;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setPhoto(String avatar) {
+        this.photo = photo;
     }
 
     public void setDescription(String description) {
@@ -93,8 +110,8 @@ public class user {
         return create_date;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public String getPhoto() {
+        return photo;
     }
 
     public String getDescription() {
