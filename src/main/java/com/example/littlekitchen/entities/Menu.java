@@ -2,7 +2,7 @@ package com.example.littlekitchen.entities;
 
 import java.util.Date;
 
-public class menu {
+public class Menu {
     private int menuid;
     private int userid;
     private String title;
@@ -11,11 +11,11 @@ public class menu {
     private String pitcure;
     private Date create_time;
 
-    public menu(){
+    public Menu(){
 
     }
 
-    public menu(int menuid, int userid, String title, String description, String cover, String pitcure, Date create_time) {
+    public Menu(int menuid, int userid, String title, String description, String cover, String pitcure, Date create_time) {
         this.menuid = menuid;
         this.userid = userid;
         this.title = title;

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.littlekitchen.dao.FavoriteMapper">
+    <select id="getFavoriteMenus" resultType="com.example.littlekitchen.entities.Menu">
+        select * from menu left join favorite on menu.menuid=favorite.menuid where menu.menuid=#{menuId} and menu.userid=#{userId}
+    </select>
+    <select id="getFavoriteCount">
+        select count(*) from favorite where userid=#{userId}
+    </select>
+    <insert id="addFavorite">
+        insert into favorite(userid,menuid) values (#{userId},#{menuId})
+    </insert>
+    <delete id="deleteFavorite">
+        delete from favorite where userid=#{userId} and menuid=#{menuId}
+    </delete>
+    <select id="isFavorite">
+        select count(*) from favorite where userid=#{userId} and menuid=#{menuId}
+    </select>
+</mapper>
