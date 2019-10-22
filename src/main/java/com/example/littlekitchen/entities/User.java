@@ -17,6 +17,7 @@ public class User {
 
     }
 
+
     public User(int userid, String email, String password, String nickname, boolean gender, Date birthday, Date create_date, String photo, String description) {
         this.userid = userid;
         this.email = email;

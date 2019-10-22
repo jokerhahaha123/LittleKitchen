@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.littlekitchen.dao.MenuMapper">
+    <select id="getRecommendMenuID" resultMap="Integer">
+        select count(menuid) from favorite group by menuid order by count(menuid) limit 8
+    </select>
+
+    <select id="getNewMenu" resultMap="com.example.littlekitchen.entities.Menu">
+        select * from menu order by create_date desc
+    </select>
+
+    <select id="getSearchMenu" resultMap="com.example.littlekitchen.entities.Menu">
+        select * from menu where title like concat('%',#{searchStr},'%') or description like concat('%',#{searchStr},'%')
+    </select>
+
+    <select id="getMenuById" resultMap="com.example.littlekitchen.entities.Menu">
+        select * from menu where menuid = #{mid}
+    </select>
+
+    <select id="getMenuByUserid" resultMap="com.example.littlekitchen.entities.Menu">
+        select * from menu where userid = #{uid}
+    </select>
+
+    <insert id="addMenu">
+        INSERT INTO `menu` ( `userid`, `title`, `description`, `picture`, `cover`, `create_date`, `type`)
+        VALUES (#{userid}, #{title}, #{description}, #{picture}, #{cover},now(), #{type})
+    </insert>
+
+    <delete id="deleteMenu">
+        delete from menu where menuid = #{mid}
+    </delete>
+
+    <update id="updateMenu">
+        UPDATE `menu`
+        SET  `userid`=#{userid}, `title`=#{title},
+         `description`=#{description}, `picture`=#{picture}, `cover`=#{cover},
+         `create_date`=now(), `type`=type
+        WHERE `menuid`=#{menuid}
+    </update>
+</mapper>

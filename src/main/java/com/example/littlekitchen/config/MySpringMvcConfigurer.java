@@ -13,8 +13,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class MySpringMvcConfigurer {
-
-
    /* @Bean
     public WebMvcConfigurer webMvcConfigurer() {
         return new WebMvcConfigurer(){
