@@ -13,10 +13,20 @@ public class User {
     private String photo;
     private String description;
 
-    public User(){
+    public User() {
 
     }
 
+    public User(int userid, String email, String nickname, boolean gender, Date birthday, Date create_date, String photo, String description) {
+        this.userid = userid;
+        this.email = email;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.create_date = create_date;
+        this.photo = photo;
+        this.description = description;
+    }
 
     public User(int userid, String email, String password, String nickname, boolean gender, Date birthday, Date create_date, String photo, String description) {
         this.userid = userid;
