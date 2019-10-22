@@ -15,6 +15,7 @@ import java.util.Date;
 @RestController
 @RequestMapping("/littlekitchen")
 public class UserController {
+
     Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     UserMapper userMapper;

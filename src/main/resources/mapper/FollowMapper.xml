@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.littlekitchen.dao.FollowMapper">
+
+    <select id="getFollowNumber" resultType="Integer">
+        select count(*) from follow where userid1=#{userId}
+    </select>
+    <select id="getFollowUsers" resultType="com.example.littlekitchen.entities.FollowUser">
+        select * from user_tbl left join follow on userid=userid2 where userid1=#{userId}
+    </select>
+    <insert id="addFollow">
+        insert into follow (userid1, userid2) values (#{userId1},#{userId2});
+    </insert>
+    <delete id="deleteFollow">
+        delete from  follow where userid1=#{userId1} and userid2=#{userId2}
+    </delete>
+    <select id="isFollowed">
+        select count(*) from follow where userid1=#{userId1} and userid2=#{userId2}
+    </select>
+</mapper>

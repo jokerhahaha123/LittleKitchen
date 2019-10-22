@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.littlekitchen.dao.ThumbUpMapper">
+    <select id="getThumbUpNumber" resultType="int">
+     select count(*) from thumbup where menuid=#{menuId}
+    </select>
+    <insert id="addThumbUp">
+        insert into thumbup(userid, menuid) values (#{userId},#{menuId})
+    </insert>
+    <delete id="deleteThumbUp">
+        delete from thumbup where userid=#{userId} and menuid=#{menuId}
+    </delete>
+    <select id="isThumbUp">
+        select count(*) from thumbup where userid==#{userId} and menuid=#{menuId}
+    </select>
+</mapper>

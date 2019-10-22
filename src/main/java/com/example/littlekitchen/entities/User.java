@@ -13,7 +13,7 @@ public class User {
     private String photo;
     private String description;
 
-    public User(){
+    public User() {
 
     }
 
@@ -26,12 +26,6 @@ public class User {
         this.create_date = create_date;
         this.photo = photo;
         this.description = description;
-    }
-
-    public User(String nickname, String email, String password) {
-        this.nickname = nickname;
-        this.email = email;
-        this.password = password;
     }
 
     public User(int userid, String email, String password, String nickname, boolean gender, Date birthday, Date create_date, String photo, String description) {
@@ -74,7 +68,7 @@ public class User {
         this.create_date = create_date;
     }
 
-    public void setPhoto(String avatar) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 

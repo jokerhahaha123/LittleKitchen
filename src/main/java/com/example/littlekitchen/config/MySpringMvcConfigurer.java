@@ -13,9 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class MySpringMvcConfigurer {
-
-
-    @Bean
+   /* @Bean
     public WebMvcConfigurer webMvcConfigurer() {
         return new WebMvcConfigurer(){
             //添加视图控制
@@ -38,6 +36,6 @@ public class MySpringMvcConfigurer {
             }
         };
     }
-
+*/
 
 }
