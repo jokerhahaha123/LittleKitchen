@@ -10,12 +10,25 @@ public class Menu {
     private String cover;
     private String pitcure;
     private Date create_time;
+    private int type;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public Menu(){
 
     }
 
-    public Menu(int menuid, int userid, String title, String description, String cover, String pitcure, Date create_time) {
+    public int getMenuid() {
+        return menuid;
+    }
+
+    public Menu(int menuid, int userid, String title, String description, String cover, String pitcure, Date create_time, int type) {
         this.menuid = menuid;
         this.userid = userid;
         this.title = title;
@@ -23,10 +36,7 @@ public class Menu {
         this.cover = cover;
         this.pitcure = pitcure;
         this.create_time = create_time;
-    }
-
-    public int getMenuid() {
-        return menuid;
+        this.type = type;
     }
 
     public void setMenuid(int menuid) {

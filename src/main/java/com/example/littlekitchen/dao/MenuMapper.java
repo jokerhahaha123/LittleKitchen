@@ -20,6 +20,8 @@ public interface MenuMapper {
 
     Menu getMenuByUserid(Integer uid);
 
+    List<Menu> getMenuByType(Integer type);
+
     void addMenu(Menu menu);
 
     void deleteMenu(Integer mid);

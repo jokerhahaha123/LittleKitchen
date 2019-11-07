@@ -19,6 +19,10 @@
         select * from menu where menuid = #{mid}
     </select>
 
+    <select id="getMenuByType" resultMap="com.example.littlekitchen.entities.Menu">
+        select * from menu where type = #{type}
+    </select>
+
     <select id="getMenuByUserid" resultMap="com.example.littlekitchen.entities.Menu">
         select * from menu where userid = #{uid}
     </select>

@@ -36,7 +36,14 @@ public class MenuController {
         return re;
     }
 
-    @GetMapping("/littlekitchen/home//search/{keyword}")
+    @GetMapping("/littlekitchen/type/{typeid}")
+    public List<Menu> getType(@PathVariable("menuid") Integer tid){
+        logger.info("查询菜系的菜单");
+        List<Menu> re = menuMapper.getMenuByType(tid);
+        return re;
+    }
+
+    @GetMapping("/littlekitchen/home/search/{keyword}")
     public List<Menu> getSearch(@PathVariable("keyword") String searchStr){
         logger.info("搜索菜谱");
         return menuMapper.getSearchMenu(searchStr);
