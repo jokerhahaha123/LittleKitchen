@@ -37,7 +37,7 @@ public class MenuController {
     }
 
     @GetMapping("/littlekitchen/type/{typeid}")
-    public List<Menu> getType(@PathVariable("menuid") Integer tid){
+    public List<Menu> getType(@PathVariable("typeid") Integer tid){
         logger.info("查询菜系的菜单");
         List<Menu> re = menuMapper.getMenuByType(tid);
         return re;

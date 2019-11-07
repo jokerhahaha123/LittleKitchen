@@ -3,27 +3,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.littlekitchen.dao.MenuMapper">
-    <select id="getRecommendMenuID" resultMap="Integer">
+    <select id="getRecommendMenuID" resultType="java.lang.Integer">
         select count(menuid) from favorite group by menuid order by count(menuid) limit 8
     </select>
 
-    <select id="getNewMenu" resultMap="com.example.littlekitchen.entities.Menu">
+    <select id="getNewMenu" resultType="com.example.littlekitchen.entities.Menu">
         select * from menu order by create_date desc
     </select>
 
-    <select id="getSearchMenu" resultMap="com.example.littlekitchen.entities.Menu">
+    <select id="getSearchMenu" resultType="com.example.littlekitchen.entities.Menu">
         select * from menu where title like concat('%',#{searchStr},'%') or description like concat('%',#{searchStr},'%')
     </select>
 
-    <select id="getMenuById" resultMap="com.example.littlekitchen.entities.Menu">
+    <select id="getMenuById" resultType="com.example.littlekitchen.entities.Menu">
         select * from menu where menuid = #{mid}
     </select>
 
-    <select id="getMenuByType" resultMap="com.example.littlekitchen.entities.Menu">
+    <select id="getMenuByType" resultType="com.example.littlekitchen.entities.Menu">
         select * from menu where type = #{type}
     </select>
 
-    <select id="getMenuByUserid" resultMap="com.example.littlekitchen.entities.Menu">
+    <select id="getMenuByUserid" resultType="com.example.littlekitchen.entities.Menu">
         select * from menu where userid = #{uid}
     </select>
 
