@@ -1,11 +1,13 @@
 package com.example.littlekitchen.dao;
 
 import com.example.littlekitchen.entities.FollowUser;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 @Repository
+@Mapper
 public interface FollowMapper {
     @NotNull
     int getFollowNumber(Integer userId);

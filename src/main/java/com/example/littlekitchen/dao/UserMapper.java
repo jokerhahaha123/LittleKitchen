@@ -1,11 +1,13 @@
 package com.example.littlekitchen.dao;
 
 import com.example.littlekitchen.entities.User;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
 @Repository
+@Mapper
 public interface UserMapper {
     User login(String email,String password);
 
