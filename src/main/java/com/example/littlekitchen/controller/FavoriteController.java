@@ -23,7 +23,7 @@ public class FavoriteController {
 
     @GetMapping("/littlekitchen/user/{id}/favorites")
     public Map<String,Object> getFavoriteMenus(HttpSession session,@PathVariable("id") Integer id){
-        int userId = Integer.parseInt(session.getId());
+        int userId = (Integer)(session.getAttribute("userid"));
         if (id!=null)
             userId = id;
         Integer favoriteCount = favoriteMapper.getFavoriteCount(userId);
@@ -36,13 +36,13 @@ public class FavoriteController {
 
     @GetMapping("/littlekichen/updates/addfavorite/{menuid}")
     public void addFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){
-        int userId = Integer.parseInt(session.getId());
+        int userId = (Integer)(session.getAttribute("userid"));
         favoriteMapper.addFavorite(userId,menuId);
     }
 
     @GetMapping("/littlekichen/updates/deletefavorite/{menuid}")
     public void deleteFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){
-        int userId = Integer.parseInt(session.getId());
+        int userId = (Integer)(session.getAttribute("userid"));
         favoriteMapper.deleteFavorite(userId,menuId);
     }
 }

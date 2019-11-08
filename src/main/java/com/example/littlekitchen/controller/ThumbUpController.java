@@ -18,14 +18,14 @@ public class ThumbUpController {
     @Autowired
     ThumbUpMapper thumbUpMapper;
 
-    @GetMapping("littlekitchen/updates/addthumbup/{menuid}")
+    @GetMapping("/littlekitchen/updates/addthumbup/{menuid}")
     public void addThumbup(HttpSession session, @NotNull @PathVariable("menuid") Integer menuId){
-        int userId = Integer.parseInt(session.getId());
+        int userId = (Integer)(session.getAttribute("userid"));
         thumbUpMapper.addThumbUp(userId,menuId);
     }
-    @GetMapping("littlekitchen/updates/deletethumbup/{menuid}")
+    @GetMapping("/littlekitchen/updates/deletethumbup/{menuid}")
     public void deleteThumbup(HttpSession session, @NotNull @PathVariable("menuid") Integer menuId){
-        int userId = Integer.parseInt(session.getId());
+        int userId = (Integer)(session.getAttribute("userid"));
         thumbUpMapper.deleteThumbUp(userId,menuId);
     }
 
