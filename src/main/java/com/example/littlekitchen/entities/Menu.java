@@ -8,17 +8,9 @@ public class Menu {
     private String title;
     private String description;
     private String cover;
-    private String pitcure;
-    private Date create_time;
+    private String picture;
+    private Date createTime;
     private int type;
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
 
     public Menu(){
 
@@ -26,17 +18,6 @@ public class Menu {
 
     public int getMenuid() {
         return menuid;
-    }
-
-    public Menu(int menuid, int userid, String title, String description, String cover, String pitcure, Date create_time, int type) {
-        this.menuid = menuid;
-        this.userid = userid;
-        this.title = title;
-        this.description = description;
-        this.cover = cover;
-        this.pitcure = pitcure;
-        this.create_time = create_time;
-        this.type = type;
     }
 
     public void setMenuid(int menuid) {
@@ -75,19 +56,38 @@ public class Menu {
         this.cover = cover;
     }
 
-    public String getPitcure() {
-        return pitcure;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setPitcure(String pitcure) {
-        this.pitcure = pitcure;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public Menu(int menuid, int userid, String title, String description, String cover, String pitcure, Date createTime, int type) {
+        this.menuid = menuid;
+        this.userid = userid;
+        this.title = title;
+        this.description = description;
+        this.cover = cover;
+        this.picture = pitcure;
+        this.createTime = createTime;
+        this.type = type;
     }
 }
