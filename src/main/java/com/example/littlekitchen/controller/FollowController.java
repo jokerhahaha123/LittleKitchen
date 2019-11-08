@@ -38,7 +38,7 @@ public class FollowController {
         followMapper.addFollow(userId,userId2);
     }
 
-    @GetMapping("littlekitchen/user/{id}/deletefollow")
+    @GetMapping("/littlekitchen/user/{id}/deletefollow")
     public void deleteFollow(HttpSession session,@NotNull @PathVariable("id") Integer userId2){
         int userId = (Integer)(session.getAttribute("userid"));
         followMapper.deleteFollow(userId,userId2);
