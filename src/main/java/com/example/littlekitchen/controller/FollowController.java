@@ -21,7 +21,7 @@ public class FollowController {
 
     @Autowired
     FollowMapper followMapper;
-    @GetMapping("littlekitchen/updates/follows")
+    @GetMapping("/littlekitchen/updates/follows")
     public Map<String,Object> getFollowUsers(HttpSession session){
         Integer userId = Integer.parseInt(session.getId());
         int followNumber = followMapper.getFollowNumber(userId);
@@ -32,13 +32,13 @@ public class FollowController {
         return map;
     }
 
-    @GetMapping("littlekitchen/user/{id}/addfollow")
+    @GetMapping("/littlekitchen/user/{id}/addfollow")
     public void addFollow(HttpSession session,@NotNull @PathVariable("id") Integer userId2){
         Integer userId = Integer.parseInt(session.getId());
         followMapper.addFollow(userId,userId2);
     }
 
-    @GetMapping("littlekitchen/user/{id}/deletefollow")
+    @GetMapping("/littlekitchen/user/{id}/deletefollow")
     public void deleteFollow(HttpSession session,@NotNull @PathVariable("id") Integer userId2){
         Integer userId = Integer.parseInt(session.getId());
         followMapper.deleteFollow(userId,userId2);
