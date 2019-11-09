@@ -28,8 +28,7 @@
     <!--更新用户信息-->
     <update id="updateInfo">
         UPDATE  user_tbl
-        SET nickname=#{nickname},gender=#{gender},birthday=#{birthday},
-        photo=#{photo},description=#{description},
+        SET nickname=#{nickname},gender=#{gender},birthday=#{birthday},photo=#{photo},description=#{description}
         WHERE userid=#{userid}
     </update>
 

@@ -66,6 +66,7 @@ public class UserController {
 
         User user = userMapper.getInfoById(id);
         if (user != null) {
+//            session.setAttribute("userid",1);
             if (Integer.parseInt(session.getAttribute("userid").toString())==id) {
                 logger.info("用户"+session.getAttribute("userid").toString()+"查看自己的个人信息");
                 return new InfoResponse(user.getNickname(), user.getEmail(), user.isGender(), user.getBirthday(), user.getPhoto(), user.getDescription(), true);
@@ -83,6 +84,7 @@ public class UserController {
         try {
             userMapper.updateInfo(id, updateInfoRequest.getNickname(),updateInfoRequest.isGender(),updateInfoRequest.getBirthday(),updateInfoRequest.getPhoto(),updateInfoRequest.getDescription());
         }catch (Exception e){
+            System.out.println(e.getMessage());
             message.put("message","更新失败");
             logger.info("更新个人信息失败！");
             return message;
