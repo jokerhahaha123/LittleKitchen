@@ -9,36 +9,35 @@ public class User {
     private String nickname;
     private boolean gender;
     private Date birthday;
-    private Date create_date;
+    private Date createDate;
     private String photo;
     private String description;
 
-    public User() {
+    public User() {}
 
-    }
-
-    public User(int userid, String email, String nickname, boolean gender, Date birthday, Date create_date, String photo, String description) {
-        this.userid = userid;
-        this.email = email;
-        this.nickname = nickname;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.create_date = create_date;
-        this.photo = photo;
-        this.description = description;
-    }
-
-    public User(int userid, String email, String password, String nickname, boolean gender, Date birthday, Date create_date, String photo, String description) {
+    public User(int userid, String email, String password, String nickname, boolean gender, Date birthday, Date createDate, String photo, String description) {
         this.userid = userid;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.gender = gender;
         this.birthday = birthday;
-        this.create_date = create_date;
+        this.createDate = createDate;
         this.photo = photo;
         this.description = description;
     }
+/*
+    public User(int userid, String email, String password, String nickname, boolean gender, java.sql.Date birthday, String photo, String description, java.sql.Timestamp createDate) {
+        this.userid = userid;
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.birthday = new java.util.Date(birthday.getTime());
+        this.photo = photo;
+        this.description = description;
+        this.createDate = createDate;
+    }*/
 
     public void setUserid(int userid) {
         this.userid = userid;
@@ -64,8 +63,8 @@ public class User {
         this.birthday = birthday;
     }
 
-    public void setCreate_date(Date create_date) {
-        this.create_date = create_date;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public void setPhoto(String photo) {
@@ -100,8 +99,8 @@ public class User {
         return birthday;
     }
 
-    public Date getCreate_date() {
-        return create_date;
+    public Date getCreateDate() {
+        return createDate;
     }
 
     public String getPhoto() {

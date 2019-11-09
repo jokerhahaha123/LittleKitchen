@@ -15,14 +15,13 @@
     </select>
 
     <!--增加用户-->
-    <insert id="addUser" parameterType="com.example.littlekitchen.entities.User"
-            useGeneratedKeys="true" keyProperty="teacherID">
+    <insert id="addUser" useGeneratedKeys="true" >
         INSERT INTO user_tbl (nickname, email,password)
         VALUES (#{nickname}, #{email}, #{password})
     </insert>
 
     <!--根据Session的ID查找用户信息-->
-    <select id="findInfoByID" resultType="com.example.littlekitchen.entities.User">
+    <select id="getInfoById" resultType="com.example.littlekitchen.entities.User">
     select * from user_tbl WHERE userid=#{userid}
     </select>
 
