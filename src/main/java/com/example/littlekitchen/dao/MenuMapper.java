@@ -22,6 +22,8 @@ public interface MenuMapper {
 
     List<Menu> getMenuByType(Integer type);
 
+    Integer getUseridByMenuid(Integer mid);
+
     void addMenu(Menu menu);
 
     void deleteMenu(Integer mid);

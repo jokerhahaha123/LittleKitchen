@@ -16,11 +16,15 @@
     </select>
 
     <select id="getMenuById" resultType="com.example.littlekitchen.entities.Menu">
-        select * from menu where menuid = #{mid}
+        select userid from menu where menuid = #{mid}
     </select>
 
     <select id="getMenuByType" resultType="com.example.littlekitchen.entities.Menu">
         select * from menu where type = #{type}
+    </select>
+
+    <select id="getUseridByMenuid" resultType="java.lang.Integer">
+        select  from menu where type = #{type}
     </select>
 
     <select id="getMenuByUserid" resultType="com.example.littlekitchen.entities.Menu">
