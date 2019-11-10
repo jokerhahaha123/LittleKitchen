@@ -14,10 +14,10 @@
       <div class="line"></div>
       <div class="display">
         <div class="image" v-for="item in cardList" :key="item.index">
-          <el-image :src="item.url" class="el-image"></el-image>
+          <el-image :src="item.cover" class="el-image"></el-image>
           <div style="margin-left: 10px; height: 50px;">
-            <el-image :src="item.userAvatar" class="el-avatar--circle"></el-image>
-            <label class="label">{{item.msg}}</label>
+            <el-image :src="item.cover" class="el-avatar--circle"></el-image>
+            <label class="label">{{item.title}}</label>
           </div>
         </div>
       </div>
@@ -30,6 +30,9 @@
 
 <script>
 import Header from '../../components/Header'
+/* eslint-disable */
+import axios from 'axios'
+// eslint - disable - next - line
 export default {
   name: 'Home',
   components: {Header},
@@ -37,76 +40,10 @@ export default {
     return {
       cardList: [
         {
-          msg: '香辣鸡爪，好吃',
-          description: 'description',
-          url: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          userAvatar: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'
-        },
-        {
-          msg: '香辣鸡爪，好吃',
-          description: 'description',
-          url: 'https://uploadfiles.nowcoder.com/images/20191008/826546_1570536071136_A3B961CD5AFFDBF286B3BAEADDB24530',
-          userAvatar: 'src/assets/香辣鸡爪.jpg'
-        },
-        {
-          msg: '香辣鸡爪，好吃',
-          description: 'description',
-          url: '../../assets/香辣鸡爪.jpg',
-          userAvatar: './src/assets/香辣鸡爪.jpg'
-        },
-        {
-          msg: '香辣鸡爪，好吃',
-          description: 'description',
-          url: '../../assets/香辣鸡爪.jpg',
-          userAvatar: './src/assets/香辣鸡爪.jpg'
-        },
-        {
-          msg: '香辣鸡爪，好吃',
-          description: 'description',
-          url: '../../assets/香辣鸡爪.jpg',
-          userAvatar: './src/assets/香辣鸡爪.jpg'
-        },
-        {
-          msg: '香辣鸡爪，好吃',
-          description: 'description',
-          url: '../../assets/香辣鸡爪.jpg',
-          userAvatar: './src/assets/香辣鸡爪.jpg'
-        },
-        {
-          msg: '香辣鸡爪，好吃',
-          description: 'description',
-          url: '../../assets/香辣鸡爪.jpg',
-          userAvatar: './src/assets/香辣鸡爪.jpg'
-        },
-        {
-          msg: '香辣鸡爪，好吃',
-          description: 'description',
-          url: '../../assets/香辣鸡爪.jpg',
-          userAvatar: './src/assets/香辣鸡爪.jpg'
-        },
-        {
-          msg: '香辣鸡爪，好吃',
-          description: 'description',
-          url: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          userAvatar: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'
-        },
-        {
-          msg: '香辣鸡爪，好吃',
-          description: 'description',
-          url: 'https://uploadfiles.nowcoder.com/images/20191008/826546_1570536071136_A3B961CD5AFFDBF286B3BAEADDB24530',
-          userAvatar: 'src/assets/香辣鸡爪.jpg'
-        },
-        {
-          msg: '香辣鸡爪，好吃',
-          description: 'description',
-          url: '../../assets/香辣鸡爪.jpg',
-          userAvatar: './src/assets/香辣鸡爪.jpg'
-        },
-        {
-          msg: '香辣鸡爪，好吃',
-          description: 'description',
-          url: '../../assets/香辣鸡爪.jpg',
-          userAvatar: './src/assets/香辣鸡爪.jpg'
+          title: '',
+          description: '',
+          cover: '',
+          createDate: ''
         }
       ],
       options: [
@@ -151,23 +88,40 @@ export default {
   },
   methods: {
     goToCommend (index) {
+      axios.get('http://localhost:8081/littlekitchen/home/recommend'
+        // eslint-disable-next-line
+      ).then((res) =>
+        // console.log(response.data),// 返回菜谱列表
+      // eslint-disable-next-line
+        this.cardList =res.data
+        // eslint-disable-next-line
+       // console.log(this.cardList.length)
+        // for (let i = 0; i < response.data.length; i++) {
+        //   this.cardList[i].path = require('#/small/' + res.data[i].path)
+        //   this.cardList[i].title = res.data[i].title
+        //   this.cardList[i].imageID = res.data[i].imageID
+        // }
+        // eslint-disable-next-line
+      ).catch(err => {
+        console.log('error')
+      })
       // console.log('点击推荐', index)
-      this.$http.get('http://localhost:8080/continent') // 把url地址换成你的接口地址即可
-        .then(res => {
-          // this.request.response = res.data
-          this.continents = res.data// 把取item的数据赋给 item: []中
-          console.log(res.data)
-          // this.path = res.data.path
-          // for (let i = 0; i < res.data.length; i++) {
-          //   this.displayImgs[i].path = require('#/small/' + res.data[i].path)
-          //   this.displayImgs[i].title = res.data[i].title
-          //   this.displayImgs[i].imageID = res.data[i].imageID
-          // }
-          // console.log(this.items[0])
-        })
-        .catch(err => {
-          alert(err + '请求失败')
-        })
+      // this.$http.get('http://localhost:8081/littlekitchen/home/recommend') // 把url地址换成你的接口地址即可
+      //   .then(res => {
+      //     // this.request.response = res.data
+      //     // this.continents = res.data// 把取item的数据赋给 item: []中
+      //     console.log(res.dat
+      //     // this.path = res.data.path
+      //     for (let i = 0; i < res.data.length; i++) {
+      //       this.displayImgs[i].path = require('#/small/' + res.data[i].path)
+      //       this.displayImgs[i].title = res.data[i].title
+      //       this.displayImgs[i].imageID = res.data[i].imageID
+      //     }
+      //     // console.log(this.items[0])
+      //   })
+      //   .catch(err => {
+      //     alert(err + '请求失败')
+      //   })
     },
     goToLatest (index) {
       console.log('点击最新', index)
