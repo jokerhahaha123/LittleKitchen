@@ -30,6 +30,8 @@
 
 <script>
 import Header from '../../components/Header'
+import axios from 'axios'
+// eslint - disable - next - line
 export default {
   name: 'Home',
   components: {Header},
@@ -151,23 +153,30 @@ export default {
   },
   methods: {
     goToCommend (index) {
+      axios.get('http://localhost:8081/littlekitchen/home/recommend'
+      ).then((response) => {
+        console.log(response)// 返回菜谱列表
+        // eslint-disable-next-line
+      }).catch(err => {
+        console.log('error')
+      })
       // console.log('点击推荐', index)
-      this.$http.get('http://localhost:8080/continent') // 把url地址换成你的接口地址即可
-        .then(res => {
-          // this.request.response = res.data
-          this.continents = res.data// 把取item的数据赋给 item: []中
-          console.log(res.data)
-          // this.path = res.data.path
-          // for (let i = 0; i < res.data.length; i++) {
-          //   this.displayImgs[i].path = require('#/small/' + res.data[i].path)
-          //   this.displayImgs[i].title = res.data[i].title
-          //   this.displayImgs[i].imageID = res.data[i].imageID
-          // }
-          // console.log(this.items[0])
-        })
-        .catch(err => {
-          alert(err + '请求失败')
-        })
+      // this.$http.get('http://localhost:8081/littlekitchen/home/recommend') // 把url地址换成你的接口地址即可
+      //   .then(res => {
+      //     // this.request.response = res.data
+      //     // this.continents = res.data// 把取item的数据赋给 item: []中
+      //     console.log(res.dat
+      //     // this.path = res.data.path
+      //     // for (let i = 0; i < res.data.length; i++) {
+      //     //   this.displayImgs[i].path = require('#/small/' + res.data[i].path)
+      //     //   this.displayImgs[i].title = res.data[i].title
+      //     //   this.displayImgs[i].imageID = res.data[i].imageID
+      //     // }
+      //     // console.log(this.items[0])
+      //   })
+      //   .catch(err => {
+      //     alert(err + '请求失败')
+      //   })
     },
     goToLatest (index) {
       console.log('点击最新', index)
