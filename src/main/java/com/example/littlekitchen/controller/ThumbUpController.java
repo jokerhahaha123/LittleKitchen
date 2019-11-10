@@ -20,11 +20,13 @@ public class ThumbUpController {
 
     @GetMapping("/littlekitchen/updates/addthumbup/{menuid}")
     public void addThumbup(HttpSession session, @NotNull @PathVariable("menuid") Integer menuId){
+        logger.info("新增点赞");
         int userId = (Integer)(session.getAttribute("userid"));
         thumbUpMapper.addThumbUp(userId,menuId);
     }
     @GetMapping("/littlekitchen/updates/deletethumbup/{menuid}")
     public void deleteThumbup(HttpSession session, @NotNull @PathVariable("menuid") Integer menuId){
+        logger.info("取消点赞");
         int userId = (Integer)(session.getAttribute("userid"));
         thumbUpMapper.deleteThumbUp(userId,menuId);
     }

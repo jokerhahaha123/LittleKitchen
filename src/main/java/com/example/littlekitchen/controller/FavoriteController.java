@@ -31,17 +31,20 @@ public class FavoriteController {
         Map<String,Object> map = new HashMap<>();
         map.put("favoriteCount",favoriteCount);
         map.put("favoriteMenus",favoriteMenus);
+        logger.info("查询收藏菜单");
         return map;
     }
 
     @GetMapping("/littlekichen/updates/addfavorite/{menuid}")
     public void addFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){
+        logger.info("添加收藏菜单");
         int userId = (Integer)(session.getAttribute("userid"));
         favoriteMapper.addFavorite(userId,menuId);
     }
 
     @GetMapping("/littlekichen/updates/deletefavorite/{menuid}")
     public void deleteFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){
+        logger.info("删除收藏菜单");
         int userId = (Integer)(session.getAttribute("userid"));
         favoriteMapper.deleteFavorite(userId,menuId);
     }
