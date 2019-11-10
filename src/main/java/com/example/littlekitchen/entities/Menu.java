@@ -1,6 +1,7 @@
 package com.example.littlekitchen.entities;
 
 import java.util.Date;
+import java.util.List;
 
 public class Menu {
     private int menuid;
@@ -8,12 +9,27 @@ public class Menu {
     private String title;
     private String description;
     private String cover;
-    private String picture;
+    private List<String> picture;
+    private List<String> step;
+    private List<String> material;
     private Date createTime;
     private int type;
 
     public Menu(){
 
+    }
+
+    public Menu(int menuid, int userid, String title, String description, String cover, List<String> picture, List<String> step, List<String> material, Date createTime, int type) {
+        this.menuid = menuid;
+        this.userid = userid;
+        this.title = title;
+        this.description = description;
+        this.cover = cover;
+        this.picture = picture;
+        this.step = step;
+        this.material = material;
+        this.createTime = createTime;
+        this.type = type;
     }
 
     public int getMenuid() {
@@ -56,16 +72,32 @@ public class Menu {
         this.cover = cover;
     }
 
-    public String getPicture() {
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public List<String> getPicture() {
         return picture;
     }
 
-    public void setPicture(String picture) {
+    public void setPicture(List<String> picture) {
         this.picture = picture;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public List<String> getStep() {
+        return step;
+    }
+
+    public void setStep(List<String> step) {
+        this.step = step;
+    }
+
+    public List<String> getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(List<String> material) {
+        this.material = material;
     }
 
     public void setCreateTime(Date createTime) {
@@ -80,14 +112,4 @@ public class Menu {
         this.type = type;
     }
 
-    public Menu(int menuid, int userid, String title, String description, String cover, String pitcure, Date createTime, int type) {
-        this.menuid = menuid;
-        this.userid = userid;
-        this.title = title;
-        this.description = description;
-        this.cover = cover;
-        this.picture = pitcure;
-        this.createTime = createTime;
-        this.type = type;
-    }
 }
