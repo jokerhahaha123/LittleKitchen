@@ -8,7 +8,7 @@
     </select>
 
     <select id="getNewMenu" resultType="com.example.littlekitchen.entities.Menu">
-        select * from menu order by create_date desc
+        select * from menu order by createTime desc
     </select>
 
     <select id="getSearchMenu" resultType="com.example.littlekitchen.entities.Menu">
@@ -44,7 +44,7 @@
         UPDATE `menu`
         SET  `userid`=#{userid}, `title`=#{title},
          `description`=#{description}, `picture`=#{picture}, `cover`=#{cover},
-         `create_date`=now(), `type`=type
+         `createTime`=now(), `type`=type
         WHERE `menuid`=#{menuid}
     </update>
 </mapper>
