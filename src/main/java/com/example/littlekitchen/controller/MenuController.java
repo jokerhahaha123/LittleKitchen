@@ -44,7 +44,7 @@ public class MenuController {
         return Tools.getMapByMenu(menuList);
     }
 
-    @GetMapping("/type/{typeid}")
+    @GetMapping("/home/type/{typeid}")
     public Map<String, Object> getType(@PathVariable("typeid") Integer tid){
         logger.info("查询菜系的菜单");
         List<Menu> menuList = menuMapper.getMenuByType(tid);
