@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.littlekitchen.dao.MenuMapper">
     <select id="getRecommendMenuID" resultType="java.lang.Integer">
-        select count(menuid) from favorite group by menuid order by count(menuid) limit 8
+        select menuid from favorite group by menuid order by count(menuid) limit 8
     </select>
 
     <select id="getNewMenu" resultType="com.example.littlekitchen.entities.Menu">
-        select * from menu order by create_date desc
+        select * from menu order by createTime desc
     </select>
 
     <select id="getSearchMenu" resultType="com.example.littlekitchen.entities.Menu">
@@ -21,6 +21,10 @@
 
     <select id="getMenuByType" resultType="com.example.littlekitchen.entities.Menu">
         select * from menu where type = #{type}
+    </select>
+
+    <select id="getUseridByMenuid" resultType="java.lang.Integer">
+        select userid from menu where menuid = #{mid}
     </select>
 
     <select id="getMenuByUserid" resultType="com.example.littlekitchen.entities.Menu">
@@ -40,7 +44,7 @@
         UPDATE `menu`
         SET  `userid`=#{userid}, `title`=#{title},
          `description`=#{description}, `picture`=#{picture}, `cover`=#{cover},
-         `create_date`=now(), `type`=type
+         `createTime`=now(), `type`=type
         WHERE `menuid`=#{menuid}
     </update>
 </mapper>
