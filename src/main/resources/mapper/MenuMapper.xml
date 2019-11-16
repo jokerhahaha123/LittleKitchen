@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.littlekitchen.dao.MenuMapper">
     <select id="getRecommendMenuID" resultType="java.lang.Integer">
-        select count(menuid) from favorite group by menuid order by count(menuid) limit 8
+        select menuid from favorite group by menuid order by count(menuid) limit 8
     </select>
 
     <select id="getNewMenu" resultType="com.example.littlekitchen.entities.Menu">
@@ -16,7 +16,7 @@
     </select>
 
     <select id="getMenuById" resultType="com.example.littlekitchen.entities.Menu">
-        select userid from menu where menuid = #{mid}
+        select * from menu where menuid = #{mid}
     </select>
 
     <select id="getMenuByType" resultType="com.example.littlekitchen.entities.Menu">
@@ -24,7 +24,7 @@
     </select>
 
     <select id="getUseridByMenuid" resultType="java.lang.Integer">
-        select  from menu where type = #{type}
+        select userid from menu where menuid = #{mid}
     </select>
 
     <select id="getMenuByUserid" resultType="com.example.littlekitchen.entities.Menu">
