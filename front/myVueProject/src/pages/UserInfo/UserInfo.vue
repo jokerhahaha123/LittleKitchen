@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Header from '../../components/Header'
 import Form from '../../components/Form'
 import IDCard from '../../components/IDCard'
@@ -132,12 +133,39 @@ export default {
   },
   methods: {
     goToWorks (key) {
+      axios.get('http://localhost:8081/littlekitchen/updates/list'
+        // eslint-disable-next-line
+      ).then((res) =>
+      // eslint-disable-next-line
+          this.menu =res.data
+        // eslint-disable-next-line
+      ).catch(err => {
+        console.log('error')
+      })
       console.log('go to works', key, this.display)
     },
     goToCollections (key) {
+      axios.get('http://localhost:8081/littlekitchen/user/favorites'
+        // eslint-disable-next-line
+      ).then((res) =>
+      // eslint-disable-next-line
+          this.collections =res.data
+        // eslint-disable-next-line
+      ).catch(err => {
+        console.log('error')
+      })
       console.log('go to collections', key, this.display)
     },
-    goToUserInfo (key) {
+    createMenu (key) {
+      axios.post('http://localhost:8081/littlekitchen/user/addmenu'
+        // eslint-disable-next-line
+      ).then((res) =>
+        // eslint-disable-next-line
+          this.collections =res.data
+        // eslint-disable-next-line
+      ).catch(err => {
+        console.log('error')
+      })
       console.log('go to userInfo', key, this.display)
     },
     handleSelect (key, keyPath) {
@@ -148,17 +176,6 @@ export default {
       } else {
         this.goToCollections(key)
       }
-      // switch (key) {
-      //   case 1:
-      //     this.goToWorks(key)
-      //     break
-      //   case 2:
-      //     this.goToCollections(key)
-      //     break
-      //   // default:
-      //   //   this.goToUserInfo(key)
-      // }
-      // console.log(key, this.display)
     }
   },
   mounted () {

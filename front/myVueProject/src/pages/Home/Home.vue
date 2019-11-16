@@ -13,7 +13,7 @@
       </el-menu>
       <div class="line"></div>
       <div class="display">
-        <div class="image" v-for="item in cardList" :key="item.index">
+        <div class="image" v-for="item in cardList" :key="item.index" @click="goToDetail(item.index)">
           <el-image :src="item.cover" class="el-image"></el-image>
           <div style="margin-left: 10px; height: 50px;">
             <el-image :src="item.cover" class="el-avatar--circle"></el-image>
@@ -124,11 +124,38 @@ export default {
       //   })
     },
     goToLatest (index) {
-      console.log('点击最新', index)
+      axios.get('http://localhost:8081/littlekitchen/home/new'
+        // eslint-disable-next-line
+      ).then((res) =>
+          // eslint-disable-next-line
+          this.cardList =res.data
+        // eslint-disable-next-line
+      ).catch(err => {
+        console.log('error')
+      })
     },
     goToClassification (index) {
-      console.log('点击分类', index)
+      axios.get('http://localhost:8081/littlekitchen/home/type/'+index
+        // eslint-disable-next-line
+      ).then((res) =>
+          // eslint-disable-next-line
+          this.cardList =res.data
+        // eslint-disable-next-line
+      ).catch(err => {
+        console.log('error')
+      })
     },
+    goToDetail (index) {
+    axios.get('http://localhost:8081/littlekitchen/details/'+index
+      // eslint-disable-next-line
+    ).then((res) =>
+        // eslint-disable-next-line
+        this.cardList =res.data
+      // eslint-disable-next-line
+    ).catch(err => {
+      console.log('error')
+    })
+  },
     handleSelect (key, keyPath) {
       switch (parseInt(key)) {
         case 1:
