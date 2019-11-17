@@ -4,10 +4,10 @@
                 
 注册页面：/littlekitchen/register
 首页：/littlekitchen/home
-·        /search/{keyword}
-·        /recommend
-·        /new
-·        /type/{typeid}
+·        /search/{keyword}   返回值：Map<String, Object> map.put("menu", menuList) map.put("user", userList)
+·        /recommend   返回值：Map<String, Object> map.put("menu", menuList) map.put("user", userList)
+·        /new   返回值：Map<String, Object> map.put("menu", menuList) map.put("user", userList)
+·        /type/{typeid}  返回值：Map<String, Object> map.put("menu", menuList) map.put("user", userList)
 作品动态：/littlekitchen/updates
 ·        /follows
 ·        /list
@@ -15,7 +15,10 @@
 ·        /deletethumbup/{menuid}
 ·        /addfavorite/{menuid}
 ·        /deletefavorite/{menuid}
-详情：/littlekitchen/details/{menuid}
+详情：/littlekitchen/details/{menuid}    返回值： Menu
+新建菜谱：/littlekitchen/createNew   返回值：无
+更新菜谱：/littlekitchen/update/{menuid}   返回值：无
+删除菜谱：/littlekitchen/delete/{menuid}   返回值：无
 个人信息页：/littlekitchen/user/{id}（如果是自己id是null）
 ·        /favorites（收藏）
 ·        /info（个人信息页）

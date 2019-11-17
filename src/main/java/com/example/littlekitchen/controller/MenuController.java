@@ -64,19 +64,19 @@ public class MenuController {
         return menuMapper.getMenuById(mid);
     }
 
-    @PutMapping("")
+    @PutMapping("/createNew")
     public void insertMenu(Menu menu){
         logger.info("创建新菜谱");
         menuMapper.addMenu(menu);
     }
 
-    @PostMapping("")
+    @PostMapping("/update/{menuid}")
     public void updateMenu(Menu menu){
         logger.info("更新已创建的菜谱");
         menuMapper.updateMenu(menu);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping("/delete/{menuid}")
     public void deleteMenu(Integer mid){
         logger.info("删除已创建的菜谱");
         menuMapper.deleteMenu(mid);
