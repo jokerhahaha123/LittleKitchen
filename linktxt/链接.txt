@@ -15,7 +15,7 @@
 ·        /deletethumbup/{menuid}
 ·        /addfavorite/{menuid}
 ·        /deletefavorite/{menuid}
-详情：/littlekitchen/details/{menuid}    返回值： Menu
+详情：/littlekitchen/details/{menuid}    返回值： Menu的详细信息
 新建菜谱：/littlekitchen/createNew   返回值：无
 更新菜谱：/littlekitchen/update/{menuid}   返回值：无
 删除菜谱：/littlekitchen/delete/{menuid}   返回值：无
