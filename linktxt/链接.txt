@@ -10,7 +10,7 @@
 ·        /type/{typeid}  返回值：Map<String, Object> map.put("menu", menuList) map.put("user", userList)
 作品动态：/littlekitchen/updates
 ·        /follows
-                返回值：Map<String,Object>  {"followNumber"(Integer):
+                 返回值：Map<String,Object>  {"followNumber"(Integer):
                                              "followUsers"(List<FollowUser>):
                                              }
                                              (FollowUser:{int userid;
@@ -20,12 +20,15 @@
                                                           Date birthday;
                                                           String photo;
                                                           String description;})
-·        /list   返回值：
+
+·        /list   返回值：Map<String, Object> map.put("menu", menuList) map.put("favoriteNum", favList)   map.put("ThumbUpNum", thuList);
+
 
 ·        /addthumbup/{menuid}
 ·        /deletethumbup/{menuid}
 ·        /addfavorite/{menuid}
 ·        /deletefavorite/{menuid}
+
 详情：/littlekitchen/details/{menuid}    返回值： Menu({int menuid;
                                                      int userid;
                                                      String title;
