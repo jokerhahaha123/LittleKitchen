@@ -1,13 +1,25 @@
 登陆页面：/littlekitchen/login
+返回值：MapMap<String,String>
+            登陆失败：null
+            登陆成功：map.put("userid",String.valueOf(user.getUserid()));
+                               map.put("email",user.getEmail());
+                               map.put("photo",user.getPhoto());
+                               map.put("nickname",user.getNickname());
+
 登出页面：/littlekitchen/logout
-                
-                
+暂无
+
 注册页面：/littlekitchen/register
+返回值：Map<String,String>
+             注册成功： map.put("message","1");
+             注册失败： map.put("message","0");
+
 首页：/littlekitchen/home
 ·        /search/{keyword}   返回值：Map<String, Object> map.put("menu", menuList) map.put("user", userList)
 ·        /recommend   返回值：Map<String, Object> map.put("menu", menuList) map.put("user", userList)
 ·        /new   返回值：Map<String, Object> map.put("menu", menuList) map.put("user", userList)
 ·        /type/{typeid}  返回值：Map<String, Object> map.put("menu", menuList) map.put("user", userList)
+
 作品动态：/littlekitchen/updates
 ·        /follows
                  返回值：Map<String,Object>  {"followNumber"(Integer):
@@ -42,13 +54,32 @@
 新建菜谱：/littlekitchen/createNew   返回值：无
 更新菜谱：/littlekitchen/update/{menuid}   返回值：无
 删除菜谱：/littlekitchen/delete/{menuid}   返回值：无
-个人信息页：/littlekitchen/user/{id}（如果是自己id是null）
+个人信息页：/littlekitchen/user/{id}
+
 ·        /favorites（收藏） 返回值：Map<String,Object> map.put("favoriteCount",favoriteCount);
                                                        map.put("favoriteMenus",favoriteMenus);
                                                        favoriteCount://收藏数
                                                        favoriteMenus:(List<Menu>)
+
 ·        /info（个人信息页）
+返回值：Map<String, Object>
+                map.put("user",userInfo); #userInfo结构同FollowUser
+                (userInfo:{int userid;
+                                                        String email;
+                                                        String nickname;
+                                                        boolean gender;
+                                                        Date birthday;
+                                                        String photo;
+                                                        String description;}
+
+                如果查看自己的信息：map.put("isSelf",true);
+                如果查看别人的信息：map.put("isSelf",false);
+
 ·        /addmenu（新建菜谱）
 ·        /addfollow
 ·        /deletefollow
+
 ·       /updateInfo
+返回值：Map<String, String>
+            更新成功：map.put("message","1");
+            更新失败：map.put("message","0");
