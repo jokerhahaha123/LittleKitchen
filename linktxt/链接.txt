@@ -10,7 +10,7 @@
 ·        /type/{typeid}  返回值：Map<String, Object> map.put("menu", menuList) map.put("user", userList)
 作品动态：/littlekitchen/updates
 ·        /follows
-·        /list
+·        /list   返回值：Map<String, Object> map.put("menu", menuList) map.put("favoriteNum", favList)   map.put("ThumbUpNum", thuList);
 ·        /addthumbup/{menuid}
 ·        /deletethumbup/{menuid}
 ·        /addfavorite/{menuid}
