@@ -20,7 +20,10 @@
 更新菜谱：/littlekitchen/update/{menuid}   返回值：无
 删除菜谱：/littlekitchen/delete/{menuid}   返回值：无
 个人信息页：/littlekitchen/user/{id}（如果是自己id是null）
-·        /favorites（收藏）
+·        /favorites（收藏） 返回值：Map<String,Object> map.put("favoriteCount",favoriteCount);
+                                                       map.put("favoriteMenus",favoriteMenus);
+                                                       favoriteCount://收藏数
+                                                       favoriteMenus:(List<Menu>)
 ·        /info（个人信息页）
 ·        /addmenu（新建菜谱）
 ·        /addfollow
