@@ -7,10 +7,7 @@ import com.example.littlekitchen.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class Tools {
@@ -35,5 +32,16 @@ public class Tools {
         map.put("menu", menuList);
         map.put("user", userList);
         return map;
+    }
+
+    public static void sortMenuByDate(List<Menu> menuList){
+        Collections.sort(menuList, new Comparator<Menu>() {
+            @Override
+            public int compare(Menu o1, Menu o2) {
+                Date d1 = o1.getCreateTime();
+                Date d2 = o2.getCreateTime();
+                return d1.compareTo(d2);
+            }
+        });
     }
 }
