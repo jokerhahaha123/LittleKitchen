@@ -180,8 +180,6 @@ export default {
     overflow: hidden;
   }
   .dataarea {
-    /*padding: 10px;*/
-    /*text-align: center;*/
     font-size: 14px;
   }
   .gdataarea {
