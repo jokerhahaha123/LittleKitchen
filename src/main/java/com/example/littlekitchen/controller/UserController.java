@@ -71,9 +71,9 @@ public class UserController {
         FollowUser userInfo = new FollowUser(user.getUserid(),user.getEmail(),user.getNickname(),user.isGender(),user.getBirthday(),user.getPhoto(),user.getDescription());
         if (user != null) {
 //            session.setAttribute("userid",1);
+            map.put("user",userInfo);
             if (Integer.parseInt(session.getAttribute("userid").toString())==id) {
                 logger.info("用户"+session.getAttribute("userid").toString()+"查看自己的个人信息");
-                map.put("user",userInfo);
                 map.put("isSelf",true);
                 return map;
             }
