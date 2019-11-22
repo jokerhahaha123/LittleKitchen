@@ -42,9 +42,9 @@ public class UserController {
             //重定向 redirect：可以重定向到任意一个请求中（包括其他项目），地址栏改变
 //                return "redirect:/main.html";
         }
-        logger.info("用户" + user.getUserid() + "登陆失败");
+        logger.info(loginRequest.getEmail()+"登陆失败");
         map.put("message","0");
-        return null;
+        return map;
     }
 
     @PutMapping("/register")
