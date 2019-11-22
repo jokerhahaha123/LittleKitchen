@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/littlekitchen")
 public class UserController {
