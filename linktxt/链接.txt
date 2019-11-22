@@ -19,6 +19,9 @@
 ·        /recommend   返回值：Map<String, Object> map.put("menu", menuList) map.put("user", userList)
 ·        /new   返回值：Map<String, Object> map.put("menu", menuList) map.put("user", userList)
 ·        /type/{typeid}  返回值：Map<String, Object> map.put("menu", menuList) map.put("user", userList)
+                /iffavorite/{menuid} 返回值：{"ifFavorite":boolean}
+                /ifthumbup/{menuid}  返回值：{"ifThumbup":boolean}
+
 
 作品动态：/littlekitchen/updates
 ·        /follows
