@@ -27,12 +27,12 @@ public class UserController {
     public @ResponseBody
     Object login(HttpSession session, @RequestBody LoginRequest loginRequest) {
         Map<String,String> map = new HashMap<>();
-        System.out.println(loginRequest.getEmail() + loginRequest.getPassword());
         User user = userMapper.login(loginRequest.getEmail(),loginRequest.getPassword());
         if (user != null) {
             //登录成功
             session.setAttribute("userid", user.getUserid());
             logger.info("用户" + user.getUserid() + "登陆成功");
+            map.put("message","1");
             map.put("userid",String.valueOf(user.getUserid()));
             map.put("email",user.getEmail());
             map.put("photo",user.getPhoto());
@@ -42,6 +42,8 @@ public class UserController {
             //重定向 redirect：可以重定向到任意一个请求中（包括其他项目），地址栏改变
 //                return "redirect:/main.html";
         }
+        logger.info("用户" + user.getUserid() + "登陆失败");
+        map.put("message","0");
         return null;
     }
 
