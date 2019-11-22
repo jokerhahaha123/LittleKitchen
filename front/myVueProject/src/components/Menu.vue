@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <el-col :span="8" v-for="item in menu" :key="item.index">
+    <el-col :span="8" v-for="item in menu" :key="item.menuid">
       <el-card>
         <img :src="item.cover" class="image">
         <div>
@@ -9,7 +9,7 @@
             <el-button type="text" class="button" style="padding: 1px">
               <el-collapse v-model="activeNames" @change="handleChange">
               <el-collapse-item title="详情" name="1" >
-                <span><time class="time">{{ item.createDate }}</time><span style="color: #999; font-size: 15px; margin-left: 10px;"> 点赞数：{{item.thumbupNumber}}</span></span>
+                <span><time class="time">{{ item.createTime }}</time><span style="color: #999; font-size: 15px; margin-left: 10px;"> 点赞数：{{item.thumbupNumber}}</span></span>
                 <el-button size="small" type="danger" style="margin-left:5px;">删除</el-button>
                 <div>{{item.description}}</div>
               </el-collapse-item>
@@ -23,41 +23,45 @@
 </template>
 
 <script>
+/* eslint-disable */
+// eslint - disable - next - line
 export default {
   name: 'Menu',
   data () {
     return {
       activeIndex: '0',
       activeNames: ['1'],
-      menu: [
-        {
-          title: '香辣鸡爪，好吃',
-          description: 'description',
-          cover: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-          createDate: '2019.10.24',
-          thumbupNumber: 0
-        },
-        {
-          title: '香辣鸡爪，好吃',
-          description: 'description',
-          cover: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-          createDate: '2019.10.24',
-          thumbupNumber: 0
-        },
-        {
-          title: '香辣鸡爪，好吃',
-          description: 'description',
-          cover: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-          createDate: '2019.10.24',
-          thumbupNumber: 0
-        }
-      ]
+      menu: []
     }
   },
   methods: {
-    handleChange (val) {
-      console.log(val)
+    handleChange () {
+      this.$http.get('http://localhost:8081/littlekitchen/updates/1/list') // 把url地址换成你的接口地址即可
+        .then(res => {
+          let len = parseInt(res.data.menu.length)
+          // this.cardList[0].cover = res.data.menu[0].cover
+          for (let i = 0; i < len; i++) {
+            let tmp = {}
+            tmp.menuid = res.data.menu[i].menuid
+            tmp.userid = res.data.menu[i].userid
+            tmp.cover = res.data.menu[i].cover
+            tmp.title = res.data.menu[i].title
+            tmp.createTime = res.data.menu[i].createTime
+            tmp.type = res.data.menu[i].type
+            tmp.description = res.data.menu[i].description
+            tmp.thumbupNumber = res.data.menu[i].thumbupNumber
+            this.menu.push(tmp)
+          }
+          console.log('new=',res.data.menu, this.menu.length)
+        })
+        .catch(err => {
+          console.log(err)
+          alert(err + '请求失败')
+        })
     }
+  },
+  mounted () {
+    this.handleChange()
   }
 }
 </script>

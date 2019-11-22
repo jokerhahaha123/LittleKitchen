@@ -78,57 +78,8 @@ export default {
       activeIndex: '1',
       display: 1,
       // currentDate: new Date(),
-      menu: [
-        {
-          title: '香辣鸡爪，好吃',
-          description: 'description',
-          url: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-          time: '2019.10.24',
-          thumbupNumber: 0
-        },
-        {
-          title: '香辣鸡爪，好吃',
-          description: 'description',
-          url: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-          time: '2019.10.24',
-          thumbupNumber: 0
-        },
-        {
-          title: '香辣鸡爪，好吃',
-          description: 'description',
-          url: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-          time: '2019.10.24',
-          thumbupNumber: 0
-        }
-      ],
-      collections: [
-        {
-          title: '香辣鸡爪，好吃',
-          url: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-          time: '2019.10.24',
-          thumbupNumber: 0,
-          userAvatar: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          nickName: '香辣鸡爪'
-        },
-        {
-          title: '香辣鸡爪，好吃',
-          description: 'description',
-          url: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-          time: '2019.10.24',
-          thumbupNumber: 0,
-          userAvatar: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          nickName: '香辣鸡爪'
-        },
-        {
-          title: '香辣鸡爪，好吃',
-          description: 'description',
-          url: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-          time: '2019.10.24',
-          thumbupNumber: 0,
-          userAvatar: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          nickName: '香辣鸡爪'
-        }
-      ]
+      menu: [],
+      collections: []
     }
   },
   methods: {

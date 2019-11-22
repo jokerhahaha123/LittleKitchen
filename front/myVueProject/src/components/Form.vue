@@ -136,7 +136,17 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          this.$http.post('/user', {
+            firstName: 'Fred',
+            lastName: 'Flintstone'
+          })
+            .then(function (response) {
+              console.log(response)
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
+          // alert('submit!')
         } else {
           console.log('error submit!!')
           return false
