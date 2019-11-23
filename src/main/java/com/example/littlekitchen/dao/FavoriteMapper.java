@@ -20,4 +20,6 @@ public interface FavoriteMapper {
     int addFavorite(Integer userId,Integer menuId);
     @NotNull
     int isFavorite(Integer userId, Integer menuId);
+    @NotNull
+    int getMenuFavoriteNum(Integer menuId);
 }

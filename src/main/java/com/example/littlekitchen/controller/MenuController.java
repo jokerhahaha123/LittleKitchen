@@ -1,14 +1,15 @@
 package com.example.littlekitchen.controller;
 
 import com.example.littlekitchen.component.Tools;
-import com.example.littlekitchen.dao.MenuMapper;
-import com.example.littlekitchen.dao.UserMapper;
+import com.example.littlekitchen.dao.*;
+import com.example.littlekitchen.entities.FollowUser;
 import com.example.littlekitchen.entities.Menu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,12 @@ public class MenuController {
     MenuMapper menuMapper;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    FollowMapper followMapper;
+    @Autowired
+    ThumbUpMapper thumbUpMapper;
+    @Autowired
+    FavoriteMapper favoriteMapper;
 
     @GetMapping("/home/recommend")
     public Map<String, Object> getRecommend(){
@@ -64,19 +71,45 @@ public class MenuController {
         return menuMapper.getMenuById(mid);
     }
 
-    @PutMapping("")
+    @GetMapping("/updates/list")
+    public Map<String, Object> getFollowUpdateList(HttpSession session){
+        logger.info("查看关注的人的动态");
+        Map<String, Object> map = new HashMap<>();
+        List<FollowUser> userList = followMapper.getFollowUsers(Integer.parseInt(session.getAttribute("userid").toString()));
+        List<Menu> menuList = new ArrayList<>();
+        List<Integer> favList = new ArrayList<>();
+        List<Integer> thuList = new ArrayList<>();
+        for(int i = 0; i < userList.size(); i++){
+            int userId = userList.get(i).getUserid();
+            menuList.addAll(menuMapper.getMenuByUserid(userId));
+        }
+        Tools.sortMenuByDate(menuList);
+        for(int i = 0; i < menuList.size(); i++){
+            int mid = menuList.get(i).getMenuid();
+            int favNum = favoriteMapper.getMenuFavoriteNum(mid);
+            favList.add(favNum);
+            int thuNum = thumbUpMapper.getThumbUpNumber(mid);
+            thuList.add(thuNum);
+        }
+        map.put("menu", menuList);
+        map.put("favoriteNum", favList);
+        map.put("ThumbUpNum", thuList);
+        return map;
+    }
+
+    @PutMapping("/createNew")
     public void insertMenu(Menu menu){
         logger.info("创建新菜谱");
         menuMapper.addMenu(menu);
     }
 
-    @PostMapping("")
+    @PostMapping("/update/{menuid}")
     public void updateMenu(Menu menu){
         logger.info("更新已创建的菜谱");
         menuMapper.updateMenu(menu);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping("/delete/{menuid}")
     public void deleteMenu(Integer mid){
         logger.info("删除已创建的菜谱");
         menuMapper.deleteMenu(mid);

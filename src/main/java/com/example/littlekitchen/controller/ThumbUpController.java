@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class ThumbUpController {
@@ -30,7 +32,15 @@ public class ThumbUpController {
         int userId = (Integer)(session.getAttribute("userid"));
         thumbUpMapper.deleteThumbUp(userId,menuId);
     }
-
+    @GetMapping("/littlekitchen/home/ifthumbup/{menuid}")
+    public Map<String,Object> ifThumbup(HttpSession session, @NotNull @PathVariable("menuid") Integer menuId){
+        logger.info("是否点赞");
+        int userId = (Integer)(session.getAttribute("userid"));
+        Boolean ifThum = thumbUpMapper.isThumbUp(userId,menuId)>0;
+        Map<String,Object> result = new HashMap<>();
+        result.put("ifThumbup",ifThum);
+        return result;
+    }
 
 
 }

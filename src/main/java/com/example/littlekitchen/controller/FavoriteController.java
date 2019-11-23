@@ -48,4 +48,13 @@ public class FavoriteController {
         int userId = (Integer)(session.getAttribute("userid"));
         favoriteMapper.deleteFavorite(userId,menuId);
     }
+    @GetMapping("/littlekichen/home/iffavorite/{menuid}")
+    public Map<String,Object> ifFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){
+        logger.info("用户是否收藏该菜单");
+        int userId = (Integer)(session.getAttribute("userid"));
+        Boolean ifFavor = favoriteMapper.isFavorite(userId,menuId)>0;
+        Map<String,Object> result = new HashMap<>();
+        result.put("ifFavorite",ifFavor);
+        return result;
+    }
 }

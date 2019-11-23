@@ -18,4 +18,7 @@
     <select id="isFavorite">
         select count(*) from favorite where userid=#{userId} and menuid=#{menuId}
     </select>
+    <select id="getMenuFavoriteNum">
+        select count(*) from favorite where menuid=#{menuId}
+    </select>
 </mapper>

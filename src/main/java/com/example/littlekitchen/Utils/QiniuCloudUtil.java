@@ -1,3 +1,4 @@
+/*
 package com.example.littlekitchen.Utils;
 
 import java.io.IOException;
@@ -20,9 +21,11 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import org.springframework.util.StringUtils;
 
+*/
 /**
  * 七牛云上传文件工具类
- */
+ *//*
+
 public class QiniuCloudUtil {
 
     // 设置需要操作的账号的AK和SK
@@ -124,3 +127,4 @@ public class QiniuCloudUtil {
         public int height;
     }
 }
+*/

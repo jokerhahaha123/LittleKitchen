@@ -18,7 +18,7 @@ public interface MenuMapper {
 
     Menu getMenuById(Integer mid);
 
-    Menu getMenuByUserid(Integer uid);
+    List<Menu> getMenuByUserid(Integer uid);
 
     List<Menu> getMenuByType(Integer type);
 
