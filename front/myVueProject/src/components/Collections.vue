@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     handleChange () {
-      this.$http.get('http://localhost:8081/littlekitchen/user/favorities') // 把url地址换成你的接口地址即可
+      this.$http.get('/littlekitchen/user/favorities') // 把url地址换成你的接口地址即可
         .then(res => {
           let len = parseInt(res.data.menu.length)
           // this.cardList[0].cover = res.data.menu[0].cover

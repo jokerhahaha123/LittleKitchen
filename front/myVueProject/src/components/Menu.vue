@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     handleChange () {
-      this.$http.get('http://localhost:8081/littlekitchen/updates/1/list') // 把url地址换成你的接口地址即可
+      this.$http.get('/littlekitchen/updates/1/list') // 把url地址换成你的接口地址即可
         .then(res => {
           let len = parseInt(res.data.menu.length)
           // this.cardList[0].cover = res.data.menu[0].cover
@@ -51,7 +51,7 @@ export default {
             tmp.thumbupNumber = res.data.menu[i].thumbupNumber
             this.menu.push(tmp)
           }
-          console.log('new=',res.data.menu, this.menu.length)
+          // console.log('new=',res.data.menu, this.menu.length)
         })
         .catch(err => {
           console.log(err)

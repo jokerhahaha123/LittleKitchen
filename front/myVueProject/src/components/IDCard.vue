@@ -115,7 +115,7 @@ export default {
       // this.$router.push({ path: '/info' })
     },
     gotoInfo () {
-      this.$http.get('http://localhost:8081/littlekitchen/user/1/info') // 把url地址换成你的接口地址即可
+      this.$http.get('/littlekitchen/user/1/info') // 把url地址换成你的接口地址即可
         .then(res => {
           // this.cardList[0].cover = res.data.menu[0].cover
           console.log('user=', res.data)

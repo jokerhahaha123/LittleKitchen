@@ -79,7 +79,7 @@ export default {
   methods: {
     goToCommend (index) {
       // console.log('点击推荐', index)
-      this.$http.get('http://localhost:8081/littlekitchen/home/recommend') // 把url地址换成你的接口地址即可
+      this.$http.get('http://127.0.0.1:8080/littlekitchen/home/recommend') // 把url地址换成你的接口地址即可
         .then(res => {
           let len = parseInt(res.data.menu.length);
           for (let i = 0; i < len; i++) {
@@ -99,8 +99,9 @@ export default {
           alert(err + '请求失败')
         })
     },
+
     goToLatest (index) {
-      this.$http.get('http://localhost:8081/littlekitchen/home/new') // 把url地址换成你的接口地址即可
+      this.$http.get('/littlekitchen/home/new') // 把url地址换成你的接口地址即可
         .then(res => {
           let len = parseInt(res.data.menu.length);
           // this.cardList[0].cover = res.data.menu[0].cover
@@ -125,7 +126,7 @@ export default {
     goToClassification (str) {
       let index = str.split('-')[1]
       console.log(index)
-      this.$http.get('http://localhost:8081/littlekitchen/home/type/'+parseInt(index)) // 把url地址换成你的接口地址即可
+      this.$http.get('/littlekitchen/home/type/'+parseInt(index)) // 把url地址换成你的接口地址即可
         .then(res => {
           let len = parseInt(res.data.menu.length)
           for (let i = 0; i < len; i++) {

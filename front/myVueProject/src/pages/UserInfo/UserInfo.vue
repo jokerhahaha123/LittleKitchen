@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     goToWorks (key) {
-      axios.get('http://localhost:8081/littlekitchen/updates/list'
+      axios.get('/littlekitchen/updates/list'
       ).then((res) =>
           this.menu =res.data
       ).catch(err => {
@@ -57,7 +57,7 @@ export default {
       console.log('go to works', key, this.display)
     },
     goToCollections (key) {
-      axios.get('http://localhost:8081/littlekitchen/user/favorites'
+      axios.get('/littlekitchen/user/favorites'
       ).then((res) =>
           this.collections =res.data
       ).catch(err => {
@@ -66,7 +66,7 @@ export default {
       console.log('go to collections', key, this.display)
     },
     createMenu (key) {
-      axios.post('http://localhost:8081/littlekitchen/user/addmenu'
+      axios.post('/littlekitchen/user/addmenu'
       ).then((res) =>
           this.collections =res.data
       ).catch(err => {
