@@ -10,7 +10,7 @@ import axios from 'axios'
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-axios.defaults.baseURL = 'api'
+axios.defaults.baseURL = '/api'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 new Vue({
   el: '#app',

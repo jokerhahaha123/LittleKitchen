@@ -86,6 +86,7 @@ export default {
   },
   mounted () {
     this.display = 1
+    this.goToWorks(this.activeIndex)
   }
 }
 </script>
