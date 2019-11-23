@@ -24,7 +24,6 @@
 
 <script>
 /* eslint-disable */
-// eslint - disable - next - line
 export default {
   name: 'Menu',
   data () {

@@ -23,7 +23,6 @@
       </div>
     </div>
     <button @click="gotoInfo">前往个人中心</button>
-    <button @click="gotoUser">前往buju</button>
   </div>
 </div>
 </template>
@@ -31,7 +30,6 @@
 <script>
 import Header from '../../components/Header'
 /* eslint-disable */
-// eslint - disable - next - line
 export default {
   name: 'Home',
   components: {Header},
