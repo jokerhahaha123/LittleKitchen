@@ -47,7 +47,7 @@ public class UserController {
 
     @GetMapping("/logout")
     public @ResponseBody
-    Object logout(HttpSession session, @RequestBody LoginRequest loginRequest) {
+    Object logout(HttpSession session) {
         Map<String, String> map = new HashMap<>();
         try {
             //1. 清空session中的用户信息
