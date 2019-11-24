@@ -23,16 +23,23 @@ public class FavoriteController {
 
     @GetMapping("/littlekitchen/user/{id}/favorites")
     public Map<String,Object> getFavoriteMenus(HttpSession session,@PathVariable("id") Integer id){
-        int userId = (Integer)(session.getAttribute("userid"));
-        if (id!=null)
-            userId = id;
-        Integer favoriteCount = favoriteMapper.getFavoriteCount(userId);
-        List<Menu> favoriteMenus = favoriteMapper.getFavoriteMenus(userId);
-        Map<String,Object> map = new HashMap<>();
-        map.put("favoriteCount",favoriteCount);
-        map.put("favoriteMenus",favoriteMenus);
-        logger.info("查询收藏菜单");
-        return map;
+        Map<String, Object> map = new HashMap<>();
+        try {
+            int userId = (Integer) (session.getAttribute("userid"));
+            if (id != null)
+                userId = id;
+            Integer favoriteCount = favoriteMapper.getFavoriteCount(userId);
+            List<Menu> favoriteMenus = favoriteMapper.getFavoriteMenus(userId);
+            map.put("favoriteCount", favoriteCount);
+            map.put("favoriteMenus", favoriteMenus);
+            logger.info("查询收藏菜单");
+        }catch(Exception e){
+            e.printStackTrace();
+
+        }finally {
+            return map;
+        }
+
     }
 
     @GetMapping("/littlekichen/updates/addfavorite/{menuid}")
