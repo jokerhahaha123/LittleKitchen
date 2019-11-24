@@ -8,7 +8,9 @@
                                map.put("message","0")
 
 登出页面：/littlekitchen/logout
-暂无
+返回值：Map<String,String>
+             登出成功： map.put("message","1");
+             登出失败： map.put("message","0");
 
 注册页面：/littlekitchen/register
 返回值：Map<String,String>
