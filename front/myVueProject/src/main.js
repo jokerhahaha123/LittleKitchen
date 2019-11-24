@@ -6,12 +6,13 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
-/* eslint-disable */
+
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 axios.defaults.baseURL = '/api'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
+// eslint-disable-next-line
 new Vue({
   el: '#app',
   router,

@@ -142,7 +142,7 @@ export default {
     }
   },
   mounted () {
-    this.gotoInfo()
+    // this.gotoInfo()
   }
 }
 </script>
