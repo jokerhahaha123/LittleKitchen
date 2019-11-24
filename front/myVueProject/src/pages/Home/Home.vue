@@ -13,7 +13,7 @@
       </el-menu>
       <div class="line"></div>
       <div class="display">
-        <div class="image" v-for="item in cardList" :key="item.index" @click="goToDetail(item.index)">
+        <div class="image" v-for="item in cardList" :key="item.menuid" @click="goToDetail(item.menuid)">
           <el-image :src="item.cover" class="el-image"></el-image>
           <div style="margin-left: 10px; height: 50px;">
             <el-image :src="item.cover" class="el-avatar--circle"></el-image>
@@ -23,7 +23,6 @@
       </div>
     </div>
     <button @click="gotoInfo">前往个人中心</button>
-    <button @click="gotoUser">前往buju</button>
   </div>
 </div>
 </template>
@@ -31,21 +30,12 @@
 <script>
 import Header from '../../components/Header'
 /* eslint-disable */
-import axios from 'axios'
-// eslint - disable - next - line
 export default {
   name: 'Home',
   components: {Header},
   data () {
     return {
-      cardList: [
-        {
-          title: '',
-          description: '',
-          cover: '',
-          createDate: ''
-        }
-      ],
+      cardList: [],
       options: [
         {
           value: '选项1',
@@ -88,74 +78,83 @@ export default {
   },
   methods: {
     goToCommend (index) {
-      axios.get('http://localhost:8081/littlekitchen/home/recommend'
-        // eslint-disable-next-line
-      ).then((res) =>
-        // console.log(response.data),// 返回菜谱列表
-      // eslint-disable-next-line
-        this.cardList =res.data
-        // eslint-disable-next-line
-       // console.log(this.cardList.length)
-        // for (let i = 0; i < response.data.length; i++) {
-        //   this.cardList[i].path = require('#/small/' + res.data[i].path)
-        //   this.cardList[i].title = res.data[i].title
-        //   this.cardList[i].imageID = res.data[i].imageID
-        // }
-        // eslint-disable-next-line
-      ).catch(err => {
-        console.log('error')
-      })
       // console.log('点击推荐', index)
-      // this.$http.get('http://localhost:8081/littlekitchen/home/recommend') // 把url地址换成你的接口地址即可
-      //   .then(res => {
-      //     // this.request.response = res.data
-      //     // this.continents = res.data// 把取item的数据赋给 item: []中
-      //     console.log(res.dat
-      //     // this.path = res.data.path
-      //     for (let i = 0; i < res.data.length; i++) {
-      //       this.displayImgs[i].path = require('#/small/' + res.data[i].path)
-      //       this.displayImgs[i].title = res.data[i].title
-      //       this.displayImgs[i].imageID = res.data[i].imageID
-      //     }
-      //     // console.log(this.items[0])
-      //   })
-      //   .catch(err => {
-      //     alert(err + '请求失败')
-      //   })
+      this.cardList = []
+      this.$http.get('/littlekitchen/home/recommend') // 把url地址换成你的接口地址即可
+        .then(res => {
+          let len = parseInt(res.data.menu.length);
+          for (let i = 0; i < len; i++) {
+            let tmp = {}
+            tmp.menuid = res.data.menu[i].menuid
+            tmp.userid = res.data.menu[i].userid
+            tmp.cover = res.data.menu[i].cover
+            tmp.title = res.data.menu[i].title
+            tmp.createTime = res.data.menu[i].createTime
+            tmp.type = res.data.menu[i].type
+            tmp.description = res.data.menu[i].description
+            this.cardList.push(tmp)
+          }
+          console.log('recommend=',res.data.menu.length,this.cardList.length)
+        })
+        .catch(err => {
+          alert(err + '请求失败')
+        })
     },
+
     goToLatest (index) {
-      axios.get('http://localhost:8081/littlekitchen/home/new'
-        // eslint-disable-next-line
-      ).then((res) =>
-          // eslint-disable-next-line
-          this.cardList =res.data
-        // eslint-disable-next-line
-      ).catch(err => {
-        console.log('error')
-      })
+      console.log(this.cardList.length)
+      this.cardList = []
+      this.$http.get('/littlekitchen/home/new') // 把url地址换成你的接口地址即可
+        .then(res => {
+          let len = parseInt(res.data.menu.length);
+          // this.cardList[0].cover = res.data.menu[0].cover
+          for (let i = 0; i < len; i++) {
+            let tmp = {}
+            tmp.menuid = res.data.menu[i].menuid
+            tmp.userid = res.data.menu[i].userid
+            tmp.cover = res.data.menu[i].cover
+            tmp.title = res.data.menu[i].title
+            tmp.createTime = res.data.menu[i].createTime
+            tmp.type = res.data.menu[i].type
+            tmp.description = res.data.menu[i].description
+            this.cardList.push(tmp)
+          }
+          console.log('new=',res.data.menu, this.cardList.length)
+        })
+        .catch(err => {
+          console.log(err)
+          alert(err + '请求失败')
+        })
     },
-    goToClassification (index) {
-      axios.get('http://localhost:8081/littlekitchen/home/type/'+index
-        // eslint-disable-next-line
-      ).then((res) =>
-          // eslint-disable-next-line
-          this.cardList =res.data
-        // eslint-disable-next-line
-      ).catch(err => {
-        console.log('error')
-      })
+    goToClassification (str) {
+      let index = str.split('-')[1]
+      console.log(index)
+      this.cardList = []
+      this.$http.get('/littlekitchen/home/type/'+parseInt(index)) // 把url地址换成你的接口地址即可
+        .then(res => {
+          let len = parseInt(res.data.menu.length)
+          for (let i = 0; i < len; i++) {
+            let tmp = {}
+            tmp.menuid = res.data.menu[i].menuid
+            tmp.userid = res.data.menu[i].userid
+            tmp.cover = res.data.menu[i].cover
+            tmp.title = res.data.menu[i].title
+            tmp.createTime = res.data.menu[i].createTime
+            tmp.type = res.data.menu[i].type
+            tmp.description = res.data.menu[i].description
+            this.cardList.push(tmp)
+          }
+          console.log('Classification=',res.data.menu, this.cardList.length)
+        })
+        .catch(err => {
+          console.log(err)
+          alert(err + '请求失败')
+        })
     },
     goToDetail (index) {
-    axios.get('http://localhost:8081/littlekitchen/details/'+index
-      // eslint-disable-next-line
-    ).then((res) =>
-        // eslint-disable-next-line
-        this.cardList =res.data
-      // eslint-disable-next-line
-    ).catch(err => {
-      console.log('error')
-    })
-  },
+      console.log(index)
+      this.$router.push({ path: '/info',params:index })
+    },
     handleSelect (key, keyPath) {
       switch (parseInt(key)) {
         case 1:
@@ -177,7 +176,6 @@ export default {
     }
   },
   mounted () {
-    // console.log(this.activeIndex)
     this.goToCommend(this.activeIndex)
   }
 }
@@ -186,13 +184,14 @@ export default {
 <style scoped>
   .all{
     margin:2% 20%;
+    /*height: 800px;*/
   }
   .el-menu-demo{
     margin-left: 10px;
   }
   .content{
     /*width: 1000px;*/
-    /*height: 800px;*/
+    height: 800px;
     border: 1px solid #dfdfdf;
     /*margin-left: 10px;*/
     margin-top: 5px;
@@ -201,8 +200,8 @@ export default {
     /*margin-left:260px ;*/
     margin-top: 10px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /*justify-content: center;*/
+    /*align-items: center;*/
     /*width: 1200px;*/
     flex-wrap: wrap;
   }

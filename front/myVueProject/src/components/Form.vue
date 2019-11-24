@@ -136,7 +136,17 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          this.$http.post('/user', {
+            firstName: 'Fred',
+            lastName: 'Flintstone'
+          })
+            .then(function (response) {
+              console.log(response)
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
+          // alert('submit!')
         } else {
           console.log('error submit!!')
           return false
@@ -206,79 +216,6 @@ export default {
     text-align: left;
     font-size:14px;
     line-height:14px;
-  }
-  .col{
-    width: 180px;
-    height: 180px;
-    margin: 5px;
-    /*color: white;*/
-    display:inline-block;
-  }
-  .el-avatar--circle{
-    margin-top: 2px;
-    margin-bottom: 0;
-    width: 100px;
-    height: 100px;
-  }
-  .area {
-    border: 1px solid #dfdfdf;
-    width: 250px;
-    height: 180px;
-    overflow: hidden;
-  }
-  .dataarea {
-    /*padding: 10px;*/
-    /*text-align: center;*/
-    font-size: 14px;
-  }
-  .gdataarea {
-    padding-left: 25px;
-  }
-  .gtitle{
-    width:100%;
-    height:30px;
-    line-height:30px;
-    cursor: pointer;
-    background-color: #3bc5ff;
-    color: white;
-    display: block;
-  }
-  /*p{*/
-    /*line-height:38px;*/
-  /*}*/
-  .num{
-    font-weight:bolder;
-    color:#c10000;
-  }
-  .title{
-    color:#3bc5ff;
-  }
-  .gdata{
-    margin:10px;
-    float: left;
-  }
-  .bottom {
-    margin-top: 13px;
-    line-height: 12px;
-  }
-
-  .button {
-    padding: 0;
-    float: right;
-  }
-
-  .image {
-    width: 100%;
-    display: block;
-  }
-
-  .clearfix:before, .clearfix:after {
-    display: table;
-    content: "";
-  }
-
-  .clearfix:after {
-    clear: both
   }
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;

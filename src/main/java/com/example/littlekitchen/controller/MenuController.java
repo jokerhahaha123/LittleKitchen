@@ -97,6 +97,11 @@ public class MenuController {
         return map;
     }
 
+    @GetMapping("/my/{userid}")
+    public List<Menu> getMyMenu(@PathVariable("userid") Integer uid){
+        return menuMapper.getMenuByUserid(uid);
+    }
+
     @PutMapping("/createNew")
     public void insertMenu(Menu menu){
         logger.info("创建新菜谱");

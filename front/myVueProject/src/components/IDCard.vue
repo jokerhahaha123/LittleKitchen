@@ -11,10 +11,6 @@
                   placement="right"
                   width="400"
                   trigger="click">
-                  <!--<el-table :data="gridData">-->
-                    <!--<el-table-column width="150" property="date" label="日期"></el-table-column>-->
-                    <!--<el-table-column width="100" property="name" label="姓名"></el-table-column>-->
-                  <!--</el-table>-->
                   <el-form label-position="left" ref="form" :model="form" label-width="80px">
                     <el-form-item label="头像">
                       <el-upload
@@ -86,24 +82,7 @@ export default {
   name: 'IDCard',
   data () {
     return {
-      nickName: '昵称',
-      gridData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }],
+      nickName: '',
       form: {
         name: '',
         region: '',
@@ -119,11 +98,32 @@ export default {
   },
   methods: {
     onSubmit () {
+      this.$http.post('/user', {
+        firstName: 'Fred',
+        lastName: 'Flintstone'
+      })
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
       console.log('submit!')
     },
     onCancel () {
       location.reload()
       // this.$router.push({ path: '/info' })
+    },
+    gotoInfo () {
+      this.$http.get('/littlekitchen/user/1/info') // 把url地址换成你的接口地址即可
+        .then(res => {
+          // this.cardList[0].cover = res.data.menu[0].cover
+          console.log('user=', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+          alert(err + '请求失败')
+        })
     },
     handleAvatarSuccess (res, file) {
       this.imageUrl = URL.createObjectURL(file.raw)
@@ -140,6 +140,9 @@ export default {
       }
       return isJPG && isLt2M
     }
+  },
+  mounted () {
+    this.gotoInfo()
   }
 }
 </script>

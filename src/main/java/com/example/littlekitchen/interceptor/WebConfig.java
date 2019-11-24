@@ -7,20 +7,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 @Configuration
 public class WebConfig extends WebMvcConfigurationSupport {
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        // 需要拦截的路径
-        String[] addPathPatterns = {
-                "/**"
-        };
-        //不需要拦截的路径
-        String[] excludePathPatterns = {
-                "/littlekitchen/login",
-                "/littlekitchen/register"
-        };
-        //添加注册登录拦截器
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns(addPathPatterns).excludePathPatterns(excludePathPatterns);
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        // 需要拦截的路径
+//        String[] addPathPatterns = {
+//                "/**"
+//        };
+//        //不需要拦截的路径
+//        String[] excludePathPatterns = {
+//                "/littlekitchen/login",
+//                "/littlekitchen/register"
+//        };
+//        //添加注册登录拦截器
+//        registry.addInterceptor(new LoginInterceptor()).addPathPatterns(addPathPatterns).excludePathPatterns(excludePathPatterns);
+//    }
 
 //    @Override
 //    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
