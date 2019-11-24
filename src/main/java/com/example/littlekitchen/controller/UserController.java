@@ -39,9 +39,6 @@ public class UserController {
             map.put("photo", user.getPhoto());
             map.put("nickname", user.getNickname());
             return map;
-//            return user;
-            //重定向 redirect：可以重定向到任意一个请求中（包括其他项目），地址栏改变
-//                return "redirect:/main.html";
         }
         logger.info(loginRequest.getEmail() + "登陆失败");
         map.put("message", "0");
