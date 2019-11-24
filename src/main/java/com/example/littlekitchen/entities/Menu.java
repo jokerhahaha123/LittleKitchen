@@ -9,9 +9,9 @@ public class Menu {
     private String title;
     private String description;
     private String cover;
-    private List<String> picture;
-    private List<String> step;
-    private List<String> material;
+    private String picture;
+    private String step;
+    private String material;
     private Date createTime;
     private int type;
 
@@ -19,18 +19,7 @@ public class Menu {
 
     }
 
-    public Menu(int menuid, int userid, String title, String description, String cover, List<String> picture, List<String> step, List<String> material, Date createTime, int type) {
-        this.menuid = menuid;
-        this.userid = userid;
-        this.title = title;
-        this.description = description;
-        this.cover = cover;
-        this.picture = picture;
-        this.step = step;
-        this.material = material;
-        this.createTime = createTime;
-        this.type = type;
-    }
+
 
     public int getMenuid() {
         return menuid;
@@ -76,28 +65,41 @@ public class Menu {
         return createTime;
     }
 
-    public List<String> getPicture() {
+    public String getPicture() {
         return picture;
     }
 
-    public void setPicture(List<String> picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 
-    public List<String> getStep() {
+    public String getStep() {
         return step;
     }
 
-    public void setStep(List<String> step) {
+    public void setStep(String step) {
         this.step = step;
     }
 
-    public List<String> getMaterial() {
+    public String getMaterial() {
         return material;
     }
 
-    public void setMaterial(List<String> material) {
+    public void setMaterial(String material) {
         this.material = material;
+    }
+
+    public Menu(int menuid, int userid, String title, String description, String cover, String picture, String step, String material, Date createTime, int type) {
+        this.menuid = menuid;
+        this.userid = userid;
+        this.title = title;
+        this.description = description;
+        this.cover = cover;
+        this.picture = picture;
+        this.step = step;
+        this.material = material;
+        this.createTime = createTime;
+        this.type = type;
     }
 
     public void setCreateTime(Date createTime) {
