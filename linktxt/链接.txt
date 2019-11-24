@@ -8,7 +8,9 @@
                                map.put("message","0")
 
 登出页面：/littlekitchen/logout
-暂无
+返回值：Map<String,String>
+             登出成功： map.put("message","1");
+             登出失败： map.put("message","0");
 
 注册页面：/littlekitchen/register
 返回值：Map<String,String>
@@ -58,6 +60,7 @@
 新建菜谱：/littlekitchen/createNew   返回值：无
 更新菜谱：/littlekitchen/update/{menuid}   返回值：无
 删除菜谱：/littlekitchen/delete/{menuid}   返回值：无
+获取个人创建的菜谱： /littlekitchen/my/{userid}  返回值： List<Menu>
 个人信息页：/littlekitchen/user/{id}
 
 ·        /favorites（收藏） 返回值：Map<String,Object> map.put("favoriteCount",favoriteCount);
