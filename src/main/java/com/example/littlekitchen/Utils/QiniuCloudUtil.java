@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//import com.qiniu.common.Config;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
@@ -115,7 +114,7 @@ public class QiniuCloudUtil {
     // 普通删除(暂未使用以下方法，未测试)
     public static void delete(String key) throws IOException {
         // 实例化一个BucketManager对象
-        BucketManager bucketManager = new BucketManager(auth);
+        BucketManager bucketManager = new BucketManager(auth, configuration);
         // 此处的33是去掉：http://ongsua0j7.bkt.clouddn.com/,剩下的key就是图片在七牛云的名称
         key = key.substring(33);
         try {
