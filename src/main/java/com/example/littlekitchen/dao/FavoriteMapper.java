@@ -2,6 +2,7 @@ package com.example.littlekitchen.dao;
 
 import com.example.littlekitchen.entities.Menu;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
@@ -11,15 +12,15 @@ import java.util.List;
 @Mapper
 public interface FavoriteMapper {
     @NotNull
-    List<Menu> getFavoriteMenus(Integer userId);
+    List<Menu> getFavoriteMenus(@Param("userId") Integer userId);
     @NotNull
-    int getFavoriteCount(Integer userId);
+    int getFavoriteCount(@Param("userId") Integer userId);
     @NotNull
-    void deleteFavorite(Integer userId,Integer menuId);
+    void deleteFavorite(@Param("userId") Integer userId,@Param("menuId") Integer menuId);
     @NotNull
-    void addFavorite(Integer userId,Integer menuId);
+    void addFavorite(@Param("userId")Integer userId,@Param("menuId") Integer menuId);
     @NotNull
-    int isFavorite(Integer userId, Integer menuId);
+    int isFavorite(@Param("userId")Integer userId, @Param("menuId") Integer menuId);
     @NotNull
-    int getMenuFavoriteNum(Integer menuId);
+    int getMenuFavoriteNum(@Param("menuId") Integer menuId);
 }

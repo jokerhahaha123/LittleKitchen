@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.littlekitchen.dao.FavoriteMapper">
     <select id="getFavoriteMenus" resultType="com.example.littlekitchen.entities.Menu">
-        select * from menu left join favorite on menu.menuid=favorite.menuid where menu.menuid=#{menuId} and menu.userid=#{userId}
+        select * from menu left join favorite on menu.menuid=favorite.menuid where  menu.userid=#{userId}
     </select>
     <select id="getFavoriteCount" resultType="java.lang.Integer">
         select count(*) from favorite where userid=#{userId}

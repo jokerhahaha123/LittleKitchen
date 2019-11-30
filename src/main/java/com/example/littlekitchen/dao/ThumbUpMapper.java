@@ -1,6 +1,7 @@
 package com.example.littlekitchen.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
@@ -10,11 +11,11 @@ import javax.validation.constraints.Null;
 @Mapper
 public interface ThumbUpMapper {
     @NotNull
-    int getThumbUpNumber(Integer menuId);
+    int getThumbUpNumber(@Param("menuId") Integer menuId);
     @NotNull
-    void addThumbUp(Integer userId,Integer menuId);
+    void addThumbUp(@Param("userId") Integer userId, @Param("menuId") Integer menuId);
     @NotNull
-    void deleteThumbUp(Integer userId,Integer menuId);
+    void deleteThumbUp(@Param("userId") Integer userId,@Param("menuId") Integer menuId);
     @NotNull
-    int isThumbUp(Integer userId,Integer menuId);
+    int isThumbUp(@Param("userId") Integer userId,@Param("menuId") Integer menuId);
 }

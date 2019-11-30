@@ -7,7 +7,7 @@
      select count(*) from thumbup where menuid=#{menuId}
     </select>
     <insert id="addThumbUp">
-        insert into thumbup(userid, menuid) values (#{userId},#{menuId})
+        insert into thumbup (userid, menuid) values (#{userId},#{menuId})
     </insert>
     <delete id="deleteThumbUp">
         delete from thumbup where userid=#{userId} and menuid=#{menuId}
