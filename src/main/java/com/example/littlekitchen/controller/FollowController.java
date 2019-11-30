@@ -23,6 +23,7 @@ public class FollowController {
     FollowMapper followMapper;
     @GetMapping("/littlekitchen/updates/follows")
     public Map<String,Object> getFollowUsers(HttpSession session){
+        session.setAttribute("userid",1);
         int userId = (Integer)(session.getAttribute("userid"));
         int followNumber = followMapper.getFollowNumber(userId);
         List<FollowUser> followUsers = followMapper.getFollowUsers(userId);
@@ -34,12 +35,14 @@ public class FollowController {
 
     @GetMapping("/littlekitchen/user/{id}/addfollow")
     public void addFollow(HttpSession session,@NotNull @PathVariable("id") Integer userId2){
+        session.setAttribute("userid",1);
         int userId = (Integer)(session.getAttribute("userid"));
         followMapper.addFollow(userId,userId2);
     }
 
     @GetMapping("/littlekitchen/user/{id}/deletefollow")
     public void deleteFollow(HttpSession session,@NotNull @PathVariable("id") Integer userId2){
+        session.setAttribute("userid",1);
         int userId = (Integer)(session.getAttribute("userid"));
         followMapper.deleteFollow(userId,userId2);
     }
