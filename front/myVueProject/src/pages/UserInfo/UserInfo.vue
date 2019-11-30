@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     goToWorks (key) {
-      axios.get('/littlekitchen/updates/list'
+      this.$http.get('http://localhost:8080/littlekitchen/my/1'
       ).then((res) =>
           this.menu =res.data
       ).catch(err => {
@@ -57,16 +57,17 @@ export default {
       console.log('go to works', key, this.display)
     },
     goToCollections (key) {
-      axios.get('/littlekitchen/user/favorites'
+      this.$http.get('http://localhost:8080/littlekitchen/user/1/favorites'
       ).then((res) =>
-          this.collections =res.data
+          // this.collections =res.data
+          console.log(res)
       ).catch(err => {
         console.log('error')
       })
       console.log('go to collections', key, this.display)
     },
     createMenu (key) {
-      axios.post('/littlekitchen/user/addmenu'
+      axios.post('http://localhost:8080/littlekitchen/user/addmenu'
       ).then((res) =>
           this.collections =res.data
       ).catch(err => {
@@ -86,7 +87,7 @@ export default {
   },
   mounted () {
     this.display = 1
-    this.goToWorks(this.activeIndex)
+    this.goToCollections(this.activeIndex)
   }
 }
 </script>
@@ -98,6 +99,7 @@ export default {
   .content{
     border: 1px solid #dfdfdf;
     margin-top: 5px;
+    height: 800px;
   }
   .el-menu-demo{
     border: 1px solid #dfdfdf;
