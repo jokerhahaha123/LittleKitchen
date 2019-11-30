@@ -19,4 +19,7 @@
     <select id="isFollowed" resultType="java.lang.Integer">
         select count(*) from follow where userid1=#{userId1} and userid2=#{userId2}
     </select>
+    <select id="getFollowedNumber" resultType="Integer">
+        select count(*) from follow where userid2=#{userId}
+    </select>
 </mapper>

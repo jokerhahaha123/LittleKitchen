@@ -64,4 +64,7 @@ public class FavoriteController {
         result.put("ifFavorite",ifFavor);
         return result;
     }
+    int getMenuFavoriteNum(Integer menuId){
+        return favoriteMapper.getMenuFavoriteNum(menuId);
+    }
 }
