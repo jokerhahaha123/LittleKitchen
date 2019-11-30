@@ -47,7 +47,10 @@
 ·        /addfavorite/{menuid}
 ·        /deletefavorite/{menuid}
 
-详情：/littlekitchen/details/{menuid}    返回值： Menu({int menuid;
+详情：/littlekitchen/details/{menuid}    返回值： Map<String, Object>  map.put("menuDetails", menu);
+                                                                        map.put("favNum", favNum);
+                                                                        map.put("thuNum", thuNum);
+                                                    Menu({int menuid;
                                                      int userid;
                                                      String title;
                                                      String description;
@@ -78,7 +81,8 @@
                                                         Date birthday;
                                                         String photo;
                                                         String description;}
-
+                map.put("followNum",followNum);
+                map.put("followedNum",followedNum);
                 如果查看自己的信息：map.put("isSelf",true);
                 如果查看别人的信息：map.put("isSelf",false);
 
