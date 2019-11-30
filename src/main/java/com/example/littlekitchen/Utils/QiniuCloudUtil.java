@@ -92,9 +92,10 @@ public class QiniuCloudUtil {
     public static String put64image(byte[] base64, String key) throws Exception{
         String file64 = Base64.encodeToString(base64, 0);
         Integer len = base64.length;
+        System.out.println(len);
 
         //华北空间使用 upload-z1.qiniu.com，华南空间使用 upload-z2.qiniu.com，北美空间使用 upload-na0.qiniu.com
-        String url = "http://upload.qiniu.com/putb64/" + len + "/key/"+ UrlSafeBase64.encodeToString(key);
+        String url = "http://upload-z2.qiniu.com/putb64/" + len + "/key/"+ UrlSafeBase64.encodeToString(key);
 
         RequestBody rb = RequestBody.create(null, file64);
         Request request = new Request.Builder()
