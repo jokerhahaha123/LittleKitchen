@@ -1,6 +1,9 @@
 package com.example.littlekitchen.controller;
 
 import com.example.littlekitchen.dao.FavoriteMapper;
+import com.example.littlekitchen.dao.FollowMapper;
+import com.example.littlekitchen.dao.MenuMapper;
+import com.example.littlekitchen.entities.FollowUser;
 import com.example.littlekitchen.entities.Menu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +26,10 @@ public class FavoriteController {
 
     @Autowired
     FavoriteMapper favoriteMapper;
+    @Autowired
+    MenuMapper menuMapper;
+    @Autowired
+    FollowMapper followMapper;
 
     @GetMapping("/littlekitchen/user/{id}/favorites")
     public Map<String,Object> getFavoriteMenus(HttpSession session,@PathVariable("id") Integer id){
@@ -31,10 +39,15 @@ public class FavoriteController {
             int userId = (Integer) (session.getAttribute("userid"));
             if (id != null)
                 userId = id;
-            Integer favoriteCount = favoriteMapper.getFavoriteCount(userId);
+            //Integer favoriteCount = favoriteMapper.getFavoriteCount(userId);
             List<Menu> favoriteMenus = favoriteMapper.getFavoriteMenus(userId);
-            map.put("favoriteCount", favoriteCount);
+            //map.put("favoriteCount", favoriteCount);
             map.put("favoriteMenus", favoriteMenus);
+            List<FollowUser> followUsers = new ArrayList<>();
+            for(Menu menu:favoriteMenus){
+                followUsers.add(followMapper.getFollowUserInfo(menuMapper.getUseridByMenuid(menu.getMenuid())));
+            }
+            map.put("menuUserInfo",followUsers);
             logger.info("查询收藏菜单");
         }catch(Exception e){
             e.printStackTrace();

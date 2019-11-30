@@ -22,4 +22,7 @@
     <select id="getFollowedNumber" resultType="Integer">
         select count(*) from follow where userid2=#{userId}
     </select>
+    <select id="getFollowUserInfo" resultType="com.example.littlekitchen.entities.FollowUser">
+        select * from user_tbl where userid=#{userId}
+    </select>
 </mapper>

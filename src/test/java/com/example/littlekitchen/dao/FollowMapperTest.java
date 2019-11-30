@@ -59,4 +59,10 @@ public class FollowMapperTest {
     public void getFollowedNumber() {
         Assert.assertTrue(followMapper.getFollowNumber(1)>=0);
     }
+    @Test
+    public void getFollowUserInfo(){
+        FollowUser followUser = followMapper.getFollowUserInfo(1);
+        System.out.println(followUser.getUserid() +"follow info"+ followUser.getDescription());
+
+    }
 }
