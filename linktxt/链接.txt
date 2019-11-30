@@ -43,9 +43,13 @@
 
 
 ·        /addthumbup/{menuid}
+                 返回值： {"message":Integer(0/失败 1/成功),thumbupNumber:Integer}
 ·        /deletethumbup/{menuid}
+                 返回值：{"message":Integer(0/失败 1/成功),thumbupNumber:Integer}
 ·        /addfavorite/{menuid}
+                返回值： {"message":Integer(0/失败 1/成功),favoriteNumber:Integer}
 ·        /deletefavorite/{menuid}
+               返回值： {"message":Integer(0/失败 1/成功),favoriteNumber:Integer}
 
 详情：/littlekitchen/details/{menuid}    返回值： Map<String, Object>  map.put("menuDetails", menu);
                                                                         map.put("favNum", favNum);
@@ -90,7 +94,9 @@
 
 ·        /addmenu（新建菜谱）
 ·        /addfollow
-·        /deletefollow
+                返回值： {"message":Integer(0/失败 1/成功),followNumber:Integer}
+·              /deletefollow
+                返回值： {"message":Integer(0/失败 1/成功),followNumber:Integer}
 
 ·       /updateInfo
 返回值：Map<String, String>

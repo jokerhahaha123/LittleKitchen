@@ -22,22 +22,36 @@ public class ThumbUpController {
     ThumbUpMapper thumbUpMapper;
 
     @GetMapping("/littlekitchen/updates/addthumbup/{menuid}")
-    public void addThumbup(HttpSession session, @NotNull @PathVariable("menuid") Integer menuId){
+    public Map<String,Object> addThumbup(HttpSession session, @NotNull @PathVariable("menuid") Integer menuId){
         logger.info("新增点赞");
         session.setAttribute("userid",1);
+        Integer mes = 0;
         int userId = (Integer)(session.getAttribute("userid"));
         if(thumbUpMapper.isThumbUp(userId,menuId)==0) {
             thumbUpMapper.addThumbUp(userId, menuId);
+            mes = 1;
         }
+        Integer num = thumbUpMapper.getThumbUpNumber(menuId);
+        Map<String,Object> map = new HashMap<>();
+        map.put("message",mes);
+        map.put("thumbupNumer",num);
+        return map;
     }
     @GetMapping("/littlekitchen/updates/deletethumbup/{menuid}")
-    public void deleteThumbup(HttpSession session, @NotNull @PathVariable("menuid") Integer menuId){
+    public Map<String,Object> deleteThumbup(HttpSession session, @NotNull @PathVariable("menuid") Integer menuId){
         logger.info("取消点赞");
         session.setAttribute("userid",1);
         int userId = (Integer)(session.getAttribute("userid"));
+        Integer mes = 0;
         if(thumbUpMapper.isThumbUp(userId,menuId)==1) {
             thumbUpMapper.deleteThumbUp(userId, menuId);
+            mes = 1;
         }
+        Integer num = thumbUpMapper.getThumbUpNumber(menuId);
+        Map<String,Object> map = new HashMap<>();
+        map.put("message",mes);
+        map.put("thumbupNumber",num);
+        return map;
     }
     @GetMapping("/littlekitchen/home/ifthumbup/{menuid}")
     public Map<String,Object> ifThumbup(HttpSession session, @NotNull @PathVariable("menuid") Integer menuId){

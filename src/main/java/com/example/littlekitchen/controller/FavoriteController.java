@@ -46,19 +46,39 @@ public class FavoriteController {
     }
 
     @GetMapping("/littlekichen/updates/addfavorite/{menuid}")
-    public void addFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){
+    public Map<String,Object> addFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){
         logger.info("添加收藏菜单");
         session.setAttribute("userid",1);
+        Map<String, Object> map = new HashMap<>();
         int userId = (Integer)(session.getAttribute("userid"));
-        favoriteMapper.addFavorite(userId,menuId);
+        Integer mes = 0;
+        if (favoriteMapper.isFavorite(userId,menuId)==0) {
+            favoriteMapper.addFavorite(userId, menuId);
+            mes =1;
+        }
+        Integer num = favoriteMapper.getMenuFavoriteNum(menuId);
+
+        map.put("message",mes);
+        map.put("favoriteNumber",num);
+        return map;
     }
 
     @GetMapping("/littlekichen/updates/deletefavorite/{menuid}")
-    public void deleteFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){
+    public Map<String,Object> deleteFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){
         logger.info("删除收藏菜单");
         session.setAttribute("userid",1);
         int userId = (Integer)(session.getAttribute("userid"));
-        favoriteMapper.deleteFavorite(userId,menuId);
+        Map<String,Object> map = new HashMap<>();
+        Integer mes = 0;
+        if(favoriteMapper.isFavorite(userId,menuId)==1) {
+            favoriteMapper.deleteFavorite(userId, menuId);
+            mes = 1;
+        }
+        Integer num = favoriteMapper.getMenuFavoriteNum(menuId);
+
+        map.put("message",mes);
+        map.put("favoriteNumber",num);
+        return map;
     }
     @GetMapping("/littlekichen/home/iffavorite/{menuid}")
     public Map<String,Object> ifFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){

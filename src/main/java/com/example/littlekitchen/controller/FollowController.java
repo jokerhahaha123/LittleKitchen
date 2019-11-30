@@ -36,16 +36,34 @@ public class FollowController {
     }
 
     @GetMapping("/littlekitchen/user/{id}/addfollow")
-    public void addFollow(HttpSession session,@NotNull @PathVariable("id") Integer userId2){
+    public Map<String,Object> addFollow(HttpSession session,@NotNull @PathVariable("id") Integer userId2){
         session.setAttribute("userid",1);
         int userId = (Integer)(session.getAttribute("userid"));
-        followMapper.addFollow(userId,userId2);
+        Map<String,Object> map = new HashMap<>();
+        Integer mes = 0;
+        if(followMapper.isFollowed(userId,userId2)==0) {
+            followMapper.addFollow(userId, userId2);
+            mes = 1;
+        }
+        Integer num = followMapper.getFollowNumber(userId);
+        map.put("message",mes);
+        map.put("followNumber",num);
+        return map;
     }
 
     @GetMapping("/littlekitchen/user/{id}/deletefollow")
-    public void deleteFollow(HttpSession session,@NotNull @PathVariable("id") Integer userId2){
+    public Map<String,Object> deleteFollow(HttpSession session,@NotNull @PathVariable("id") Integer userId2){
         session.setAttribute("userid",1);
         int userId = (Integer)(session.getAttribute("userid"));
-        followMapper.deleteFollow(userId,userId2);
+        Integer mes = 0;
+        if(followMapper.isFollowed(userId,userId2)==1) {
+            followMapper.deleteFollow(userId, userId2);
+            mes = 1;
+        }
+        Integer num = followMapper.getFollowNumber(userId);
+        Map<String,Object> map = new HashMap<>();
+        map.put("message",mes);
+        map.put("followNumber",num);
+        return map;
     }
 }
