@@ -66,9 +66,17 @@ public class MenuController {
     }
 
     @GetMapping("/details/{menuid}")
-    public Menu getDetail(@PathVariable("menuid") Integer mid){
+    public Map<String, Object> getDetail(@PathVariable("menuid") Integer mid){
         logger.info("查看菜谱详情");
-        return menuMapper.getMenuById(mid);
+
+        Map<String, Object> map = new HashMap<>();
+        Menu menu = menuMapper.getMenuById(mid);
+        int favNum = favoriteMapper.getMenuFavoriteNum(mid);
+        int thuNum = thumbUpMapper.getThumbUpNumber(mid);
+        map.put("menuDetails", menu);
+        map.put("favNum", favNum);
+        map.put("thuNum", thuNum);
+        return map;
     }
 
     @GetMapping("/updates/list")
