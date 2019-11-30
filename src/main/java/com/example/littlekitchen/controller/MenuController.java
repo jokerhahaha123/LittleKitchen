@@ -4,6 +4,7 @@ import com.example.littlekitchen.component.Tools;
 import com.example.littlekitchen.dao.*;
 import com.example.littlekitchen.entities.FollowUser;
 import com.example.littlekitchen.entities.Menu;
+import com.example.littlekitchen.entities.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,18 +89,20 @@ public class MenuController {
         logger.info("查看关注的人的动态");
         int uid = 1;//Integer.parseInt(session.getAttribute("userid").toString());
         Map<String, Object> map = new HashMap<>();
-        List<FollowUser> userList = followMapper.getFollowUsers(uid);
+        List<FollowUser> followUserList = followMapper.getFollowUsers(uid);
         List<Menu> menuList = new ArrayList<>();
+        List<User> userList = new ArrayList<>();
         List<Integer> favList = new ArrayList<>();
         List<Integer> thuList = new ArrayList<>();
         List<Boolean> favBol = new ArrayList<>();
         List<Boolean> thuBol = new ArrayList<>();
-        for(int i = 0; i < userList.size(); i++){
-            int userId = userList.get(i).getUserid();
+        for(int i = 0; i < followUserList.size(); i++){
+            int userId = followUserList.get(i).getUserid();
             menuList.addAll(menuMapper.getMenuByUserid(userId));
         }
         Tools.sortMenuByDate(menuList);
         for(int i = 0; i < menuList.size(); i++){
+            userList.add(userMapper.getInfoById(menuList.get(i).getUserid()));
             int mid = menuList.get(i).getMenuid();
             int favNum = favoriteMapper.getMenuFavoriteNum(mid);
             favList.add(favNum);
@@ -117,6 +120,7 @@ public class MenuController {
         map.put("ThumbUpNum", thuList);
         map.put("isFavorite", favBol);
         map.put("isThumbUp", thuBol);
+        map.put("user", userList);
         return map;
     }
 
