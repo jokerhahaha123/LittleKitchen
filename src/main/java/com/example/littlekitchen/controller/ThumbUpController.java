@@ -63,6 +63,4 @@ public class ThumbUpController {
         result.put("ifThumbup",ifThum);
         return result;
     }
-
-
 }
