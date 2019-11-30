@@ -15,9 +15,9 @@ public interface FavoriteMapper {
     @NotNull
     int getFavoriteCount(Integer userId);
     @NotNull
-    int deleteFavorite(Integer userId,Integer menuId);
+    void deleteFavorite(Integer userId,Integer menuId);
     @NotNull
-    int addFavorite(Integer userId,Integer menuId);
+    void addFavorite(Integer userId,Integer menuId);
     @NotNull
     int isFavorite(Integer userId, Integer menuId);
     @NotNull
