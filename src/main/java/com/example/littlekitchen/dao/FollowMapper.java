@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NegativeOrZero;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 @Repository
@@ -22,4 +23,7 @@ public interface FollowMapper {
     int isFollowed(@Param("userId1") Integer userId1,@Param("userId2") Integer userId2);
     @NotNull
     int getFollowedNumber(@Param("userId") Integer userId);
+    @NotNull
+    FollowUser getFollowUserInfo(@Param("userId") Integer userId);
+
 }
