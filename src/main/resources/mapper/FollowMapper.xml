@@ -16,7 +16,7 @@
     <delete id="deleteFollow">
         delete from  follow where userid1=#{userId1} and userid2=#{userId2}
     </delete>
-    <select id="isFollowed">
+    <select id="isFollowed" resultType="java.lang.Integer">
         select count(*) from follow where userid1=#{userId1} and userid2=#{userId2}
     </select>
 </mapper>

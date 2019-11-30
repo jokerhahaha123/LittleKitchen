@@ -12,7 +12,7 @@
     <delete id="deleteThumbUp">
         delete from thumbup where userid=#{userId} and menuid=#{menuId}
     </delete>
-    <select id="isThumbUp">
+    <select id="isThumbUp" resultType="java.lang.Integer">
         select count(*) from thumbup where userid==#{userId} and menuid=#{menuId}
     </select>
 </mapper>

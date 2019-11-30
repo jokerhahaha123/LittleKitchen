@@ -6,7 +6,7 @@
     <select id="getFavoriteMenus" resultType="com.example.littlekitchen.entities.Menu">
         select * from menu left join favorite on menu.menuid=favorite.menuid where menu.menuid=#{menuId} and menu.userid=#{userId}
     </select>
-    <select id="getFavoriteCount">
+    <select id="getFavoriteCount" resultType="java.lang.Integer">
         select count(*) from favorite where userid=#{userId}
     </select>
     <insert id="addFavorite">
@@ -15,10 +15,10 @@
     <delete id="deleteFavorite">
         delete from favorite where userid=#{userId} and menuid=#{menuId}
     </delete>
-    <select id="isFavorite">
+    <select id="isFavorite" resultType="java.lang.Integer">
         select count(*) from favorite where userid=#{userId} and menuid=#{menuId}
     </select>
-    <select id="getMenuFavoriteNum">
+    <select id="getMenuFavoriteNum" resultType="java.lang.Integer">
         select count(*) from favorite where menuid=#{menuId}
     </select>
 </mapper>
