@@ -25,14 +25,18 @@ public class ThumbUpController {
         logger.info("新增点赞");
         session.setAttribute("userid",1);
         int userId = (Integer)(session.getAttribute("userid"));
-        thumbUpMapper.addThumbUp(userId,menuId);
+        if(thumbUpMapper.isThumbUp(userId,menuId)==0) {
+            thumbUpMapper.addThumbUp(userId, menuId);
+        }
     }
     @GetMapping("/littlekitchen/updates/deletethumbup/{menuid}")
     public void deleteThumbup(HttpSession session, @NotNull @PathVariable("menuid") Integer menuId){
         logger.info("取消点赞");
         session.setAttribute("userid",1);
         int userId = (Integer)(session.getAttribute("userid"));
-        thumbUpMapper.deleteThumbUp(userId,menuId);
+        if(thumbUpMapper.isThumbUp(userId,menuId)==1) {
+            thumbUpMapper.deleteThumbUp(userId, menuId);
+        }
     }
     @GetMapping("/littlekitchen/home/ifthumbup/{menuid}")
     public Map<String,Object> ifThumbup(HttpSession session, @NotNull @PathVariable("menuid") Integer menuId){

@@ -3,6 +3,7 @@ package com.example.littlekitchen.controller;
 import com.example.littlekitchen.Request.LoginRequest;
 import com.example.littlekitchen.Request.RegisterRequest;
 import com.example.littlekitchen.Request.UpdateInfoRequest;
+import com.example.littlekitchen.dao.FollowMapper;
 import com.example.littlekitchen.dao.UserMapper;
 import com.example.littlekitchen.entities.FollowUser;
 import com.example.littlekitchen.entities.User;
@@ -18,11 +19,14 @@ import java.util.Map;
 @CrossOrigin
 @RestController
 @RequestMapping("/littlekitchen")
+
 public class UserController {
 
     Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    FollowMapper followMapper;
 
     @PostMapping("/login")
     public @ResponseBody
@@ -86,9 +90,14 @@ public class UserController {
         Map<String, Object> map = new HashMap<>();
         User user = userMapper.getInfoById(id);
         FollowUser userInfo = new FollowUser(user.getUserid(), user.getEmail(), user.getNickname(), user.isGender(), user.getBirthday(), user.getPhoto(), user.getDescription());
+
         if (user != null) {
             session.setAttribute("userid",1);
             map.put("user", userInfo);
+            int followNum = followMapper.getFollowNumber(id);
+            int followedNum = followMapper.getFollowedNumber(id);
+            map.put("followNum",followNum);
+            map.put("followedNum",followedNum);
             if (Integer.parseInt(session.getAttribute("userid").toString()) == id) {
                 logger.info("用户" + session.getAttribute("userid").toString() + "查看自己的个人信息");
                 map.put("isSelf", true);

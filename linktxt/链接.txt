@@ -83,7 +83,8 @@
                                                         Date birthday;
                                                         String photo;
                                                         String description;}
-
+                map.put("followNum",followNum);
+                map.put("followedNum",followedNum);
                 如果查看自己的信息：map.put("isSelf",true);
                 如果查看别人的信息：map.put("isSelf",false);
 
