@@ -74,11 +74,14 @@ public class MenuController {
     @GetMapping("/updates/list")
     public Map<String, Object> getFollowUpdateList(HttpSession session){
         logger.info("查看关注的人的动态");
+        int uid = 2;//Integer.parseInt(session.getAttribute("userid").toString());
         Map<String, Object> map = new HashMap<>();
-        List<FollowUser> userList = followMapper.getFollowUsers(Integer.parseInt(session.getAttribute("userid").toString()));
+        List<FollowUser> userList = followMapper.getFollowUsers(uid);
         List<Menu> menuList = new ArrayList<>();
         List<Integer> favList = new ArrayList<>();
         List<Integer> thuList = new ArrayList<>();
+        List<Boolean> favBol = new ArrayList<>();
+        List<Boolean> thuBol = new ArrayList<>();
         for(int i = 0; i < userList.size(); i++){
             int userId = userList.get(i).getUserid();
             menuList.addAll(menuMapper.getMenuByUserid(userId));
@@ -90,10 +93,18 @@ public class MenuController {
             favList.add(favNum);
             int thuNum = thumbUpMapper.getThumbUpNumber(mid);
             thuList.add(thuNum);
+            int isFavNum = favoriteMapper.isFavorite(uid, mid);
+            boolean isFav = (isFavNum == 1);
+            favBol.add(isFav);
+            int isThuNum = thumbUpMapper.isThumbUp(uid, mid);
+            boolean isThu = (isThuNum == 1);
+            thuBol.add(isThu);
         }
         map.put("menu", menuList);
         map.put("favoriteNum", favList);
         map.put("ThumbUpNum", thuList);
+        map.put("isFavorite", favBol);
+        map.put("isThumbUp", thuBol);
         return map;
     }
 
