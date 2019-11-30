@@ -34,7 +34,7 @@ public class ThumbUpController {
         Integer num = thumbUpMapper.getThumbUpNumber(menuId);
         Map<String,Object> map = new HashMap<>();
         map.put("message",mes);
-        map.put("thumbupNumer",num);
+        map.put("thumbupNumber",num);
         return map;
     }
     @GetMapping("/littlekitchen/updates/deletethumbup/{menuid}")

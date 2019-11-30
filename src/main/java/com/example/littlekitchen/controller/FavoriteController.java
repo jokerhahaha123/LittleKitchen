@@ -45,7 +45,7 @@ public class FavoriteController {
 
     }
 
-    @GetMapping("/littlekichen/updates/addfavorite/{menuid}")
+    @GetMapping("/littlekitchen/updates/addfavorite/{menuid}")
     public Map<String,Object> addFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){
         logger.info("添加收藏菜单");
         session.setAttribute("userid",1);
@@ -63,7 +63,7 @@ public class FavoriteController {
         return map;
     }
 
-    @GetMapping("/littlekichen/updates/deletefavorite/{menuid}")
+    @GetMapping("/littlekitchen/updates/deletefavorite/{menuid}")
     public Map<String,Object> deleteFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){
         logger.info("删除收藏菜单");
         session.setAttribute("userid",1);
@@ -80,7 +80,7 @@ public class FavoriteController {
         map.put("favoriteNumber",num);
         return map;
     }
-    @GetMapping("/littlekichen/home/iffavorite/{menuid}")
+    @GetMapping("/littlekitchen/home/iffavorite/{menuid}")
     public Map<String,Object> ifFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){
         logger.info("用户是否收藏该菜单");
         session.setAttribute("userid",1);
