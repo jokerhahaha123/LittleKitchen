@@ -22,9 +22,12 @@ public class ThumbUpMapperTest {
     public void addThumbUp(){
         if(thumbUpMapper.isThumbUp(2,3)==1) {
             thumbUpMapper.deleteThumbUp(2,3);
+            System.out.println("删除了2 3 ");
+            Assert.assertTrue(thumbUpMapper.isThumbUp(2, 3) == 0);
         }
         thumbUpMapper.addThumbUp(2, 3);
-        Assert.assertTrue(thumbUpMapper.isThumbUp(2, 1) == 1);
+        System.out.println("新增了点赞");
+        Assert.assertTrue(thumbUpMapper.isThumbUp(2, 3) == 1);
 
 
     }
