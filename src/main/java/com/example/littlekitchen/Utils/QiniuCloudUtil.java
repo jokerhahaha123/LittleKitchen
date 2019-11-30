@@ -108,8 +108,8 @@ public class QiniuCloudUtil {
         okhttp3.Response response = client.newCall(request).execute();
         System.out.println(response);
         //如果不需要添加图片样式，使用以下方式
-        //return DOMAIN + key;
-        return DOMAIN + key + "?" + style;
+        return DOMAIN + key;
+//        return DOMAIN + key + "?" + style;
     }
 
     // 普通删除(暂未使用以下方法，未测试)
