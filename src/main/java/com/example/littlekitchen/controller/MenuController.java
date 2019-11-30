@@ -68,14 +68,18 @@ public class MenuController {
     @GetMapping("/details/{menuid}")
     public Map<String, Object> getDetail(@PathVariable("menuid") Integer mid){
         logger.info("查看菜谱详情");
-
+        int uid = 2;//Integer.parseInt(session.getAttribute("userid").toString());
         Map<String, Object> map = new HashMap<>();
         Menu menu = menuMapper.getMenuById(mid);
         int favNum = favoriteMapper.getMenuFavoriteNum(mid);
         int thuNum = thumbUpMapper.getThumbUpNumber(mid);
+        boolean favBol = (favoriteMapper.isFavorite(uid, mid) == 1);
+        boolean thuBol = (thumbUpMapper.isThumbUp(uid, mid) == 1);
         map.put("menuDetails", menu);
         map.put("favNum", favNum);
         map.put("thuNum", thuNum);
+        map.put("isFav", favBol);
+        map.put("isThu", thuBol);
         return map;
     }
 

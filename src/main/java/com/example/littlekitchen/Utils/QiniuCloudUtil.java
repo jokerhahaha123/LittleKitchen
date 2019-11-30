@@ -6,9 +6,13 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//import com.qiniu.common.Config;
 import com.qiniu.common.QiniuException;
+import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.Recorder;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import com.qiniu.util.Base64;
@@ -36,7 +40,9 @@ public class QiniuCloudUtil {
     // 密钥
     private static final Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
 
-    private static final String DOMAIN = "http://up-z2.qiniup.com";
+    private static final Configuration configuration = new Configuration(Zone.zone2());
+
+    private static final String DOMAIN = "http://q0lfqtd4x.bkt.clouddn.com/";
 
     private static final String style = "jpg";
 
@@ -47,7 +53,8 @@ public class QiniuCloudUtil {
     // 普通上传
     public static String upload(String filePath, String fileName) throws IOException {
         // 创建上传对象
-        UploadManager uploadManager = new UploadManager();
+        UploadManager uploadManager = new UploadManager(configuration);
+
         try {
             // 调用put方法上传
             String token = auth.uploadToken(bucketname);
@@ -55,13 +62,17 @@ public class QiniuCloudUtil {
                 System.out.println("未获取到token，请重试！");
                 return null;
             }
+            System.out.println(token);
+
             Response res = uploadManager.put(filePath, fileName, token);
             // 打印返回的信息
             System.out.println(res.bodyString());
+            System.out.println(token);
             if (res.isOK()) {
                 Ret ret = res.jsonToObject(Ret.class);
                 //如果不需要对图片进行样式处理，则使用以下方式即可
                 //return DOMAIN + ret.key;
+                System.out.println(DOMAIN + ret.key + "?" + style);
                 return DOMAIN + ret.key + "?" + style;
             }
         } catch (QiniuException e) {
@@ -104,7 +115,7 @@ public class QiniuCloudUtil {
     // 普通删除(暂未使用以下方法，未测试)
     public static void delete(String key) throws IOException {
         // 实例化一个BucketManager对象
-        BucketManager bucketManager = new BucketManager(auth);
+        BucketManager bucketManager = new BucketManager(auth, configuration);
         // 此处的33是去掉：http://ongsua0j7.bkt.clouddn.com/,剩下的key就是图片在七牛云的名称
         key = key.substring(33);
         try {
