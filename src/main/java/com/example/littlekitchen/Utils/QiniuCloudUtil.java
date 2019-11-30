@@ -1,3 +1,4 @@
+
 package com.example.littlekitchen.Utils;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import org.springframework.util.StringUtils;
 
+
 /**
  * 七牛云上传文件工具类
  */
@@ -36,9 +38,9 @@ public class QiniuCloudUtil {
     // 密钥
     private static final Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
 
-    private static final String DOMAIN = "http://up-z2.qiniup.com";
+    private static final String DOMAIN = "你的图片上传路径";
 
-    private static final String style = "jpg";
+    private static final String style = "自定义的图片样式";
 
     public static String getUpToken() {
         return auth.uploadToken(bucketname, null, 3600, new StringMap().put("insertOnly", 1));
@@ -125,3 +127,4 @@ public class QiniuCloudUtil {
         public int height;
     }
 }
+
