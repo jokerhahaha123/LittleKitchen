@@ -47,7 +47,10 @@
 ·        /addfavorite/{menuid}
 ·        /deletefavorite/{menuid}
 
-详情：/littlekitchen/details/{menuid}    返回值： Menu({int menuid;
+详情：/littlekitchen/details/{menuid}    返回值： Map<String, Object>  map.put("menuDetails", menu);
+                                                                        map.put("favNum", favNum);
+                                                                        map.put("thuNum", thuNum);
+                                                    Menu({int menuid;
                                                      int userid;
                                                      String title;
                                                      String description;
