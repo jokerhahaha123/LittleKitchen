@@ -104,4 +104,4 @@
             更新成功：map.put("message","1");
             更新失败：map.put("message","0");
 
-删除菜谱：/littlekitchen/uploadImage   返回值：图片的url
+上传图片：/littlekitchen/uploadImage   返回值：图片的url

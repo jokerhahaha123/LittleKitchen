@@ -24,6 +24,7 @@
 
 <script>
 /* eslint-disable */
+// eslint - disable - next - line
 export default {
   name: 'Menu',
   data () {
@@ -35,20 +36,20 @@ export default {
   },
   methods: {
     handleChange () {
-      this.$http.get('http://localhost:8080/littlekitchen/user/1/favorites') // 把url地址换成你的接口地址即可
+      this.$http.get('http://localhost:8080/littlekitchen/my/1') // 把url地址换成你的接口地址即可
         .then(res => {
-          let len = parseInt(res.data.menu.length)
-          // this.cardList[0].cover = res.data.menu[0].cover
+          console.log('new=',res.data,res.data[0].cover)
+          let len = parseInt(res.data.length)
           for (let i = 0; i < len; i++) {
             let tmp = {}
-            tmp.menuid = res.data.menu[i].menuid
-            tmp.userid = res.data.menu[i].userid
-            tmp.cover = res.data.menu[i].cover
-            tmp.title = res.data.menu[i].title
-            tmp.createTime = res.data.menu[i].createTime
-            tmp.type = res.data.menu[i].type
-            tmp.description = res.data.menu[i].description
-            tmp.thumbupNumber = res.data.menu[i].thumbupNumber
+            tmp.menuid = res.data[i].menuid
+            tmp.userid = res.data[i].userid
+            tmp.cover = res.data[i].cover
+            tmp.title = res.data[i].title
+            tmp.createTime = res.data[i].createTime
+            tmp.type = res.data[i].type
+            tmp.description = res.data[i].description
+            tmp.thumbupNumber = res.data[i].thumbupNumber
             this.menu.push(tmp)
           }
           // console.log('new=',res.data.menu, this.menu.length)

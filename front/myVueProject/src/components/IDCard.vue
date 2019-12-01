@@ -2,7 +2,7 @@
     <div>
         <el-header class="el-header">
           <div style="margin-left: 10px; height: 50px;">
-            <el-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" class="el-avatar--circle"></el-image>
+            <el-image :src="imageUrl" class="el-avatar--circle"></el-image>
             <div style=" float: left;margin-top: 90px;">
               <div>
                 <label class="label">{{nickName}}</label>
@@ -15,7 +15,7 @@
                     <el-form-item label="头像">
                       <el-upload
                         class="avatar-uploader"
-                        action="https://jsonplaceholder.typicode.com/posts/"
+                        action="http://localhost:8080/littlekitchen/uploadImage"
                         :show-file-list="false"
                         :on-success="handleAvatarSuccess"
                         :before-upload="beforeAvatarUpload">
@@ -58,15 +58,11 @@
                 <!--<p class="gtitle"><i class="el-icon-date el-icon&#45;&#45;left"></i>个人数据</p>-->
                 <div class="gdataarea clear">
                   <div class="gdata left">
-                    <p class="num">20</p>
-                    <p class="title">点赞数量</p>
-                  </div>
-                  <div class="gdata left">
-                    <p class="num">200</p>
+                    <p class="num">{{followNum}}</p>
                     <p class="title">关注的人</p>
                   </div>
                   <div class="gdata left">
-                    <p class="num">3000</p>
+                    <p class="num">{{followedNum}}</p>
                     <p class="title">粉丝</p>
                   </div>
                 </div>
@@ -78,6 +74,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'IDCard',
   data () {
@@ -93,31 +90,43 @@ export default {
         resource: '',
         desc: ''
       },
-      imageUrl: ''
+      imageUrl: '',
+      followNum: 0,
+      followedNum:0
     }
   },
   methods: {
     onSubmit () {
-      this.$http.post('/user', {
-        firstName: 'Fred',
-        lastName: 'Flintstone'
+      console.log(this.imageUrl)
+      this.$http.post('http://localhost:8080/littlekitchen/user/1/updateInfo', {
+        nickname: this.form.name,
+        gender: this.form.region !== 'female',
+        birthdays: this.form.date1,
+        photo: this.imageUrl,
+        description: this.form.desc
       })
         .then(function (response) {
-          console.log(response)
+          alert( '修改成功！')
+          console.log('msg: ',response.data)
         })
         .catch(function (error) {
+          alert( '修改失败！')
           console.log(error)
         })
-      console.log('submit!')
+      // console.log('submit!')
     },
     onCancel () {
       location.reload()
       // this.$router.push({ path: '/info' })
     },
     gotoInfo () {
-      this.$http.get('/littlekitchen/user/1/info') // 把url地址换成你的接口地址即可
+      this.$http.get('http://localhost:8080/littlekitchen/user/1/info') // 把url地址换成你的接口地址即可
         .then(res => {
           // this.cardList[0].cover = res.data.menu[0].cover
+          this.imageUrl = res.data.user.photo
+          this.followNum = res.data.followNum
+          this.followedNum = res.data.followedNum
+
           console.log('user=', res.data)
         })
         .catch(err => {
@@ -142,7 +151,7 @@ export default {
     }
   },
   mounted () {
-    // this.gotoInfo()
+    this.gotoInfo()
   }
 }
 </script>

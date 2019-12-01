@@ -30,6 +30,7 @@
 <script>
 import Header from '../../components/Header'
 /* eslint-disable */
+// eslint - disable - next - line
 export default {
   name: 'Home',
   components: {Header},
@@ -79,7 +80,6 @@ export default {
   methods: {
     goToCommend (index) {
       // console.log('点击推荐', index)
-      this.cardList = []
       this.$http.get('http://localhost:8080/littlekitchen/home/recommend') // 把url地址换成你的接口地址即可
         .then(res => {
           let len = parseInt(res.data.menu.length);
@@ -100,10 +100,7 @@ export default {
           alert(err + '请求失败')
         })
     },
-
     goToLatest (index) {
-      console.log(this.cardList.length)
-      this.cardList = []
       this.$http.get('http://localhost:8080/littlekitchen/home/new') // 把url地址换成你的接口地址即可
         .then(res => {
           let len = parseInt(res.data.menu.length);
@@ -129,7 +126,6 @@ export default {
     goToClassification (str) {
       let index = str.split('-')[1]
       console.log(index)
-      this.cardList = []
       this.$http.get('http://localhost:8080/littlekitchen/home/type/'+parseInt(index)) // 把url地址换成你的接口地址即可
         .then(res => {
           let len = parseInt(res.data.menu.length)
@@ -170,9 +166,6 @@ export default {
     },
     gotoInfo () {
       this.$router.push({ path: '/info' })
-    },
-    gotoUser () {
-      this.$router.push({ path: '/user' })
     }
   },
   mounted () {
@@ -184,14 +177,13 @@ export default {
 <style scoped>
   .all{
     margin:2% 20%;
-    /*height: 800px;*/
   }
   .el-menu-demo{
     margin-left: 10px;
   }
   .content{
     /*width: 1000px;*/
-    height: 800px;
+    /*height: 800px;*/
     border: 1px solid #dfdfdf;
     /*margin-left: 10px;*/
     margin-top: 5px;
@@ -200,8 +192,8 @@ export default {
     /*margin-left:260px ;*/
     margin-top: 10px;
     display: flex;
-    /*justify-content: center;*/
-    /*align-items: center;*/
+    justify-content: center;
+    align-items: center;
     /*width: 1200px;*/
     flex-wrap: wrap;
   }

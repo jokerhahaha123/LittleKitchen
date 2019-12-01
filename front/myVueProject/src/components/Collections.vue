@@ -30,24 +30,22 @@ export default {
   },
   methods: {
     handleChange () {
-      this.$http.get('http://localhost:8080/littlekitchen/user/favorities') // 把url地址换成你的接口地址即可
+      this.$http.get('http://localhost:8080/littlekitchen/user/1/favorites') // 把url地址换成你的接口地址即可
         .then(res => {
-          let len = parseInt(res.data.menu.length)
-          // this.cardList[0].cover = res.data.menu[0].cover
+          console.log(res.data.favoriteMenus)
+          let len = parseInt(res.data.favoriteMenus.length)
           for (let i = 0; i < len; i++) {
             let tmp = {}
-            tmp.menuid = res.data.menu[i].menuid
-            tmp.userid = res.data.menu[i].userid
-            tmp.userAvatar = res.data.menu[i].userAvatar
-            tmp.cover = res.data.menu[i].cover
-            tmp.title = res.data.menu[i].title
-            tmp.createTime = res.data.menu[i].createTime
-            tmp.type = res.data.menu[i].type
-            tmp.description = res.data.menu[i].description
-            tmp.thumbupNumber = res.data.menu[i].thumbupNumber
+            tmp.menuid = res.data.favoriteMenus[i].menuid
+            tmp.userid = res.data.favoriteMenus[i].userid
+            tmp.cover = res.data.favoriteMenus[i].cover
+            tmp.title = res.data.favoriteMenus[i].title
+            tmp.createTime = res.data.favoriteMenus[i].createTime
+            tmp.type = res.data.favoriteMenus[i].type
+            tmp.description = res.data.favoriteMenus[i].description
+            tmp.thumbupNumber = res.data.favoriteMenus[i].thumbupNumber
             this.collections.push(tmp)
           }
-          console.log('new=', res.data.menu, this.collections.length)
         })
         .catch(err => {
           console.log(err)
