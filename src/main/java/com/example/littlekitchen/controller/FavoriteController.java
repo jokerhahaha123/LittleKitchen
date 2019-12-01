@@ -8,10 +8,7 @@ import com.example.littlekitchen.entities.Menu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
@@ -76,7 +73,7 @@ public class FavoriteController {
         return map;
     }
 
-    @GetMapping("/littlekitchen/updates/deletefavorite/{menuid}")
+    @DeleteMapping("/littlekitchen/updates/deletefavorite/{menuid}")
     public Map<String,Object> deleteFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){
         logger.info("删除收藏菜单");
         session.setAttribute("userid",1);
