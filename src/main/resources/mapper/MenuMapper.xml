@@ -32,7 +32,7 @@
     </select>
 
     <insert id="addMenu">
-        INSERT INTO `menu` ( `userid`, `title`, `description`, `picture`, `cover`, `create_date`, `type`)
+        INSERT INTO `menu` ( `userid`, `title`, `description`, `picture`, `cover`, `createTime`, `type`)
         VALUES (#{userid}, #{title}, #{description}, #{picture}, #{cover},now(), #{type})
     </insert>
 

@@ -132,6 +132,7 @@ public class MenuController {
     @PutMapping("/createNew")
     public void insertMenu(Menu menu){
         logger.info("创建新菜谱");
+        menu.setUserid(1);
         menuMapper.addMenu(menu);
     }
 
