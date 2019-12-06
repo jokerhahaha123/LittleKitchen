@@ -130,9 +130,10 @@ public class MenuController {
     }
 
     @PutMapping("/createNew")
-    public void insertMenu(Menu menu){
+    public void insertMenu(@RequestBody Menu menu){
         logger.info("创建新菜谱");
-        menu.setUserid(1);
+        //menu.setUserid(1);
+        logger.info(menu.toString());
         menuMapper.addMenu(menu);
     }
 

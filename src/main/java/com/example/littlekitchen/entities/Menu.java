@@ -110,6 +110,22 @@ public class Menu {
         return type;
     }
 
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "menuid=" + menuid +
+                ", userid=" + userid +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", cover='" + cover + '\'' +
+                ", picture='" + picture + '\'' +
+                ", step='" + step + '\'' +
+                ", material='" + material + '\'' +
+                ", createTime=" + createTime +
+                ", type=" + type +
+                '}';
+    }
+
     public void setType(int type) {
         this.type = type;
     }
