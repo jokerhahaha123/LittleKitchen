@@ -1,20 +1,36 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/pages/Home/Home'
-import UserInfo from '@/pages/UserInfo/UserInfo'
+import login from '@/pages/login/login'
+import register from '@/pages/register/register'
+import home from '@/components/Home'
+
+import temp from '@/pages/temp'
+
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'Home',
-      component: Home
+      path:'/register',
+      name:'register',
+      component:register,
     },
     {
-      path: '/info',
-      name: 'UserInfo',
-      component: UserInfo
+      path:'/home',
+      name:'home',
+      component:home
+    },
+    {
+      path: '/',
+      name: 'temp',
+      component: temp
+    },
+    {
+      path:'/login',
+      name:'login',
+      component:login
     }
+
+
   ]
 })

@@ -1,113 +1,103 @@
 <template>
-  <el-row>
-    <el-col :span="8" v-for="item in collections" :key="item.index">
-      <el-card >
-        <div style="height: 50px;">
-          <el-image :src="item.userAvatar" class="el-avatar--circle"></el-image>
-          <label class="label">{{item.nickName}}</label>
-        </div>
-        <img :src="item.cover" class="image">
-        <div style="padding: 14px;">
-          <span style="font-size: 20px">{{item.title}}</span>
-          <div class="bottom clearfix">
-            <span><time class="time">{{ item.createTime }}</time><span style="color: #999; font-size: 15px; margin-left: 10px;"> 点赞数：{{item.thumbupNumber}}</span></span>
-            <el-button type="text" class="button">取消关注</el-button>
-          </div>
-        </div>
-      </el-card>
-    </el-col>
-  </el-row>
+  <div class="display">
+    <div class="image" v-for="item in collections" :key="item.menuid">
+      <el-image :src="item.avatar" class="el-avatar--circle"></el-image>
+      <label class="label">{{item.nickname}}</label>
+      <img :src="item.cover" style=" height: 170px; width:230px;" @click="goToDetail(item.menuid)"/>
+      <div style="margin-left: 10px; height: 80px;">
+        <div style="font-size: 15px;color: blue">{{item.title}}</div>
+        <el-tooltip class="item" effect="dark" :content="item.description" placement="top">
+          <el-button style="border: white;margin-left: -15px;">Date：{{item.createTime}}</el-button>
+        </el-tooltip>
+        <el-button size="small" type="danger" style="margin-left:1px;" @click="cancelFollow(item.userid)">取消</el-button>
+      </div>
+    </div>
+    <div v-if="collections.length === 0" class="el-icon-warning-outline" style="text-align: center">no data!</div>
+  </div>
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'Collections',
-  data () {
+  props: ['getUserId'],
+    data () {
     return {
       activeIndex: '0',
+      userid: 0,
       collections: []
     }
   },
   methods: {
-    handleChange () {
-      this.$http.get('http://localhost:8080/littlekitchen/user/1/favorites') // 把url地址换成你的接口地址即可
+    handleChange (userid) {
+      console.log('collect',userid)
+      this.$http.get('http://localhost:8080/littlekitchen/user/'+userid+'/favorites') // 把url地址换成你的接口地址即可
         .then(res => {
-          console.log(res.data.favoriteMenus)
-          let len = parseInt(res.data.favoriteMenus.length)
+          console.log(res.data.length===undefined,typeof res.data)
+
+          let len = res.data.length!==undefined ?parseInt(res.data.favoriteMenus.length):0;
+
           for (let i = 0; i < len; i++) {
             let tmp = {}
-            tmp.menuid = res.data.favoriteMenus[i].menuid
-            tmp.userid = res.data.favoriteMenus[i].userid
-            tmp.cover = res.data.favoriteMenus[i].cover
-            tmp.title = res.data.favoriteMenus[i].title
-            tmp.createTime = res.data.favoriteMenus[i].createTime
-            tmp.type = res.data.favoriteMenus[i].type
-            tmp.description = res.data.favoriteMenus[i].description
+            tmp.menuid = res.data.favoriteMenus[i].menuid;
+            tmp.userid = res.data.favoriteMenus[i].userid;
+            tmp.cover = res.data.favoriteMenus[i].cover;
+            tmp.title = res.data.favoriteMenus[i].title;
+            tmp.createTime = res.data.favoriteMenus[i].createTime;
+            tmp.type = res.data.favoriteMenus[i].type;
+            tmp.description = res.data.favoriteMenus[i].description;
+            tmp.avatar = res.data.menuUserInfo[i].photo;
+            tmp.nickname = res.data.menuUserInfo[i].nickname;
             tmp.thumbupNumber = res.data.favoriteMenus[i].thumbupNumber
             this.collections.push(tmp)
           }
         })
         .catch(err => {
-          console.log(err)
           alert(err + '请求失败')
         })
+    },
+    cancelFollow (menuid) {
+      this.$http.delete('http://localhost:8080/littlekitchen/updates/deletefavorite/'+menuid) // 把url地址换成你的接口地址即可
+        .then(res => {
+          alert('取消收藏成功')
+        })
+        .catch(err => {
+          alert(err + '取消收藏失败')
+        })
+    },
+    goToDetail (index) {
+      console.log(index);
+      // this.$router.push({ path: '/info',params:index })
     }
   },
   mounted () {
-    this.handleChange()
+    this.userid= this.getUserId;
+    this.handleChange(this.userid)
   }
 }
 </script>
 
 <style scoped>
-  .image {
-    width: 200px;
-    height: 200px;
-    display: block;
+  .display{
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
   }
-  .time {
-    font-size: 15px;
-    color: #999;
-  }
-
-  .bottom {
-    margin-top: 13px;
-    line-height: 12px;
-  }
-
-  .button {
-    padding: 0;
-    float: right;
-  }
-
-  .image {
-    width: 100%;
-    display: block;
-  }
-
-  .clearfix:before, .clearfix:after {
-    display: table;
-    content: "";
-  }
-
-  .clearfix:after {
-    clear: both
+  .image{
+    width: 230px;
+    margin: 5px;
+    float: left;
+    border: 1px solid #dfdfdf;
   }
   .el-avatar--circle{
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     float: left;
-    margin-left: 10px;
-    margin-right: 20px;
-    margin-bottom: 2px;
-    /*border: 1px solid blue;*/
   }
   .label{
     float:left;
-    font-size: 18px;
-    text-align: center;
-    color:#3bc5ff;
+    font-size: 15px !important;
     margin-top: 10px;
-    /*border: 1px solid red;*/
+    margin-left: 2px;
   }
 </style>

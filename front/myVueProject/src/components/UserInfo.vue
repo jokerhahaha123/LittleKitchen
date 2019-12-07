@@ -1,16 +1,21 @@
 <template>
-    <div>
+  <div>
+    <!--<Header></Header>-->
+    <div class="all">
+      <!--<IDCard></IDCard>-->
+      <div>
         <el-header class="el-header">
           <div style="margin-left: 10px; height: 50px;">
             <el-image :src="imageUrl" class="el-avatar--circle"></el-image>
             <div style=" float: left;margin-top: 90px;">
               <div>
                 <label class="label">{{nickName}}</label>
-                <!--<el-button size="small" type="primary">编辑</el-button>-->
                 <el-popover
                   placement="right"
                   width="400"
-                  trigger="click">
+                  trigger="click"
+                  ref="popover"
+                >
                   <el-form label-position="left" ref="form" :model="form" label-width="80px">
                     <el-form-item label="头像">
                       <el-upload
@@ -46,16 +51,15 @@
                     </el-form-item>
                     <el-form-item>
                       <el-button type="primary" @click="onSubmit">修改</el-button>
-                      <el-button @click="onCancel">取消</el-button>
+                      <el-button @click.native="onCancel" >取消</el-button>
                     </el-form-item>
                   </el-form>
-                  <el-button slot="reference" size="small" type="primary">编辑</el-button>
+                  <el-button slot="reference" size="small" type="primary" v-if="isSelf">编辑</el-button>
                 </el-popover>
               </div>
             </div>
             <div class="area">
               <div class="dataarea">
-                <!--<p class="gtitle"><i class="el-icon-date el-icon&#45;&#45;left"></i>个人数据</p>-->
                 <div class="gdataarea clear">
                   <div class="gdata left">
                     <p class="num">{{followNum}}</p>
@@ -70,16 +74,46 @@
             </div>
           </div>
         </el-header>
+      </div>
+      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+        <el-menu-item index="1">菜谱</el-menu-item>
+        <el-menu-item index="2" v-if="isSelf">收藏</el-menu-item>
+        <el-menu-item  index="3" v-if="isSelf">创建菜谱</el-menu-item >
+      </el-menu>
+      <div class="content">
+        <div id="display">
+          <Menu v-if="display===1" :getUserId="userid"></Menu>
+          <Collections v-else-if="display===2" :getUserId="userid"></Collections>
+          <el-row v-else="">
+            <el-col :span="8">
+              <Form></Form>
+            </el-col>
+          </el-row>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
+import Header from './header'
+import Form from './Form'
+import Menu from './Menu'
+import Collections from './Collections'
 /* eslint-disable */
 export default {
-  name: 'IDCard',
+  name: 'UserInfo',
+  props: ['getUserId'],
+  components: {Collections, Menu, Form, Header},
   data () {
     return {
+      fanNumber: 0,
+      activeIndex: '1',
+      display: 1,
+      menu: [],
+      collections: [],
       nickName: '',
+      userid: this.getUserId,
       form: {
         name: '',
         region: '',
@@ -90,15 +124,18 @@ export default {
         resource: '',
         desc: ''
       },
+      isSelf: true,
       imageUrl: '',
       followNum: 0,
       followedNum:0
     }
   },
   methods: {
+    handleSelect (key, keyPath) {
+      this.display = parseInt(key)
+    },
     onSubmit () {
-      console.log(this.imageUrl)
-      this.$http.post('http://localhost:8080/littlekitchen/user/1/updateInfo', {
+      this.$http.post('http://localhost:8080/littlekitchen/user/'+this.userid+'/updateInfo', {
         nickname: this.form.name,
         gender: this.form.region !== 'female',
         birthdays: this.form.date1,
@@ -113,29 +150,28 @@ export default {
           alert( '修改失败！')
           console.log(error)
         })
-      // console.log('submit!')
     },
     onCancel () {
-      location.reload()
-      // this.$router.push({ path: '/info' })
+      this.$refs[`popover`].doClose()
+      // this.$emit("getPropUserId",3,this.userid);
+      // location.reload()
+
     },
     gotoInfo () {
-      this.$http.get('http://localhost:8080/littlekitchen/user/1/info') // 把url地址换成你的接口地址即可
+      this.$http.get('http://localhost:8080/littlekitchen/user/'+this.userid+'/info') // 把url地址换成你的接口地址即可
         .then(res => {
-          // this.cardList[0].cover = res.data.menu[0].cover
-          this.imageUrl = res.data.user.photo
-          this.followNum = res.data.followNum
-          this.followedNum = res.data.followedNum
-
-          console.log('user=', res.data)
+          this.imageUrl = res.data.user.photo;
+          this.followNum = res.data.followNum;
+          this.followedNum = res.data.followedNum;
+          this.isSelf = res.data.isSelf;
+          console.log('user=', res.data, this.isSelf)
         })
         .catch(err => {
-          console.log(err)
           alert(err + '请求失败')
         })
     },
     handleAvatarSuccess (res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
+      this.imageUrl = res
     },
     beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg'
@@ -151,23 +187,31 @@ export default {
     }
   },
   mounted () {
+    this.display = 1;
+    this.userid =this.getUserId;
     this.gotoInfo()
   }
 }
 </script>
 
 <style scoped>
+  .all{
+    margin:2% 20%;
+  }
+  .content{
+    border: 1px solid #dfdfdf;
+    margin-top: 5px;
+  }
+  .el-menu-demo{
+    border: 1px solid #dfdfdf;
+  }
   .el-header {
-    /*background-color: #B3C0D1;*/
     border: 1px solid  #dfdfdf;
     color: #333;
-    /*background-image: url("https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png");*/
-    /*background-repeat:repeat-x;*/
     display: inline-block;
     height: 180px !important;
     bottom: 10px;
     width: 100%;
-    /*line-height: 160px;*/
   }
   .el-avatar--circle{
     width: 50px;
@@ -178,19 +222,13 @@ export default {
   .label{
     font-size: 18px;
     margin-left: 10px;
-    /*color:lightskyblue;*/
   }
   .area {
-    /*border: 1px solid #dfdfdf;*/
     float: left;
     margin-top: 80px;
-    /*width: 250px;*/
-    /*height: 180px;*/
     overflow: hidden;
   }
   .dataarea {
-    /*padding: 10px;*/
-    /*text-align: center;*/
     font-size: 14px;
   }
   .gdataarea {
