@@ -1,0 +1,43 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1574084929124'); /* IE9 */
+  src: url('iconfont.eot?t=1574084929124#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAQoAAsAAAAACTAAAAPZAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDIgqFSIRFATYCJAMUCwwABCAFhG0HXRvWBxFVnFvIfhS4sTOsf775sy6qqEn6/3I++F71kqazvXQNDE7Amifpi1ADBBCM3f+1YRIJZSGdRap2rafb2RfDXqdlUiJEiDT+55jpkkYbUH7bGmQgM48simraG+Csnu8NKPvCi070DuSEjuWGsZvIg3wZCAAOW3iDJKdmKyGBAWwjAMjwIYP6QEqYwSrwBJJOUXCWgTRDhERr6BkATd7Pk9cIJBJAIQoAe/MppT/if6+eWwnF/4t1pwhIhnMCUC4BAgBvAAwgfQvd3TtCEPOGAG6xM/gDUIBV0mevn1v9/8+QKkvPDCxTsnw8hfDPA1EAqLV5bLyR4bAkmAYEePaaBhR4bkkDAXhuJX0galFwc8BK3AGIHo91fiMCCgrB08LTltszp2kbtruqZ882Vc+vNVe2txsrV271UHV0eH85cz066sw0c+pMVKuOWKpnzzEb177QQqVeXeus1CxYbKrWrDlgpVHN2+eiUrV/eNrs3ZyvuDbbdP5hvvOCNUfxRue1wUynnzfstmDxyJUHzem8Qy6yOK1zcTvXFmRy/bqGzNlQt85EnnfFvX3uvA65zgxN6RgpUz7ORLsGFl4I5p01er3tDX24R82+HrLKP+Gi3Pgm/A253+RG/GGrr2xgTWVQnmh/OC5/jdW1dV0S9Au4+84dzbM7LOYFYXeP929CLBfVZ0T4RXACf7/LnfdjRy0yLerWmtKU2tTarUi3JpkOSXBWbuJ3k/HXhDrSQ3bGq55odYkK3vjJrneiKzExj7SbYEyLi0d2zuoTNG6T99IgXsyDlvYGggJOZPWhScVzBZIkqXuTZH1tfUv8S7SroFwwMLDPL65VeFneOEG7d3HvZct6xX18ENB796G5J639wB5M7oABQoXg8U4yE+A1Pv1WJfXSi/4qyU9q6OaP4wmCmaG5VwK9URr8F5KGPcyWAYvIzE4sNj0iUFpPYqmJ44D/gN/Ql9eaNC4ECIlJBJQWGxBInJEM6w0iWTAoSOKA87K7LDNi9JF1AuDpyQGh7wWUriMg0PdGMuwHRKb+oKBfHzh1iztlrtWzlcHUYQHZA+pcCkI2N/OL91heWGriMo94RmPrIIRekE7uUKAZ4oC9lpFzBGQkhy33OmRMgjKywdx5lXNq6ftU9EleLnlnJomBUg4qgMwDqOUkgehgZ5b5/j1UumBSpqKrxX2GDKueHYQ8QQPkTi0adV3KYuuqFHEcEjcRQ+LAlnciBmMSUMWrGijneKoOEWXJF/pRU7U3vZbf4wkADhwWo0QgjIhEAb1LxvZTeA1TYqoZmyVz58qktcU8zSgydToAAAA=') format('woff2'),
+  url('iconfont.woff?t=1574084929124') format('woff'),
+  url('iconfont.ttf?t=1574084929124') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1574084929124#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont", serif !important;
+  font-size: 28px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  float: right;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.icon-collection_fill:before {
+  content: "\e6ea";
+}
+
+.icon-collection:before {
+  content: "\e6eb";
+}
+
+.icon-praise_fill:before {
+  content: "\e71a";
+}
+
+.icon-praise:before {
+  content: "\e71b";
+}
+
+/*
+收藏空：<i class="iconfont icon-collection"></i>
+收藏满：<i class="iconfont icon-collection_fill"></i>
+点赞空：<i class="iconfont icon-praise"></i>
+点赞满：<i class="iconfont icon-praise_fill"></i>
+*/
+
