@@ -32,8 +32,8 @@
     </select>
 
     <insert id="addMenu">
-        INSERT INTO `menu` ( `userid`, `title`, `description`, `picture`, `cover`, `createTime`, `type`)
-        VALUES (#{userid}, #{title}, #{description}, #{picture}, #{cover},now(), #{type})
+        INSERT INTO `menu` ( `userid`, `title`, `description`, `picture`, `step`, `material`, `cover`, `createTime`, `type`)
+        VALUES (#{userid}, #{title}, #{description}, #{picture}, #{step}, #{material}, #{cover},now(), #{type})
     </insert>
 
     <delete id="deleteMenu">

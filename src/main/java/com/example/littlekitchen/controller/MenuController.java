@@ -129,10 +129,10 @@ public class MenuController {
         return menuMapper.getMenuByUserid(uid);
     }
 
-    @PutMapping("/createNew")
-    public void insertMenu(@RequestBody Menu menu){
+    @PostMapping("/createNew")
+    public void insertMenu(@RequestBody Menu menu, HttpSession session){
         logger.info("创建新菜谱");
-        //menu.setUserid(1);
+        menu.setUserid(Integer.parseInt(session.getAttribute("userid").toString()));
         logger.info(menu.toString());
         menuMapper.addMenu(menu);
     }

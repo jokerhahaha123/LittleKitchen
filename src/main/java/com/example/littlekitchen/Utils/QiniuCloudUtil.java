@@ -70,9 +70,9 @@ public class QiniuCloudUtil {
             if (res.isOK()) {
                 Ret ret = res.jsonToObject(Ret.class);
                 //如果不需要对图片进行样式处理，则使用以下方式即可
-                //return DOMAIN + ret.key;
-                System.out.println(DOMAIN + ret.key + "?" + style);
-                return DOMAIN + ret.key + "?" + style;
+                return DOMAIN + ret.key;
+//                System.out.println(DOMAIN + ret.key + "?" + style);
+//                return DOMAIN + ret.key + "?" + style;
             }
         } catch (QiniuException e) {
             Response r = e.response;

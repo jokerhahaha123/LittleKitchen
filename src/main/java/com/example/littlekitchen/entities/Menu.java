@@ -8,10 +8,10 @@ public class Menu {
     private int userid;
     private String title;
     private String description;
-    private String cover;
-    private String picture;
-    private String step;
     private String material;
+    private String step;
+    private String picture;
+    private String cover;
     private Date createTime;
     private int type;
 
