@@ -32,8 +32,14 @@
             };
         },
         created() {
-            if (sessionStorage.avatarUrl) {
-                this.loginAvatar = sessionStorage.avatarUrl;
+            if (sessionStorage.avatarUrl === "null"){
+              this.loginAvatar = "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" ;
+            }
+            else if (sessionStorage.avatarUrl === undefined){
+              this.loginAvatar = false;
+            }
+            else {
+              this.loginAvatar = sessionStorage.avatarUrl;
             }
         },
         methods: {
@@ -42,16 +48,16 @@
             },
             search() {
                 axios({
-                    method: "post",
-                    url: "",
+                    method: "get",
+                    url: "/littlekitchen/home/search/"+this.input,
                     data: {
-                        keyWord: this.input
+                        keyword: this.input
                     },
                     headers: {
                         'Content-Type': 'application/json;charset=UTF-8',
                     }
                 }).then((response) => {
-                    console.log(response)//返回菜谱列表
+                    console.log("菜谱列表："+response.data)//返回菜谱列表
                 }).catch((error) => {
                     console.log("error")
                 })
@@ -63,7 +69,7 @@
               let index = sessionStorage.userId;
               console.log('useid',index)
               this.$emit("getPropUserId",3,index);
-              // this.$emit("getPropUserId", 1);
+              //this.$emit("getPropUserId", 1);
             },
             logOut() {
                 axios({
@@ -77,6 +83,7 @@
                         sessionStorage.clear();
                         this.loginAvatar = sessionStorage.avatarUrl;
                         alert("登出成功");
+                        location.href='/#/login'
                     } else {
                         alert("登出失败")
                     }

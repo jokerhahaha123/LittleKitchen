@@ -29,12 +29,7 @@
         confirmPw:'',
       }
     },
-    created () {
-//      if(JSON.parse( localStorage.getItem('user')) && JSON.parse( localStorage.getItem('user')).userName){
-//        this.userName = JSON.parse( localStorage.getItem('user')).userName;
-//        this.password = JSON.parse( localStorage.getItem('user')).password;
-//      }
-    },
+    created () {},
     methods: {
       doRegister() {
         var emailRegex = /^[a-zA-Z1-9]\w{1,}@[a-zA-Z1-9]{2,}(\.(edu|com|cn|net)){1,2}$/;
@@ -77,10 +72,12 @@
         }).then((response)=>{
           console.log(response.data)
           if (response.data.message == 1){//注册成功
-           location.href = '/'
             sessionStorage['avatarUrl']=response.data.photo;
             sessionStorage['nickName'] = response.data.nickname;
             sessionStorage['userId'] = response.data.userid;
+            location.href = '/';
+            alert("注册成功");
+
           }
           else {
             alert("该邮箱已注册");

@@ -158,7 +158,7 @@ export default {
 
     },
     gotoInfo () {
-      this.$http.get('http://localhost:8080/littlekitchen/user/'+this.userid+'/info') // 把url地址换成你的接口地址即可
+      this.$http.get('/littlekitchen/user/'+this.userid+'/info') // 把url地址换成你的接口地址即可
         .then(res => {
           this.imageUrl = res.data.user.photo;
           this.followNum = res.data.followNum;

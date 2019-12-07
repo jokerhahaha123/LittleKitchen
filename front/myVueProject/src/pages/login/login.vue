@@ -65,7 +65,7 @@ export default {
         }
       }).then((response)=>{
         console.log(response.data);
-        console.log(response.data.message);
+       // console.log(response.data.message);
         if (response.data.message == 1){
           sessionStorage['avatarUrl']=response.data.photo;
           sessionStorage['nickName'] = response.data.nickname;

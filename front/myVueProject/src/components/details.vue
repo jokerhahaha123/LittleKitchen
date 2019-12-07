@@ -11,11 +11,11 @@
       </el-menu>
     </div>
     <div>
-      <label class="subTitle cover"><i class="el-icon-dish"></i>  {{description}}</label><br/>
+      <label class="subTitle cover"><i class="el-icon-dish"></i> {{description}}</label><br/>
       <img :src="cover" class="cover" style="width: 600px;height: 400px"/>
     </div>
     <div id="material">
-      <label class="subTitle">用料</label><br>
+      <label class="subTitle">&nbsp用料</label><br>
       <ol>
         <li v-for="item in materialData" style="text-align: left">{{item}}</li>
       </ol>
@@ -23,18 +23,14 @@
     <div id="detailMsg">
       <label class="subTitle">做法</label><br/><br/>
       <el-steps direction="vertical">
-        <span v-for = "item in menu">
+        <span v-for = "item in menu" >
          <span v-for = "(temp,i) in item.stepTitle" style="display:inline-block">
-           <img  v-if="item.stepPicture[i]" style="float:right;width:32%;padding: 2% 4% 2% 0" :src="item.stepPicture[i]"/><br/>
-           <el-step style=" width: 62%;" :title="item.stepTitle[i]" :description="item.stepDescription[i]" ></el-step>
+           <img  v-if="item.stepPicture[i]" style="float:right;width:280px;height:180px;padding: 4px 4px" :src="item.stepPicture[i]"/>
+             <el-step style="width: 480px;" :title="item.stepTitle[i]" :description="item.stepDescription[i]" ></el-step>
          </span>
        </span>
       </el-steps>
       <el-row style="float: right;margin:3% 5%">
-        <!--<el-button type="primary" size="small" icon="el-icon-s-opportunity" circle ></el-button>-->
-        <!--<el-button type="warning" size="small" icon="el-icon-star-off" circle></el-button>-->
-        <!--<i class="el-icon-thumbs"></i>-->
-        <!--<i class="el-icon-star-off">100</i>-->
         <el-badge :value="thumbVal" class="item">
           <el-button size="small" type="primary" @click = thumb v-if=this.isThu>点赞</el-button>
           <el-button size="small" @click = thumb v-else>点赞</el-button>
@@ -121,7 +117,9 @@
                 }))
             },
             userInfo(){
-                location.href='/#/userInfo'
+                //location.href='/#/userInfo'
+              console.log('useid',this.userId)
+              this.$emit("getPropUserId",3,this.userId);
             },
             thumb(){
                 if (this.isThu) {//已点赞
@@ -177,7 +175,7 @@
                 if (this.isFav) {//已收藏
                     axios({
                         method: "get",
-                        url: "/littlekichen/updates/deletefavorite/" + this.menuid,
+                        url: "/littlekitchen/updates/deletefavorite/" + this.menuid,
                         data: {
                             menuid: this.menuid,
                         },
@@ -202,7 +200,7 @@
                 else {//未收藏
                     axios({
                         method: "get",
-                        url: "/littlekichen/updates/addfavorite/" + this.menuid,
+                        url: "/littlekitchen/updates/addfavorite/" + this.menuid,
                         data: {
                             menuid: this.menuid,
                         },
