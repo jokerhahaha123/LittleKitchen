@@ -29,6 +29,7 @@ public class UploadController {
         try{
             byte[] bytes = file.getBytes();
              url = QiniuCloudUtil.put64image(bytes, String.valueOf(new Date().getTime()));
+             logger.info("imgurl" + url);
         }catch(Exception e){
             e.printStackTrace();
         }

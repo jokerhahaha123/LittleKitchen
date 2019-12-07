@@ -13,7 +13,9 @@
                 <el-popover
                   placement="right"
                   width="400"
-                  trigger="click">
+                  trigger="click"
+                  ref="popover"
+                >
                   <el-form label-position="left" ref="form" :model="form" label-width="80px">
                     <el-form-item label="头像">
                       <el-upload
@@ -49,7 +51,7 @@
                     </el-form-item>
                     <el-form-item>
                       <el-button type="primary" @click="onSubmit">修改</el-button>
-                      <el-button @click="onCancel">取消</el-button>
+                      <el-button @click.native="onCancel" >取消</el-button>
                     </el-form-item>
                   </el-form>
                   <el-button slot="reference" size="small" type="primary" v-if="isSelf">编辑</el-button>
@@ -150,7 +152,10 @@ export default {
         })
     },
     onCancel () {
-      location.reload()
+      this.$refs[`popover`].doClose()
+      // this.$emit("getPropUserId",3,this.userid);
+      // location.reload()
+
     },
     gotoInfo () {
       this.$http.get('http://localhost:8080/littlekitchen/user/'+this.userid+'/info') // 把url地址换成你的接口地址即可

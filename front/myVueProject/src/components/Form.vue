@@ -3,7 +3,7 @@
     <el-form-item label="菜谱标题" prop="title">
       <el-input v-model="ruleForm.title" type="text"></el-input>
     </el-form-item>
-    <el-form-item label="菜谱封面" prop="cover">
+    <el-form-item label="菜谱封面" required>
       <el-upload
         class="avatar-uploader"
         action="http://localhost:8080/littlekitchen/uploadImage"
@@ -29,43 +29,35 @@
         <el-checkbox label="闽菜" name="type"></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="用料" required>
-      <div style="margin: 5px"
-        v-for="(domain) in materials"
-        :key="domain.key"
-        :prop="domain.value"
-        :rules="{
-      required: true, message: '用料不能为空', trigger: 'blur'
-    }"
-      >
-        <el-input v-model="domain.value" style="width: 450px" placeholder="比如：2个鸡蛋一个西红柿"></el-input>
-        <el-button @click.prevent="removeDomain(domain)" type="danger" size="small">删除</el-button>
-      </div>
-    </el-form-item>
-    <el-form-item>
-      <el-button @click="addDomain" style="float: left" size="small">新增用料</el-button>
+    <el-form-item label="用料" prop="material">
+      <el-input
+        type="textarea"
+        :rows="2"
+        placeholder="请输入菜谱用料"
+        v-model="ruleForm.material">
+      </el-input>
     </el-form-item>
     <el-form-item label="做法" required>
-     <div style="margin: 5px; height: 60px;"
-       v-for="(item, index) in stepToDo"
+      <div style="margin: 5px; height: 60px;"
+           v-for="(item, index) in stepToDo"
            :key="index"
            :prop="index + item.description">
-       <el-input style="float: left; width: 400px;"
-                 type="textarea"
-                 :placeholder="item.description"
-                 v-model="item.description">
-       </el-input>
-       <el-upload style="float: left;margin-left: 5px"
-         class="avatar-uploader"
-         action="http://localhost:8080/littlekitchen/uploadImage"
-         :show-file-list="true"
-         :on-success="handleAvatarSuccess"
-         :before-upload="beforeAvatarUpload">
-         <img v-if="imageUrl" :src="imageUrl" class="avatar">
-         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-       </el-upload>
-       <el-button @click.prevent="removeStep(item)" type="danger" size="small">删除</el-button>
-     </div>
+        <el-input style="float: left; width: 400px;"
+                  type="textarea"
+                  :placeholder="item.description"
+                  v-model="item.description">
+        </el-input>
+        <el-upload style="float: left;margin-left: 5px"
+                   class="avatar-uploader"
+                   action="http://localhost:8080/littlekitchen/uploadImage"
+                   :show-file-list="true"
+                   :on-success="handleAvatarSuccess"
+                   :before-upload="beforeAvatarUpload">
+          <img v-if="imageUrl" :src="urls[index]" class="avatar" style="width: 100px; height: 100px">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+        <el-button @click.prevent="removeStep(item)" type="danger" size="small">删除</el-button>
+      </div>
     </el-form-item>
     <el-form-item>
       <el-button @click="addStep(imageUrl)" style="float: left" size="small">添加步骤</el-button>
@@ -112,77 +104,61 @@ export default {
         desc: [
           { required: true, message: '请填写菜谱描述', trigger: 'blur' },
           { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
+        ],
+        material: [
+          { required: true, message: '请输入菜谱用料', trigger: 'blur' },
+          { min: 1, max: 350, message: '长度在 1 到 350 个字符', trigger: 'blur' }
         ]
       },
-      stepToDo: []
+      stepToDo: [],
+      textarea:'',
+      description: '请输入菜谱步骤'
     }
   },
   methods: {
     submitForm (formName) {
-      console.log(this.ruleForm.title,this.ruleForm.cover,this.ruleForm.desc)
-      let material_res = ''
-      if(this.materials.length === 0){
-        alert("至少输入一个用料")
-      }else{
-        let len = this.materials.length
-        let isEmpty =true
-        // console.log(this.materials, len)
-        for (let i = 0; i < len; i++) {
-          // console.log(this.materials[i].value)
-          if(this.materials[i].value!==''){
-            isEmpty =false
-            material_res+=this.materials[i].value+';'
-          }
-        }
-        if(isEmpty){
-          alert("至少输入一个用料")
-        }
+      if(this.cover === ''){
+        alert('请选择菜谱封面！')
       }
-
       let step_res = ''
       let picture_res = ''
       if(this.stepToDo.length === 0){
         alert("至少添加一个步骤")
       }else{
         let len = this.stepToDo.length
-        let isEmpty =true
-        // console.log(this.stepToDo, len)
+        let isEmpty =true;
         for (let i = 0; i < len; i++) {
-          // console.log(this.stepToDo[i].description)
-          if(this.stepToDo[i].description!==''){
+          if(this.stepToDo[i].description!=='' && i<len-1){
             isEmpty =false
             step_res+=this.stepToDo[i].description+';'
+          }else{
+            step_res+=this.stepToDo[i].description
           }
-          if(this.urls[i] !== ''){
+          if(this.urls[i] !== '' && i<len-1){
             picture_res+=this.urls[i]+";"
+          }else{
+            picture_res+=this.urls[i]
           }
         }
         if(isEmpty){
-          alert("至少添加一个步骤")
+          alert("至少添加一个步骤 ")
         }
       }
-      // console.log(material_res)
-      // console.log(picture_res)
-      // console.log(step_res)
       this.$refs[formName].validate((valid) => {
-        console.log(valid)
         if (valid) {
-          this.$http.post('http://localhost:8080/littlekitchen/createNew', {
+          this.$http.put('http://localhost:8080/littlekitchen/createNew', {
             title: this.ruleForm.title,
             description: this.ruleForm.desc,
             cover: this.cover,
             photo: this.imageUrl,
-            material: material_res,
+            material: this.ruleForm.material,
             picture : picture_res,
             step: step_res
           }).then(function (response) {
               alert('创建成功！')
-              console.log('msg: ', response.data)
           }).catch(function (error) {
               alert('创建失败！')
-              console.log(error)
           })
-          alert('submit!')
         } else {
           console.log('error submit!!')
           return false
@@ -205,10 +181,12 @@ export default {
       })
     },
     handleCoverSuccess (res, file) {
-      this.cover = URL.createObjectURL(file.raw)
+      this.cover = res
     },
     handleAvatarSuccess (res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
+      this.imageUrl = res
+      this.urls.push(res)
+
     },
     beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg'
@@ -226,8 +204,6 @@ export default {
       rows.splice(index, 1)
     },
     addStep (url) {
-      console.log(url,this.imageUrl)
-      this.urls.push(url)
       this.stepToDo.push({
         description: '',
         key: Date.now()
@@ -254,79 +230,6 @@ export default {
     text-align: left;
     font-size:14px;
     line-height:14px;
-  }
-  .col{
-    width: 180px;
-    height: 180px;
-    margin: 5px;
-    /*color: white;*/
-    display:inline-block;
-  }
-  .el-avatar--circle{
-    margin-top: 2px;
-    margin-bottom: 0;
-    width: 100px;
-    height: 100px;
-  }
-  .area {
-    border: 1px solid #dfdfdf;
-    width: 250px;
-    height: 180px;
-    overflow: hidden;
-  }
-  .dataarea {
-    /*padding: 10px;*/
-    /*text-align: center;*/
-    font-size: 14px;
-  }
-  .gdataarea {
-    padding-left: 25px;
-  }
-  .gtitle{
-    width:100%;
-    height:30px;
-    line-height:30px;
-    cursor: pointer;
-    background-color: #3bc5ff;
-    color: white;
-    display: block;
-  }
-  /*p{*/
-    /*line-height:38px;*/
-  /*}*/
-  .num{
-    font-weight:bolder;
-    color:#c10000;
-  }
-  .title{
-    color:#3bc5ff;
-  }
-  .gdata{
-    margin:10px;
-    float: left;
-  }
-  .bottom {
-    margin-top: 13px;
-    line-height: 12px;
-  }
-
-  .button {
-    padding: 0;
-    float: right;
-  }
-
-  .image {
-    width: 100%;
-    display: block;
-  }
-
-  .clearfix:before, .clearfix:after {
-    display: table;
-    content: "";
-  }
-
-  .clearfix:after {
-    clear: both
   }
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;

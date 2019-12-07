@@ -67,9 +67,9 @@ public class MenuController {
     }
 
     @GetMapping("/details/{menuid}")
-    public Map<String, Object> getDetail(@PathVariable("menuid") Integer mid){
+    public Map<String, Object> getDetail(@PathVariable("menuid") Integer mid, HttpSession session){
         logger.info("查看菜谱详情");
-        int uid = 1;//Integer.parseInt(session.getAttribute("userid").toString());
+        int uid = Integer.parseInt(session.getAttribute("userid").toString());
         Map<String, Object> map = new HashMap<>();
         Menu menu = menuMapper.getMenuById(mid);
         int favNum = favoriteMapper.getMenuFavoriteNum(mid);
@@ -87,7 +87,7 @@ public class MenuController {
     @GetMapping("/updates/list")
     public Map<String, Object> getFollowUpdateList(HttpSession session){
         logger.info("查看关注的人的动态");
-        int uid = 1;//Integer.parseInt(session.getAttribute("userid").toString());
+        int uid = Integer.parseInt(session.getAttribute("userid").toString());
         Map<String, Object> map = new HashMap<>();
         List<FollowUser> followUserList = followMapper.getFollowUsers(uid);
         List<Menu> menuList = new ArrayList<>();
@@ -130,8 +130,10 @@ public class MenuController {
     }
 
     @PutMapping("/createNew")
-    public void insertMenu(Menu menu){
+    public void insertMenu(@RequestBody Menu menu){
         logger.info("创建新菜谱");
+        //menu.setUserid(1);
+        logger.info(menu.toString());
         menuMapper.addMenu(menu);
     }
 
