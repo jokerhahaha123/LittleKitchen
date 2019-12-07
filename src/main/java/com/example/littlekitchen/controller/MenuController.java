@@ -144,8 +144,8 @@ public class MenuController {
     }
 
     @PostMapping("/delete/{menuid}")
-    public void deleteMenu(Integer mid){
-        logger.info("删除已创建的菜谱");
+    public void deleteMenu(@PathVariable("menuid")Integer mid){
+        logger.info("删除已创建的菜谱"+ mid);
         menuMapper.deleteMenu(mid);
     }
 }
