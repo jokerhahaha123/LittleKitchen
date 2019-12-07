@@ -28,6 +28,9 @@ public class CORSFilter implements Filter {
         }
         resp.setHeader("Access-Control-Allow-Origin", origin);//这里不能写*，*代表接受所有域名访问，如写*则下面一行代码无效。谨记
         resp.setHeader("Access-Control-Allow-Credentials", "true");//true代表允许携带cookie
+        resp.setHeader("Access-Control-Allow-Methods", "*");
+        resp.setHeader("Access-Control-Request-Method", "PUT,POST,GET,DELETE,OPTIONS");
+        resp.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         chain.doFilter(servletRequest,servletResponse);
     }
     @Override
