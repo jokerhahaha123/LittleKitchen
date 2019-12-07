@@ -92,7 +92,7 @@ public class UserController {
         FollowUser userInfo = new FollowUser(user.getUserid(), user.getEmail(), user.getNickname(), user.isGender(), user.getBirthday(), user.getPhoto(), user.getDescription());
 
         if (user != null) {
-            session.setAttribute("userid",1);
+            //session.setAttribute("userid",1);
             map.put("user", userInfo);
             int followNum = followMapper.getFollowNumber(id);
             int followedNum = followMapper.getFollowedNumber(id);

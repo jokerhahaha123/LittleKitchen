@@ -25,7 +25,7 @@ public class FollowController {
     FollowMapper followMapper;
     @GetMapping("/littlekitchen/updates/follows")
     public Map<String,Object> getFollowUsers(HttpSession session){
-        session.setAttribute("userid",1);
+        //session.setAttribute("userid",1);
         int userId = (Integer)(session.getAttribute("userid"));
         int followNumber = followMapper.getFollowNumber(userId);
         List<FollowUser> followUsers = followMapper.getFollowUsers(userId);
@@ -37,7 +37,7 @@ public class FollowController {
 
     @GetMapping("/littlekitchen/user/{id}/addfollow")
     public Map<String,Object> addFollow(HttpSession session,@NotNull @PathVariable("id") Integer userId2){
-        session.setAttribute("userid",1);
+        //session.setAttribute("userid",1);
         int userId = (Integer)(session.getAttribute("userid"));
         Map<String,Object> map = new HashMap<>();
         Integer mes = 0;
@@ -53,7 +53,7 @@ public class FollowController {
 
     @GetMapping("/littlekitchen/user/{id}/deletefollow")
     public Map<String,Object> deleteFollow(HttpSession session,@NotNull @PathVariable("id") Integer userId2){
-        session.setAttribute("userid",1);
+        //session.setAttribute("userid",1);
         int userId = (Integer)(session.getAttribute("userid"));
         Integer mes = 0;
         if(followMapper.isFollowed(userId,userId2)==1) {
