@@ -30,18 +30,18 @@ import org.springframework.util.StringUtils;
 public class QiniuCloudUtil {
 
     // 设置需要操作的账号的AK和SK
-    private static final String ACCESS_KEY = "iitpI8VjppSsnEE-zbNso-WPXERU264V7jwWMNxF";
-    private static final String SECRET_KEY = "Y9FHjc_fjS-Go4SieT9crusrYkxxUhJtWwFY7-3A";
+    private static final String ACCESS_KEY = "90I4EOAiJCn2iGX7xLH37GNZ2ODkwilaEQ1sdzh3";
+    private static final String SECRET_KEY = "QqRoi15zkBQIHnWQ6EkbTgKHzxHPfTrfZQHtFgzN";
 
     // 要上传的空间
-    private static final String bucketname = "littlekitchen";
+    private static final String bucketname = "littlekitchen-fdu";
 
     // 密钥
     private static final Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
 
     private static final Configuration configuration = new Configuration(Zone.zone2());
 
-    private static final String DOMAIN = "http://q0lfqtd4x.bkt.clouddn.com/";
+    private static final String DOMAIN = "http://q24h4g2gc.bkt.clouddn.com/";
 
     private static final String style = "jpg";
 
@@ -95,7 +95,7 @@ public class QiniuCloudUtil {
         System.out.println(len);
 
         //华北空间使用 upload-z1.qiniu.com，华南空间使用 upload-z2.qiniu.com，北美空间使用 upload-na0.qiniu.com
-        String url = "http://upload-z2.qiniu.com/putb64/" + len + "/key/"+ UrlSafeBase64.encodeToString(key);
+        String url = "http://upload-z0.qiniu.com/putb64/" + len + "/key/"+ UrlSafeBase64.encodeToString(key);
 
         RequestBody rb = RequestBody.create(null, file64);
         Request request = new Request.Builder()
