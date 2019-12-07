@@ -1,0 +1,37 @@
+{
+  "id": "1516424",
+  "name": "vue_pj",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "7008906",
+      "name": "collection_fill",
+      "font_class": "collection_fill",
+      "unicode": "e6ea",
+      "unicode_decimal": 59114
+    },
+    {
+      "icon_id": "7008907",
+      "name": "collection",
+      "font_class": "collection",
+      "unicode": "e6eb",
+      "unicode_decimal": 59115
+    },
+    {
+      "icon_id": "7008986",
+      "name": "praise_fill",
+      "font_class": "praise_fill",
+      "unicode": "e71a",
+      "unicode_decimal": 59162
+    },
+    {
+      "icon_id": "7008987",
+      "name": "praise",
+      "font_class": "praise",
+      "unicode": "e71b",
+      "unicode_decimal": 59163
+    }
+  ]
+}

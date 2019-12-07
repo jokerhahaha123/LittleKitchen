@@ -73,7 +73,7 @@ public class FavoriteController {
         return map;
     }
 
-    @DeleteMapping("/littlekitchen/updates/deletefavorite/{menuid}")
+    @GetMapping("/littlekitchen/updates/deletefavorite/{menuid}")
     public Map<String,Object> deleteFavorite(HttpSession session,@NotNull @PathVariable("menuid") Integer menuId){
         logger.info("删除收藏菜单");
         //session.setAttribute("userid",1);
