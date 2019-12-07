@@ -98,6 +98,7 @@ public class UserController {
             int followedNum = followMapper.getFollowedNumber(id);
             map.put("followNum",followNum);
             map.put("followedNum",followedNum);
+            logger.info(session.getId());
             if (Integer.parseInt(session.getAttribute("userid").toString()) == id) {
                 logger.info("用户" + session.getAttribute("userid").toString() + "查看自己的个人信息");
                 map.put("isSelf", true);

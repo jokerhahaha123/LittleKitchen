@@ -27,4 +27,6 @@ public class WebConfig extends WebMvcConfigurationSupport {
 //        registry.addResourceHandler("doc.html", "/v2/api-docs/", "/swagger-ui.html", "/webjars/**", "/error/**")
 //                .addResourceLocations("classpath:/META-INF/resources/");
 //    }
+
+
 }
