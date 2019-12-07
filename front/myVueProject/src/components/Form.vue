@@ -126,10 +126,8 @@ export default {
         alert("至少添加一个步骤")
       }else{
         let len = this.stepToDo.length
-        let isEmpty =true;
         for (let i = 0; i < len; i++) {
           if(this.stepToDo[i].description!=='' && i<len-1){
-            isEmpty =false
             step_res+=this.stepToDo[i].description+';'
           }else{
             step_res+=this.stepToDo[i].description
@@ -140,9 +138,7 @@ export default {
             picture_res+=this.urls[i]
           }
         }
-        if(isEmpty){
-          alert("至少添加一个步骤 ")
-        }
+
       }
       this.$refs[formName].validate((valid) => {
         if (valid) {
