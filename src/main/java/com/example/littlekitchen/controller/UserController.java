@@ -70,13 +70,14 @@ public class UserController {
 
     @PutMapping("/register")
     public @ResponseBody
-    Map register(@RequestBody RegisterRequest registerRequest) {
+    Map register(HttpSession session, @RequestBody RegisterRequest registerRequest) {
         Map<String, String> map = new HashMap<>();
         User user = userMapper.findUserRegister(registerRequest.getEmail());
         if (user == null) {
             userMapper.addUser(registerRequest.getNickname(), registerRequest.getEmail(), registerRequest.getPassword());
             map.put("message", "1");
             user = userMapper.login(registerRequest.getEmail(), registerRequest.getPassword());
+            session.setAttribute("userid", user.getUserid());
             map.put("userid", String.valueOf(user.getUserid()));
             map.put("email", user.getEmail());
             map.put("photo", user.getPhoto());
