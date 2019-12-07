@@ -143,7 +143,7 @@ public class MenuController {
         menuMapper.updateMenu(menu);
     }
 
-    @DeleteMapping("/delete/{menuid}")
+    @PostMapping("/delete/{menuid}")
     public void deleteMenu(Integer mid){
         logger.info("删除已创建的菜谱");
         menuMapper.deleteMenu(mid);
