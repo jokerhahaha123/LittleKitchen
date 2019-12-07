@@ -25,7 +25,7 @@
                         :on-success="handleAvatarSuccess"
                         :before-upload="beforeAvatarUpload">
                         <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        <i class="el-icon-plus avatar-uploader-icon" v-else ></i>
                       </el-upload>
                     </el-form-item>
                     <el-form-item label="昵称">
