@@ -13,13 +13,13 @@
       </el-menu>
       <div class="line"></div>
       <div class="display">
-        <div class="image" v-for="item in cardList" :key="item.menuid" @click="goToDetail(item.menuid)">
-          <img :src="item.cover" style=" height: 170px; width:230px;"/>
+        <div class="image" v-for="item in cardList" :key="item.menuid">
+          <img :src="item.cover" style=" height: 170px; width:230px;" @click="goToDetail(item.menuid)"/>
           <div style="margin-left: 10px; height: 50px;">
             <div style="font-size: 15px;color: blue">{{item.title}}</div>
-            <el-image :src="item.avatar" class="el-avatar--circle"></el-image>
+            <el-image :src="item.avatar" class="el-avatar--circle" @click="goToUserInfo(item.userid)"></el-image>
             <label class="label">{{item.nickname}}</label>
-            <el-timeline style="margin-left: 10px;margin-top: 10px;color: gray" :formatter="dateFormat">{{item.createTime}}</el-timeline>
+            <el-timeline style="margin-left: 10px;margin-top: 10px;color: gray">{{item.createTime}}</el-timeline>
           </div>
         </div>
         <div v-if="cardList.length === 0" class="el-icon-warning-outline" style="text-align: center">no data!</div>
@@ -84,13 +84,15 @@ export default {
       this.$http.get(url) // 把url地址换成你的接口地址即可
         .then(res => {
           let len = parseInt(res.data.menu.length);
+          console.log(res.data)
           for (let i = 0; i < len; i++) {
             let tmp = {};
+            let timeStamp = new Date(res.data.menu[i].createTime);
             tmp.menuid = res.data.menu[i].menuid;
             tmp.userid = res.data.menu[i].userid;
             tmp.cover = res.data.menu[i].cover;
             tmp.title = res.data.menu[i].title;
-            tmp.createTime = res.data.menu[i].createTime;
+            tmp.createTime = timeStamp.toLocaleDateString().replace(/\//g, "-") + " " + timeStamp.toTimeString().substr(0, 8);
             tmp.type = res.data.menu[i].type;
             tmp.description = res.data.menu[i].description;
             tmp.avatar = res.data.user[i].photo;
@@ -105,9 +107,12 @@ export default {
         })
     },
     goToDetail (index) {
-      console.log(index);
-      this.$emit("getPropFromHeader",2,index);
-      // this.$router.push({ path: '/info',params:index })
+      console.log('menuid',index);
+      this.$emit("getPropFromHeader",2,parseInt(index));
+    },
+    goToUserInfo (index) {
+      console.log('userid',index);
+      this.$emit("getPropUserId",3,parseInt(index));
     },
     handleSelect (key, keyPath) {
       switch (parseInt(key)) {
@@ -124,16 +129,6 @@ export default {
           console.log("classification",index);
           this.goToCommend('http://localhost:8080/littlekitchen/home/type/'+parseInt(index))
       }
-    },
-    gotoInfo () {
-      this.$router.push({ path: '/info' })
-    },
-    dateFormat(value) {
-      var date = value;
-      if (date === undefined) {
-        return "";
-      }
-      return moment(date).format("YYYY-MM-DD HH:mm:ss");
     }
   },
   mounted () {

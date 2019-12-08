@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div class="body">
     <div class="all">
       <b-card no-body style="height: 100%">
@@ -19,7 +19,8 @@
                     描述：{{article.description}}
                   </p>
                   <div>
-                    <b-img :src='article.cover' rounded fluid alt="Responsive image"  style="cursor: pointer;" @click="goToDetails(article.menuid)"></b-img>
+                    <b-img :src='article.cover' rounded width="500" fluid alt="Responsive image"
+                           style="cursor: pointer;" @click="goToDetails(article.menuid)"></b-img>
                   </div>
                   <!--两个图标-->
                   <i class="iconfont icon-praise" v-if="!articleData.isThumbUp[i]" @click="addThumbup(article.menuid)">{{articleData.ThumbUpNum[i]}}</i>
@@ -42,13 +43,20 @@
                 <!--关注的人的头像+昵称+个人签名-->
                 <b-media>
                   <template v-slot:aside>
-                    <b-img :src='follow.photo' width="64" height="64" alt="头像" rounded="circle"
-                           class="avatar_img"></b-img>
+                    <b-img :src='follow.photo' style="cursor: pointer;" width="64" height="64" alt="头像" rounded="circle"
+                           class="avatar_img" @click="goToUserInfo(follow.userid)"></b-img>
                   </template>
-                  <h5 class="mt-0 text_content">{{follow.nickname}}</h5>
-                  <p class="mb-0 text_content">
-                    {{follow.description}}
-                  </p>
+                  <b-row>
+                    <b-col lg="8" class="pb-2">
+                      <h5 class="mt-0 text_content">{{follow.nickname}}</h5>
+                      <p class="mb-0 text_content">
+                        {{follow.description}}
+                      </p>
+                    </b-col>
+                    <b-col lg="4" class="pb-2">
+                      <b-button style="vertical-align: center; margin-top: 10%" variant="outline-secondary" @click="cancelFollow(follow.userid)">取消关注</b-button>
+                    </b-col>
+                  </b-row>
                 </b-media>
               </b-list-group-item>
             </b-list-group>
@@ -61,6 +69,7 @@
 
 <script>
     import axios from 'axios';
+
     export default {
         name: 'updates',
         data() {
@@ -88,12 +97,13 @@
             getArticles() {
                 axios.get('http://localhost:8080/littlekitchen/updates/list/'
                 ).then((res) => {
-                    this.articleData = res.data;
+                        this.articleData = res.data;
                     }
                 ).catch(err => {
                     console.log('error')
                 })
             },
+
 
             //点赞
             addThumbupRequest(menuId) {
@@ -129,10 +139,21 @@
             deletefavoriteRequest(menuId) {
                 axios.get('http://localhost:8080/littlekitchen/updates/deletefavorite/' + menuId
                 ).then((res) =>
-                    console.log(res.data.thumbupNumber)
+                    console.log(res.data.favoriteNumber)
                 ).catch(err => {
                     console.log('error')
                 })
+            },
+
+            // 取消关注
+            cancelFollowRequest(followId){
+                axios.get('http://localhost:8080/littlekitchen/user/'+followId+'/deletefollow'
+                ).then((res) =>
+                    console.log("取关成功")
+                ).catch(err => {
+                    console.log('error')
+                })
+
             },
 
             addThumbup(menuId) {
@@ -169,15 +190,28 @@
                 })
             },
 
-            // 格式化日期
-            dateFormat(time){
-                let timeStamp = new Date(time);
-                return  timeStamp.toLocaleDateString().replace(/\//g, "-") + " " + timeStamp.toTimeString().substr(0, 8);
+            // 取消关注
+            cancelFollow(userId){
+                this.cancelFollowRequest(userId);
+                this.getFollows();
+                this.getArticles();
             },
 
-            goToDetails(menuId){
-                this.$emit("getPropFromHeader",2,menuId);
-            }
+            // 格式化日期
+            dateFormat(time) {
+                let timeStamp = new Date(time);
+                return timeStamp.toLocaleDateString().replace(/\//g, "-") + " " + timeStamp.toTimeString().substr(0, 8);
+            },
+
+            goToDetails(menuId) {
+                this.$emit("getPropFromHeader", 2, menuId);
+            },
+
+            goToUserInfo(userId) {
+                this.$emit("getPropUserId", 3, userId);
+            },
+
+
         },
 
         //挂载阶段获取初始化信息

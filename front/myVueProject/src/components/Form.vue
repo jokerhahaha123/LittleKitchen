@@ -10,8 +10,8 @@
         :show-file-list="false"
         :on-success="handleCoverSuccess"
         :before-upload="beforeAvatarUpload">
-        <img v-if="cover" :src="cover" class="avatar">
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        <img v-if="cover" :src="cover" class="avatar" style="width: 200px;height: 200px;">
+        <i class="el-icon-plus avatar-uploader-icon"  v-else></i>
       </el-upload>
     </el-form-item>
     <el-form-item label="菜谱描述" prop="desc">
@@ -19,14 +19,7 @@
     </el-form-item>
     <el-form-item label="菜系" prop="type">
       <el-checkbox-group v-model="ruleForm.type">
-        <el-checkbox label="鲁菜" name="type"></el-checkbox>
-        <el-checkbox label="川菜" name="type"></el-checkbox>
-        <el-checkbox label="粤菜" name="type"></el-checkbox>
-        <el-checkbox label="苏菜" name="type"></el-checkbox>
-        <el-checkbox label="浙菜" name="type"></el-checkbox>
-        <el-checkbox label="徽菜" name="type"></el-checkbox>
-        <el-checkbox label="湘菜" name="type"></el-checkbox>
-        <el-checkbox label="闽菜" name="type"></el-checkbox>
+        <el-checkbox v-for="item in options" :label="item.label" name="type" :key="item.index"></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="用料" prop="material">
@@ -54,7 +47,7 @@
                    :on-success="handleAvatarSuccess"
                    :before-upload="beforeAvatarUpload">
           <img v-if="imageUrl" :src="urls[index]" class="avatar" style="width: 100px; height: 100px">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          <i  class="el-icon-plus avatar-uploader-icon" v-else></i>
         </el-upload>
         <el-button @click.prevent="removeStep(item)" type="danger" size="small">删除</el-button>
       </div>
@@ -86,6 +79,41 @@ export default {
         image: '',
         title: ''
       },
+      options: [
+        {
+          value: '选项1',
+          label: '鲁菜',
+          index: '1'
+        }, {
+          value: '选项2',
+          label: '川菜',
+          index: '2'
+        }, {
+          value: '选项3',
+          label: '粤菜',
+          index: '3'
+        }, {
+          value: '选项4',
+          label: '苏菜',
+          index: '4'
+        }, {
+          value: '选项5',
+          label: '浙菜',
+          index: '5'
+        }, {
+          value: '选项6',
+          label: '徽菜',
+          index: '6'
+        }, {
+          value: '选项7',
+          label: '湘菜',
+          index: '7'
+        }, {
+          value: '选项8',
+          label: '闽菜',
+          index: '8'
+        }
+      ],
       materials: [],
       urls: [],
       cover: '',
@@ -120,12 +148,12 @@ export default {
       if(this.cover === ''){
         alert('请选择菜谱封面！')
       }
-      let step_res = ''
-      let picture_res = ''
+      let step_res = '';
+      let picture_res = '';
       if(this.stepToDo.length === 0){
         alert("至少添加一个步骤")
       }else{
-        let len = this.stepToDo.length
+        let len = this.stepToDo.length;
         for (let i = 0; i < len; i++) {
           if(this.stepToDo[i].description!=='' && i<len-1){
             step_res+=this.stepToDo[i].description+';'
@@ -141,10 +169,17 @@ export default {
 
       }
       this.$refs[formName].validate((valid) => {
+        let typeid =0;
+        for(let i=0;i<8;i++){
+          if(this.options[i].label === this.ruleForm.type[0]){
+            typeid =this.options[i].index;
+          }
+        }
         if (valid) {
-          this.$http.put('http://localhost:8080/littlekitchen/createNew', {
+          this.$http.post('/littlekitchen/createNew', {
             title: this.ruleForm.title,
             description: this.ruleForm.desc,
+            type : typeid,
             cover: this.cover,
             photo: this.imageUrl,
             material: this.ruleForm.material,
@@ -156,7 +191,7 @@ export default {
               alert('创建失败！')
           })
         } else {
-          console.log('error submit!!')
+          console.log('error submit!!');
           return false
         }
       })
@@ -165,7 +200,7 @@ export default {
       this.$refs[formName].resetFields()
     },
     removeDomain (item) {
-      var index = this.materials.indexOf(item)
+      var index = this.materials.indexOf(item);
       if (index !== -1) {
         this.materials.splice(index, 1)
       }
@@ -180,13 +215,13 @@ export default {
       this.cover = res
     },
     handleAvatarSuccess (res, file) {
-      this.imageUrl = res
+      this.imageUrl = res;
       this.urls.push(res)
 
     },
     beforeAvatarUpload (file) {
-      const isJPG = file.type === 'image/jpeg'
-      const isLt2M = file.size / 1024 / 1024 < 2
+      const isJPG = file.type === 'image/jpeg';
+      const isLt2M = file.size / 1024 / 1024 < 2;
 
       if (!isJPG) {
         this.$message.error('上传头像图片只能是 JPG 格式!')
@@ -206,7 +241,7 @@ export default {
       })
     },
     removeStep (item) {
-      var index = this.stepToDo.indexOf(item)
+      var index = this.stepToDo.indexOf(item);
       if (index !== -1) {
         this.stepToDo.splice(index, 1)
       }

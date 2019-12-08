@@ -2,8 +2,8 @@
   <div id="detail">
     <div id="authorMsg">
       <el-menu class="el-menu-demo" mode="horizontal" style="border-bottom-color:#ffffff!important;">
-        <el-menu-item style="width:12%" @click="userInfo">
-          <img :src="userAvatar" style=" border-radius: 50%; width: 40px;height: 40px ;margin-right: 25px;">
+        <el-menu-item style="width:12%" @click="userInfo" >
+          <img :src="userAvatar" style=" border-radius: 50%; width: 40px;height: 40px ;margin-right: 25px;" >
           <span style="font-weight: bold">{{nickName}}</span>
         </el-menu-item>
         <span  class="title_time">{{time}}</span>
@@ -48,7 +48,7 @@
     import axios from 'axios'
     import qs from 'qs';
     export default {
-        name: "details",
+        name: "detail",
         props: ['getMenuId'],
         data(){
             return {
@@ -117,9 +117,7 @@
                 }))
             },
             userInfo(){
-                //location.href='/#/userInfo'
-              console.log('useid',this.userId)
-              this.$emit("getPropUserId",3,this.userId);
+              this.$emit("getPropUserId", 3 ,parseInt(this.userId));
             },
             thumb(){
                 if (this.isThu) {//已点赞

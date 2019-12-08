@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @getPropUserId="getPropUserId">
     <!--<Header></Header>-->
     <div class="all">
       <!--<IDCard></IDCard>-->
@@ -25,7 +25,7 @@
                         :on-success="handleAvatarSuccess"
                         :before-upload="beforeAvatarUpload">
                         <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                        <i class="el-icon-plus avatar-uploader-icon" v-else ></i>
+                        <i  class="el-icon-plus avatar-uploader-icon" v-else></i>
                       </el-upload>
                     </el-form-item>
                     <el-form-item label="昵称">
@@ -81,9 +81,37 @@
         <el-menu-item  index="3" v-if="isSelf">创建菜谱</el-menu-item >
       </el-menu>
       <div class="content">
-        <div id="display">
-          <Menu v-if="display===1" :getUserId="userid"></Menu>
-          <Collections v-else-if="display===2" :getUserId="userid"></Collections>
+        <div>
+          <!--<Menu v-if="display===1" :getUserId="userid"></Menu>-->
+          <div v-if="display===1" class="display">
+            <div class="image" v-for="item in menu" :key="item.menuid">
+              <img :src="item.cover" style=" height: 170px; width:220px;"  @click="goToDetail(item.menuid)"/>
+              <div style="margin-left: 10px;">
+                <div style="font-size: 15px;color: blue">{{item.title}}</div>
+                <el-tooltip class="item" effect="dark" :content="item.description" placement="top">
+                  <el-button style="border: white;margin-left: -5px;">Date：{{item.createTime}}</el-button>
+                </el-tooltip>
+                <el-button size="small" type="danger" style="margin-left:1px;" @click="deleteMenu(item.menuid)">删除</el-button>
+              </div>
+            </div>
+            <div v-if="menu.length === 0" class="el-icon-warning-outline" style="text-align: center">no data!</div>
+          </div>
+          <div v-else-if="display===2" class="display">
+            <div class="imageColl" v-for="item in collections" :key="item.menuid">
+              <el-image :src="item.avatar" class="el-avatar--circle1"  @click="goToUserInfo(item.userid)"></el-image>
+              <label class="labelColl">{{item.nickname}}</label>
+              <img :src="item.cover" style=" height: 170px; width:220px;" @click="goToDetail(item.menuid)"/>
+              <div style="margin-left: 10px;">
+                <div style="font-size: 15px;color: blue">{{item.title}}</div>
+                <el-tooltip class="item" effect="dark" :content="item.description" placement="top">
+                  <el-button style="border: white;margin-left: -15px;">Date：{{item.createTime}}</el-button>
+                </el-tooltip>
+                <el-button size="small" type="danger" style="margin-left:1px;" @click="cancelFollow(item.menuid)">取消</el-button>
+              </div>
+            </div>
+            <div v-if="collections.length === 0" class="el-icon-warning-outline" style="text-align: center">no data!</div>
+          </div>
+          <!--<Collections v-else-if="display===2" :getUserId="userid"></Collections>-->
           <el-row v-else="">
             <el-col :span="8">
               <Form></Form>
@@ -98,13 +126,11 @@
 <script>
 import Header from './header'
 import Form from './Form'
-import Menu from './Menu'
-import Collections from './Collections'
 /* eslint-disable */
 export default {
   name: 'UserInfo',
   props: ['getUserId'],
-  components: {Collections, Menu, Form, Header},
+  components: { Form, Header},
   data () {
     return {
       fanNumber: 0,
@@ -132,7 +158,13 @@ export default {
   },
   methods: {
     handleSelect (key, keyPath) {
-      this.display = parseInt(key)
+      this.display = parseInt(key);
+      if(this.display ===1 ){
+        this.handleMenu(this.userid)
+      }
+      if(this.display === 2){
+        this.handleCollection(this.userid)
+      }
     },
     onSubmit () {
       this.$http.post('http://localhost:8080/littlekitchen/user/'+this.userid+'/updateInfo', {
@@ -153,12 +185,10 @@ export default {
     },
     onCancel () {
       this.$refs[`popover`].doClose()
-      // this.$emit("getPropUserId",3,this.userid);
-      // location.reload()
-
     },
     gotoInfo () {
-      this.$http.get('/littlekitchen/user/'+this.userid+'/info') // 把url地址换成你的接口地址即可
+      console.log('http://localhost:8080/littlekitchen/user/'+this.userid+'/info')
+      this.$http.get('/littlekitchen/user/'+parseInt(this.userid)+'/info') // 把url地址换成你的接口地址即可
         .then(res => {
           this.imageUrl = res.data.user.photo;
           this.followNum = res.data.followNum;
@@ -184,12 +214,99 @@ export default {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }
       return isJPG && isLt2M
+    },
+    getPropUserId:function (prop,userid) {
+      this.contentIndex = prop;
+      this.userid = userid;
+      console.log(this.contentIndex,this.userid)
+    },
+    handleMenu (userid) {
+      console.log('menu',userid)
+      this.menu = [];
+      this.$http.get('/littlekitchen/my/'+userid) // 把url地址换成你的接口地址即可
+        .then(res => {
+          let len = parseInt(res.data.length)
+          for (let i = 0; i < len; i++) {
+            let tmp = {};
+            let timeStamp = new Date(res.data[i].createTime);
+            tmp.menuid = res.data[i].menuid;
+            tmp.cover = res.data[i].cover;
+            tmp.title = res.data[i].title;
+            tmp.createTime = timeStamp.toLocaleDateString().replace(/\//g, "-") + " " + timeStamp.toTimeString().substr(0, 8);
+            tmp.type = res.data[i].type;
+            tmp.description = res.data[i].description;
+            tmp.thumbupNumber = res.data[i].thumbupNumber;
+            this.menu.push(tmp)
+          }
+        })
+        .catch(err => {
+          alert(err + '请求失败')
+        })
+    },
+    deleteMenu (menuid) {
+      this.$http.post('http://localhost:8080/littlekitchen/delete/'+menuid) // 把url地址换成你的接口地址即可
+        .then(res => {
+          this.handleMenu(this.userid);
+          alert('删除成功')
+        })
+        .catch(err => {
+          alert(err + '删除失败')
+        })
+    },
+    handleCollection(userid) {
+      console.log('collect',userid)
+      this.collections = [];
+      this.$http.get('/littlekitchen/user/'+userid+'/favorites') // 把url地址换成你的接口地址即可
+        .then(res => {
+          let len =parseInt(res.data.favoriteMenus.length);
+          for (let i = 0; i < len; i++) {
+            let tmp = {};
+            let timeStamp = new Date(res.data.favoriteMenus[i].createTime);
+            tmp.menuid = res.data.favoriteMenus[i].menuid;
+            tmp.userid = res.data.favoriteMenus[i].userid;
+            tmp.cover = res.data.favoriteMenus[i].cover;
+            tmp.title = res.data.favoriteMenus[i].title;
+            tmp.createTime = timeStamp.toLocaleDateString().replace(/\//g, "-") + " " + timeStamp.toTimeString().substr(0, 8);
+            tmp.type = res.data.favoriteMenus[i].type;
+            tmp.description = res.data.favoriteMenus[i].description;
+            tmp.avatar = res.data.menuUserInfo[i].photo;
+            tmp.nickname = res.data.menuUserInfo[i].nickname;
+            tmp.thumbupNumber = res.data.favoriteMenus[i].thumbupNumber
+            this.collections.push(tmp)
+          }
+          console.log(res.data.favoriteMenus,len,this.collections.length)
+        })
+        .catch(err => {
+          alert(err + '请求失败')
+        })
+    },
+    cancelFollow (menuid) {
+      this.$http.get('/littlekitchen/updates/deletefavorite/'+menuid) // 把url地址换成你的接口地址即可
+        .then(res => {
+          this.handleCollection(this.userid);
+          alert('取消收藏成功')
+        })
+        .catch(err => {
+          alert(err + '取消收藏失败')
+        })
+    },
+    goToUserInfo (index) {
+      if (parseInt(index) !== parseInt(this.userid)) {
+        this.userid =parseInt(index);
+        this.gotoInfo();
+        this.handleMenu(parseInt(index))
+      }
+    },
+    goToDetail (index) {
+      this.$emit("getPropFromHeader", 2, parseInt(index));
     }
   },
   mounted () {
     this.display = 1;
     this.userid =this.getUserId;
-    this.gotoInfo()
+    this.gotoInfo();
+    this.handleMenu(this.userid)
+    console.log('userinfo',this.userid)
   }
 }
 </script>
@@ -270,5 +387,33 @@ export default {
     width: 178px;
     height: 178px;
     display: block;
+  }
+  .display{
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .image{
+    width: 230px;
+    margin: 5px;
+    float: left;
+    border: 1px solid #dfdfdf;
+  }
+  .el-avatar--circle1{
+    width: 40px;
+    height: 40px;
+    float: left;
+  }
+  .labelColl{
+    float:left;
+    font-size: 15px !important;
+    margin-top: 10px;
+    margin-left: 2px;
+  }
+  .imageColl{
+    width: 230px;
+    margin: 5px;
+    float: left;
+    border: 1px solid #dfdfdf;
   }
 </style>

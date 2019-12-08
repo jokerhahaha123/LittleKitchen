@@ -1,10 +1,10 @@
 <template>
   <div>
     <Header @getPropFromHeader = "getPropFromHeader"  @getPropUserId="getPropUserId"></Header>
-    <Updates @getPropFromHeader = "getPropFromHeader" v-if="contentIndex === 1"></Updates>
-    <Details :getMenuId="menuId" v-else-if="contentIndex === 2"></Details>
-    <Home  @getPropFromHeader = "getPropFromHeader" v-if="contentIndex === 0"></Home>
-    <UserInfo :getUserId="userid" v-if="contentIndex === 3"></UserInfo>
+    <Updates @getPropFromHeader = "getPropFromHeader" @getPropUserId="getPropUserId" v-if="contentIndex === 1"></Updates>
+    <Details :getMenuId="menuId"  @getPropUserId="getPropUserId" v-else-if="contentIndex === 2"></Details>
+    <Home  @getPropFromHeader = "getPropFromHeader" v-if="contentIndex === 0" @getPropUserId="getPropUserId"></Home>
+    <UserInfo :getUserId="userid" v-if="contentIndex === 3" @getPropFromHeader = "getPropFromHeader" ></UserInfo>
   </div>
 
 </template>
@@ -32,8 +32,11 @@
                 this.menuId = menuId;
             },
             getPropUserId:function (prop,userid) {
-            this.contentIndex = prop;
-            this.userid = userid;
+              if(prop ===this.contentIndex){
+                location.reload();
+              }
+              this.userid = userid;
+              this.contentIndex = prop;
           }
         }
     }
