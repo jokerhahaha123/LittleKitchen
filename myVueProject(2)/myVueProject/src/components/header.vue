@@ -20,10 +20,9 @@
 
 <script>
   import axios from 'axios'
-  import eventVue from '../../src/eventVue'
 
   export default {
-    name: "app",
+    name: "Header",
     data() {
       return {
         activeIndex: '1',
@@ -33,10 +32,10 @@
       };
     },
     created() {
-      if (sessionStorage.avatarUrl === "null") {
-        this.loginAvatar = "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png";
+      if (sessionStorage.avatarUrl === "null"){
+        this.loginAvatar = "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" ;
       }
-      else if (sessionStorage.avatarUrl === undefined) {
+      else if (sessionStorage.avatarUrl === undefined){
         this.loginAvatar = false;
       }
       else {
@@ -48,16 +47,27 @@
         console.log(key, keyPath);
       },
       search() {
-        this.$emit("getPropFromHeader", 4, null, this.input);
-        this.$nextTick(function () { //解决第一次监听不到数据
-          eventVue.$emit('msg', this.input);
+        axios({
+          method: "get",
+          url: "/littlekitchen/home/search/"+this.input,
+          data: {
+            keyword: this.input
+          },
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+          }
+        }).then((response) => {
+          console.log("菜谱列表："+response.data)//返回菜谱列表
+        }).catch((error) => {
+          console.log("error")
         })
       },
       login() {
         location.href = '/#/login'
       },
       userInfo() {
-        this.$emit("getPropUserId", 3, sessionStorage.userId);
+         this.$emit("getPropUserId",3,sessionStorage.userId);
+        //this.$emit("getPropUserId", 1);
       },
       logOut() {
         axios({
@@ -71,7 +81,7 @@
             sessionStorage.clear();
             this.loginAvatar = sessionStorage.avatarUrl;
             alert("登出成功");
-            location.href = '/#/login'
+            location.href='/#/login'
           } else {
             alert("登出失败")
           }

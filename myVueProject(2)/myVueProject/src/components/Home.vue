@@ -31,8 +31,6 @@
 
 <script>
 import Header from './header'
-import eventVue from '../../src/eventVue'
-import axios from 'axios'
 /* eslint-disable */
 export default {
   name: 'Home',
@@ -79,11 +77,6 @@ export default {
       activeName: 'first',
       activeIndex: '1',
     }
-  },
-  created(){
-//    eventVue.$on('add',(keyword)=>{
-//      this.goToCommend("http://localhost:8080/littlekitchen/home/search/" + keyword)
-//    })
   },
   methods: {
     goToCommend (url) {
@@ -136,7 +129,7 @@ export default {
           console.log("classification",index);
           this.goToCommend('http://localhost:8080/littlekitchen/home/type/'+parseInt(index))
       }
-    },
+    }
   },
   mounted () {
     this.goToCommend("http://localhost:8080/littlekitchen/home/recommend")
